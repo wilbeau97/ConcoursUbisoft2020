@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float sensitivity = 30f;
+    [SerializeField] private float sensitivity = 1f;
     private PlayerMotor motor;
     public float speed = 10f;
-    private float jumpForceY = 5f;
+    public float jumpForceY = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = (movementHorizontal + movementVerticaltal).normalized * speed;
 
 
-        float rotationY = Input.GetAxisRaw("Mouse X");
+        float rotationY = Input.GetAxis("Mouse X");
 
-        Vector3 rotation = new Vector3(0f, -rotationY, 0f) * sensitivity;
+        Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
         if (Input.GetButtonUp("Jump"))
