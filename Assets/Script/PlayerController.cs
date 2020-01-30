@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float sensitivity = 1f;
     private PlayerMotor motor;
+    private CameraController cam;
     public float speed = 10f;
     public float jumpForceY = 5f;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
+        cam = GetComponent<CameraController>();
     }
 
     // Update is called once per frame
@@ -34,15 +36,24 @@ public class PlayerController : MonoBehaviour
 
         Vector3 jumpForce;
         if (Input.GetButtonUp("Jump"))
-        {
             jumpForce = new Vector3(0, jumpForceY, 0);
-        } else
-        {
+        else
             jumpForce = Vector3.zero;
+
+        if (Input.GetButton("RotateCam"))
+            cam.Rotate(rotation.y);
+        else
+        {
+            motor.Rotate(rotation);
         }
 
+        if (Input.GetButtonUp("RotateCam"))
+        {
+            cam.ReplaceCam();
+        }
+        
+        
         motor.Move(velocity);
-        motor.Rotate(rotation);
         motor.Jump(jumpForce);
     }
 }
