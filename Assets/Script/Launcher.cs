@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Launcher: MonoBehaviour
+public class Launcher: Photon.MonoBehaviour
 {
     #region Public Variables
 
@@ -10,7 +10,9 @@ public class Launcher: MonoBehaviour
 
     #region Private Variables
 
-
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject player;
+    [SerializeField] private Camera cam;
     /// <summary>
     /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
     /// </summary>
@@ -32,12 +34,12 @@ public class Launcher: MonoBehaviour
 
         // #Critical
         // we don't join the lobby. There is no need to join a lobby to get the list of rooms.
-        PhotonNetwork.autoJoinLobby = false;
+        //PhotonNetwork.autoJoinLobby = false;
 
 
         // #Critical
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
-        PhotonNetwork.automaticallySyncScene = true;
+        //PhotonNetwork.automaticallySyncScene = true;
     }
 
 
@@ -65,19 +67,33 @@ public class Launcher: MonoBehaviour
     {
 
 
-        // we check if we are connected or not, we join if we are, else we initiate the connection to the server.
-        if (PhotonNetwork.connected)
-        {
-            // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            // #Critical, we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings(_gameVersion);
-        }
+        // // we check if we are connected or not, we join if we are, else we initiate the connection to the server.
+        // if (PhotonNetwork.connected)
+        // {
+        //     RoomOptions room = new RoomOptions();
+        //     // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
+        //     PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
+        // }
+        // else
+        // {
+        //     // #Critical, we must first and foremost connect to Photon Online Server.
+        //     PhotonNetwork.ConnectUsingSettings(_gameVersion);
+        // }
+        PhotonNetwork.ConnectUsingSettings(_gameVersion);
     }
 
+    public virtual void OnJoinedLobby()
+    {
+        Debug.Log("Join lobby");
+        RoomOptions room = new RoomOptions();
+        PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
+    }
+
+    public virtual void OnJoinedRoom()
+    {
+        PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity, 0);
+        cam.gameObject.SetActive(false);
+    }
 
 #endregion
 }
