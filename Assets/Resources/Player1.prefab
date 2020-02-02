@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 616968705661236392}
   - component: {fileID: -5529764874778074036}
   m_Layer: 0
-  m_Name: PlayerTP
-  m_TagString: Untagged
+  m_Name: Player1
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 553881568294953349}
+  playerMesh: {fileID: 4662883878921098122}
   playerControlScript:
   - {fileID: 672878918515565662}
   - {fileID: 2175685474619527215}
