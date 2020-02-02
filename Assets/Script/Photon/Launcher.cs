@@ -10,8 +10,10 @@ public class Launcher: Photon.MonoBehaviour
 
     #region Private Variables
 
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private GameObject player;
+    [SerializeField] private Transform spawnPointP1;
+    [SerializeField] private Transform spawnPointP2;
+    [SerializeField] private GameObject player1;
+    [SerializeField] private GameObject player2;
     [SerializeField] private Camera cam;
     /// <summary>
     /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
@@ -86,14 +88,23 @@ public class Launcher: Photon.MonoBehaviour
     {
         Debug.Log("Join lobby");
         RoomOptions room = new RoomOptions();
+        room.maxPlayers = 2;
         PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
 
     public virtual void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity, 0);
+        if (PhotonNetwork.countOfPlayers == 1)
+        {
+            PhotonNetwork.Instantiate(player1.name, spawnPointP1.position, Quaternion.identity, 0);
+        } 
+        else if (PhotonNetwork.countOfPlayers == 2)
+        {
+            PhotonNetwork.Instantiate(player2.name, spawnPointP2.position, Quaternion.identity, 0);
+        }
         cam.gameObject.SetActive(false);
     }
+    
 
 #endregion
 }
