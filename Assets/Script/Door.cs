@@ -21,7 +21,7 @@ public class Door : MonoBehaviour
     }
 
     [PunRPC]
-    public void OpenDoorRPC()
+    public void OpenDoorRpc()
     {
         StartCoroutine(OpenDoor());
     }
@@ -54,5 +54,16 @@ public class Door : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         yield return null;
+    }
+    
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(open);
+        } else if (stream.isReading)
+        {
+            open = (bool) stream.ReceiveNext();
+        }
     }
 }
