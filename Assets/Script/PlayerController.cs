@@ -31,21 +31,25 @@ public class PlayerController : MonoBehaviour
 
 
         float rotationY = Input.GetAxis("Mouse X");
+        float rotationZ = Input.GetAxis("Mouse Y") * sensitivity;
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
+        
         if (Input.GetButtonUp("Jump"))
             jumpForce = new Vector3(0, jumpForceY, 0);
         else
             jumpForce = Vector3.zero;
 
         if (Input.GetButton("RotateCam"))
-            cam.Rotate(rotation.y);
+            cam.RotateY(rotation.y);
         else
         {
             motor.Rotate(rotation);
         }
+
+        cam.RotateZ(rotationZ);
 
         if (Input.GetButtonUp("RotateCam"))
         {
