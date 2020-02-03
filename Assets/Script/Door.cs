@@ -35,6 +35,7 @@ public class Door : MonoBehaviour
 
     private IEnumerator OpenDoor()
     {
+        Debug.Log("ouverture porte");
         while (door.position.y < 20)
         {
             door.position += new Vector3(0, 1, 0);
