@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppID: 0c5df4e7-0d20-478a-8982-de3b873a4c94
   VoiceAppID: 
-  ChatAppID: 0c5df4e7-0d20-478a-8982-de3b873a4c94
+  ChatAppID: 
   HostType: 1
-  PreferredRegion: 0
+  PreferredRegion: 1
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
@@ -35,7 +35,10 @@ MonoBehaviour:
   - Flash
   - InstantiateRpc
   - Marco
+  - OpenDoorRPC
   - PickupItemInit
+  - Plate1
+  - Plate2
   - Polo
   - PunPickup
   - PunPickupSimple
@@ -43,8 +46,9 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
-  - Plate1
-  - Plate2
+  - closeDoorRPC
+  - CloseDoorRPC
+  - Plate3
   - Penis
   - Test
   - OpenDoorRPC
