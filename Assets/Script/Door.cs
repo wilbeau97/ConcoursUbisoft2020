@@ -21,7 +21,7 @@ public class Door : MonoBehaviour
     }
 
     [PunRPC]
-    public void OpenDoorRpc()
+    public void OpenDoorRPC()
     {
         StartCoroutine(OpenDoor());
     }
