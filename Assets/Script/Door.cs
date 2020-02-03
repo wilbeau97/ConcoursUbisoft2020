@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
     }
 
     [PunRPC]
-    public void OpenDoorRPC()
+    public void OpenDoorRpc()
     {
         StartCoroutine(OpenDoor());
     }
@@ -30,6 +30,19 @@ public class Door : MonoBehaviour
         {
             door.position += new Vector3(0, 1, 0);
             yield return null;
+        }
+
+        open = true;
+    }
+    
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(open);
+        } else if (stream.isReading)
+        {
+            open = (bool) stream.ReceiveNext();
         }
     }
 }
