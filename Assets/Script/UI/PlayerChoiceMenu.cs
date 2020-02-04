@@ -28,14 +28,22 @@ public class PlayerChoiceMenu : MonoBehaviour
         Debug.Log(ready);
         if (ready == 2)
         {
-            PhotonNetwork.LoadLevel(1);
+            view.RPC("LoadPatrick", PhotonTargets.All);
             ready = 0;
         }
+    }
+
+    [PunRPC]
+    public void LoadPatrick()
+    {
+        Debug.Log("Load");
+        PhotonNetwork.LoadLevel(1);
     }
 
     public void Player1Choosen()
     {
         PlayerManager.LocalPlayerInstance = player1Prefab;
+        Debug.Log(PlayerManager.LocalPlayerInstance.name);
         player2Button.interactable = false;
         view.RPC("DisableButtonPlayer1", PhotonTargets.All);
         
@@ -43,21 +51,15 @@ public class PlayerChoiceMenu : MonoBehaviour
     
     public void Player2Choosen()
     {
-        if (view.isMine)
-        {
-            PlayerManager.LocalPlayerInstance = player2Prefab;
-            player1Button.interactable = false;
-        }
+        PlayerManager.LocalPlayerInstance = player2Prefab;
+        Debug.Log(PlayerManager.LocalPlayerInstance.name);
+        player1Button.interactable = false;
         view.RPC("DisableButtonPlayer2", PhotonTargets.All);
     }
     
     [PunRPC]
     private void IsReady()
     {
-        if (view.isMine)
-        {
-            ready += 1; 
-        }
         if (player1Selected && player2Selected)
         {
             readyButton.interactable = true;
@@ -65,7 +67,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     }
     
     [PunRPC] 
-    private void DisableButtonPlayer1()
+    public void DisableButtonPlayer1()
     {
         player1Selected = true;
         player1Button.interactable = false;
@@ -73,11 +75,17 @@ public class PlayerChoiceMenu : MonoBehaviour
     }
     
     [PunRPC]
-    private void DisableButtonPlayer2()
+    public void DisableButtonPlayer2()
     {
         player2Selected = true;
         player2Button.interactable = false;
         view.RPC("IsReady", PhotonTargets.All);
+    }
+
+    public void Ready()
+    {
+        readyButton.interactable = false;
+        ready += 1;
     }
     
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -14,10 +14,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PhotonView doorView;
     [SerializeField] private PhotonView doorView2;
     [SerializeField] private PhotonView cubeView;
+    [SerializeField] private Transform spawnPointP1;
+    [SerializeField] private Transform spawnPointP2;
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, Vector3.zero, Quaternion.identity, 0);
+        if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
+        {
+            PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position, Quaternion.identity, 0);
+        } else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        {
+            PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position, Quaternion.identity, 0);
+        }
     }
 
     // Update is called once per frame

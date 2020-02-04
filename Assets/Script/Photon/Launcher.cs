@@ -11,8 +11,7 @@ public class Launcher: Photon.MonoBehaviour
 
     #region Private Variables
 
-    [SerializeField] private Transform spawnPointP1;
-    [SerializeField] private Transform spawnPointP2;
+
     [SerializeField] private GameObject player1;
     [SerializeField] private GameObject player2;
     [SerializeField] private Camera cam;
@@ -28,11 +27,6 @@ public class Launcher: Photon.MonoBehaviour
 
 
     #region MonoBehaviour CallBacks
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
 
     void Start()
     {
