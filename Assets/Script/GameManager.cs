@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +14,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PhotonView doorView;
     [SerializeField] private PhotonView doorView2;
     [SerializeField] private PhotonView cubeView;
+
+    private void Start()
+    {
+        PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, Vector3.zero, Quaternion.identity, 0);
+    }
 
     // Update is called once per frame
     void Update()

@@ -1,0 +1,97 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using ExitGames.Demos.DemoAnimator;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerChoiceMenu : MonoBehaviour
+{
+    [SerializeField] private PhotonView view;
+    [SerializeField] private Button player1Button;
+    [SerializeField] private Button player2Button;
+    [SerializeField] private Button readyButton;
+    [SerializeField] private GameObject player1Prefab;
+    [SerializeField] private GameObject player2Prefab;
+    
+    private bool player1Selected = false;
+    private bool player2Selected = false;
+    private int ready = 0;
+
+    private void Start()
+    {
+        readyButton.interactable = false;
+    }
+
+    private void Update()
+    {
+        Debug.Log(ready);
+        if (ready == 2)
+        {
+            PhotonNetwork.LoadLevel(1);
+            ready = 0;
+        }
+    }
+
+    public void Player1Choosen()
+    {
+        PlayerManager.LocalPlayerInstance = player1Prefab;
+        player2Button.interactable = false;
+        view.RPC("DisableButtonPlayer1", PhotonTargets.All);
+        
+    }
+    
+    public void Player2Choosen()
+    {
+        if (view.isMine)
+        {
+            PlayerManager.LocalPlayerInstance = player2Prefab;
+            player1Button.interactable = false;
+        }
+        view.RPC("DisableButtonPlayer2", PhotonTargets.All);
+    }
+    
+    [PunRPC]
+    private void IsReady()
+    {
+        if (view.isMine)
+        {
+            ready += 1; 
+        }
+        if (player1Selected && player2Selected)
+        {
+            readyButton.interactable = true;
+        }
+    }
+    
+    [PunRPC] 
+    private void DisableButtonPlayer1()
+    {
+        player1Selected = true;
+        player1Button.interactable = false;
+        view.RPC("IsReady", PhotonTargets.All);
+    }
+    
+    [PunRPC]
+    private void DisableButtonPlayer2()
+    {
+        player2Selected = true;
+        player2Button.interactable = false;
+        view.RPC("IsReady", PhotonTargets.All);
+    }
+    
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(player1Selected);
+            stream.SendNext(player2Selected);
+            stream.SendNext(ready);
+        } else if (stream.isReading)
+        {
+            player1Selected = (bool) stream.ReceiveNext();
+            player2Selected = (bool) stream.ReceiveNext();
+            ready = (int) stream.ReceiveNext();
+        }
+    }
+}

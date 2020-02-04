@@ -31,26 +31,16 @@ public class CameraController : MonoBehaviour
         Quaternion camRotation = camTransform.localRotation;
         cam.transform.RotateAround(position, Vector3.up, angleY);
 
-        // if ((camRotation.x < 70 && camRotation.x > -35) ||
-        //     (angleZ < 0 && camRotation.x >= 70) ||
-        //     (angleZ > 0 && camRotation.x <= -35))
-        // {
-        //     cam.transform.RotateAround(position, -camTransform.right, angleZ);
-        // }
-
         if (camRotation.x < 0.70 && camRotation.x > -0.35)
         {
-            Debug.Log(camRotation.x);
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }
         else if (angleZ > 0 && camRotation.x >= 0.70)
         {
-            Debug.Log("2");
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }
         else if (angleZ < 0 && camRotation.x <= -0.35)
         {
-            Debug.Log("3");
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }
         
