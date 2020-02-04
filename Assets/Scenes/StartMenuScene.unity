@@ -202,12 +202,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 279021511}
-        m_MethodName: 
+      - m_Target: {fileID: 279021515}
+        m_MethodName: Ready
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -538,6 +538,18 @@ PrefabInstance:
       propertyPath: idleMenu
       value: 
       objectReference: {fileID: 1407337108}
+    - target: {fileID: 5144538905551306471, guid: bca8963751014ef41aa57d6e4dcc8db3,
+        type: 3}
+      propertyPath: player2
+      value: 
+      objectReference: {fileID: 2064727917454739991, guid: c77a315f4190e964ca44b5081a6d135d,
+        type: 3}
+    - target: {fileID: 5144538905551306471, guid: bca8963751014ef41aa57d6e4dcc8db3,
+        type: 3}
+      propertyPath: player1
+      value: 
+      objectReference: {fileID: 917839636845274318, guid: 82ac1313e5fc3434f970144aef68ff23,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bca8963751014ef41aa57d6e4dcc8db3, type: 3}
 --- !u!1 &457978957
