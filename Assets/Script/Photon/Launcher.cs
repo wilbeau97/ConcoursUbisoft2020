@@ -96,7 +96,7 @@ public class Launcher: Photon.MonoBehaviour
     {
         if (PhotonNetwork.countOfPlayers == 1)
         {
-            PhotonNetwork.Instantiate(player1.name, spawnPointP1.position, Quaternion.identity, 0);
+            PhotonNetwork.Instantiate(player2.name, spawnPointP1.position, Quaternion.identity, 0);
         } 
         else if (PhotonNetwork.countOfPlayers == 2)
         {
