@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4179223895448871358}
   - component: {fileID: 150200333447539144}
   - component: {fileID: 1857251339476201991}
+  - component: {fileID: 3087029914893222419}
   m_Layer: 0
   m_Name: Player2Test
   m_TagString: Player2
@@ -68,9 +69,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fc68664f2292843995c841e073cc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
   speed: 10
   jumpForceY: 5
+  onGround: 1
 --- !u!114 &6517010804799981114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +223,20 @@ MonoBehaviour:
   - {fileID: 5168576474725836400}
   - {fileID: 6517010804799981114}
   - {fileID: 8723281023201200824}
+--- !u!136 &3087029914893222419
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094253302079792955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4763896581403549104
 GameObject:
   m_ObjectHideFlags: 0
