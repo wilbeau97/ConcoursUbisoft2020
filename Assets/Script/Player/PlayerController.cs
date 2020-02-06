@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float sensitivity = 1f;
+    private float sensitivity = 2.5f;
     private PlayerMotor motor;
     private CameraController cam;
     public float speed = 10f;
@@ -31,13 +31,14 @@ public class PlayerController : MonoBehaviour
 
 
         float rotationY = Input.GetAxis("Mouse X");
-        float rotationZ = Input.GetAxis("Mouse Y") * sensitivity;
+        //avec - monte ca monte
+        float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
         
-        if (Input.GetButtonUp("Jump"))
+        if (Input.GetButtonDown("Jump"))
             jumpForce = new Vector3(0, jumpForceY, 0);
         else
             jumpForce = Vector3.zero;
