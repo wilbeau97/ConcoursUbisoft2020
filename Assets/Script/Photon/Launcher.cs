@@ -56,12 +56,12 @@ public class Launcher: Photon.MonoBehaviour
     }
 
     public virtual void OnJoinedRoom()
-     {
+    {
 
         idleMenu.SetActive(false);
         startMenu.SetActive(true);
      }
-    
 
-#endregion
+
+    #endregion
 }
