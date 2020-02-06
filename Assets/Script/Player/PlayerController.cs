@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private CameraController cam;
     public float speed = 10f;
     public float jumpForceY = 5f;
+    public bool onGround = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,20 +33,25 @@ public class PlayerController : MonoBehaviour
 
 
         float rotationY = Input.GetAxis("Mouse X");
-        //avec - monte ca monte
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
-        
-        if (Input.GetButtonDown("Jump"))
+
+        if (onGround && Input.GetButtonDown("Jump"))
+        {
             jumpForce = new Vector3(0, jumpForceY, 0);
+        }
         else
+        {
             jumpForce = Vector3.zero;
+        }
 
         if (Input.GetButton("RotateCam"))
+        {
             cam.RotateY(rotation.y);
+        }
         else
         {
             motor.Rotate(rotation);
@@ -60,5 +67,21 @@ public class PlayerController : MonoBehaviour
         
         motor.Move(velocity);
         motor.Jump(jumpForce);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            onGround = true;
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            onGround = false;
+        }
     }
 }

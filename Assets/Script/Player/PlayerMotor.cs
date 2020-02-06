@@ -29,14 +29,14 @@ public class PlayerMotor : MonoBehaviour
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
 
-    public void Move(Vector3 velocity)
+    public void Move(Vector3 _velocity)
     {
-        this.velocity = velocity;
+        velocity = _velocity;
     }
 
-    public void Rotate(Vector3 rotation)
+    public void Rotate(Vector3 _rotation)
     {
-        this.rotation = rotation;
+        rotation = _rotation;
     }
 
     public void Jump(Vector3 force)
@@ -47,6 +47,7 @@ public class PlayerMotor : MonoBehaviour
     private void PerformRotation()
     {
         rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
+        rotation = Vector3.zero;
     }
 
     private void PerformMovement()
