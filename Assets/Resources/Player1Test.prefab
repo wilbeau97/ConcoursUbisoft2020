@@ -148,8 +148,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813474032063075373}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.61}
+  m_LocalRotation: {x: 0.10371164, y: -0, z: -0, w: 0.99460745}
+  m_LocalPosition: {x: 0, y: 1.76, z: -3.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1970677552643030839}
@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 4794919114368116214}
   - component: {fileID: 8746256637488049536}
   - component: {fileID: 7112068072029124175}
+  - component: {fileID: 9142690548706711721}
   m_Layer: 0
   m_Name: Player1Test
   m_TagString: Player1
@@ -398,9 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fc68664f2292843995c841e073cc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
   speed: 10
   jumpForceY: 5
+  onGround: 1
 --- !u!114 &2379165824496026226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,3 +553,17 @@ MonoBehaviour:
   - {fileID: 4381743576628912696}
   - {fileID: 2379165824496026226}
   - {fileID: 178522915195178736}
+--- !u!136 &9142690548706711721
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874260208748471155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
