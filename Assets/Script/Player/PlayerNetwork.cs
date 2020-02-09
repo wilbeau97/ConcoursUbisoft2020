@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PlayerNetwork : MonoBehaviour
 {
@@ -35,5 +37,16 @@ public class PlayerNetwork : MonoBehaviour
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("InteractablePhysicsObject"))
+        {
+            if (other.gameObject.GetPhotonView().ownerId != PhotonNetwork.player.ID)
+            {
+                other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+            }
+        }
     }
 }
