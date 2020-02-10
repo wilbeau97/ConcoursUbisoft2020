@@ -22,14 +22,17 @@ public class PlayerNetwork : MonoBehaviour
 
     private void Initialize()
     {
-        //Handle not local player
-        if(!photonView.isMine)
+        if (PhotonNetwork.connected)
         {
-            playerCamera.SetActive(false);
-            playerGraphics.SetActive(false);
-            foreach (MonoBehaviour script in playerControlScript)
+            //Handle not local player
+            if (!photonView.isMine)
             {
-                script.enabled = false;
+                playerCamera.SetActive(false);
+                playerGraphics.SetActive(false);
+                foreach (MonoBehaviour script in playerControlScript)
+                {
+                    script.enabled = false;
+                }
             }
         }
     }
