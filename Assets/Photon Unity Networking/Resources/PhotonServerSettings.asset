@@ -23,22 +23,28 @@ MonoBehaviour:
   ServerPort: 5055
   VoiceServerPort: 5055
   JoinLobby: 1
-  EnableLobbyStatistics: 0
-  PunLogging: 0
-  NetworkLogging: 1
+  EnableLobbyStatistics: 1
+  PunLogging: 2
+  NetworkLogging: 5
   RunInBackground: 1
   RpcList:
   - Chat
+  - CloseDoorRPC
   - ColorRpc
   - DestroyRpc
+  - DisableButtonPlayer1
+  - DisableButtonPlayer2
   - DoJump
   - Flash
   - InstantiateRpc
+  - IsReady
+  - LoadPatrick
   - Marco
   - OpenDoorRPC
   - PickupItemInit
   - Plate1
   - Plate2
+  - Plate3
   - Polo
   - PunPickup
   - PunPickupSimple
@@ -46,16 +52,5 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
-  - closeDoorRPC
-  - CloseDoorRPC
-  - Plate3
-  - Penis
-  - Test
-  - OpenDoorRPC
-  - OpenDoorRpc
-  - DisableButtonPlayer1
-  - DisableButtonPlayer2
-  - IsReady
-  - LoadGame
-  - LoadPatrick
+  - SetActive
   DisableAutoOpenWizard: 1
