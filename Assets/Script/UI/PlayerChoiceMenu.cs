@@ -83,6 +83,10 @@ public class PlayerChoiceMenu : MonoBehaviour
 
     public void Ready()
     {
+        if (view.ownerId != PhotonNetwork.player.ID)
+        {
+            view.TransferOwnership(PhotonNetwork.player.ID);
+        }
         readyButton.interactable = false;
         ready += 1;
     }
