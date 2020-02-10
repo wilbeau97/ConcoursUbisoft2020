@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PlayerNetwork : MonoBehaviour
 {
@@ -20,14 +22,17 @@ public class PlayerNetwork : MonoBehaviour
 
     private void Initialize()
     {
-        //Handle not local player
-        if(!photonView.isMine)
+        if (PhotonNetwork.connected)
         {
-            playerCamera.SetActive(false);
-            playerGraphics.SetActive(false);
-            foreach (MonoBehaviour script in playerControlScript)
+            //Handle not local player
+            if (!photonView.isMine)
             {
-                script.enabled = false;
+                playerCamera.SetActive(false);
+                playerGraphics.SetActive(false);
+                foreach (MonoBehaviour script in playerControlScript)
+                {
+                    script.enabled = false;
+                }
             }
         }
     }
@@ -35,5 +40,16 @@ public class PlayerNetwork : MonoBehaviour
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("InteractablePhysicsObject"))
+        {
+            if (other.gameObject.GetPhotonView().ownerId != PhotonNetwork.player.ID)
+            {
+                other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+            }
+        }
     }
 }
