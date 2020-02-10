@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
@@ -14,5 +17,21 @@ public class InteractableObject : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player2") || other.CompareTag("Player1"))
+        {
+            other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player2") || other.CompareTag("Player1"))
+        {
+            other.gameObject.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
+        }
     }
 }
