@@ -10,22 +10,42 @@ public class GameManager : MonoBehaviour
     private bool plate2 = false;
     [SerializeField] private bool plate3 = false;
     private bool open = false;
-    [SerializeField] private bool open2 = false; 
+    [SerializeField] private bool open2 = false;
     [SerializeField] private PhotonView doorView;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private PhotonView doorView2;
     [SerializeField] private PhotonView cubeView;
     [SerializeField] private Transform spawnPointP1;
     [SerializeField] private Transform spawnPointP2;
 
+
     private void Start()
     {
-        if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
+        if (PhotonNetwork.connected)
         {
-            PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position, Quaternion.identity, 0);
-        } else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
-        {
-            PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position, Quaternion.identity, 0);
+            if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
+            {
+                PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
+                    Quaternion.identity, 0);
+            }
+            else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+            {
+                PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
+                    Quaternion.identity, 0);
+            }
         }
+        else
+        {
+            Instantiate(playerPrefab, spawnPointP1.position, Quaternion.identity);
+        }
+    }
+    
+    public virtual void OnJoinedLobby()
+    {
+        Debug.Log("Join lobby");
+        RoomOptions room = new RoomOptions();
+        room.maxPlayers = 2;
+        PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
 
     // Update is called once per frame
