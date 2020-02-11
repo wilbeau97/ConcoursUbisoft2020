@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private float sensitivity = 2.5f;
     private PlayerMotor motor;
     private CameraController cam;
+    private TelekinesisAbility tk;
     public float speed = 10f;
     public float jumpForceY = 5f;
     public bool onGround = true;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         motor = GetComponent<PlayerMotor>();
         cam = GetComponent<CameraController>();
+        tk = GetComponent<TelekinesisAbility>();
     }
 
     // Update is called once per frame
@@ -63,7 +65,11 @@ public class PlayerController : MonoBehaviour
         {
             cam.ReplaceCam();
         }
-        
+
+        if (Input.GetAxis("TelekinesisMove") > 0)
+        {
+            tk.MoveObject(rotationZ, rotation.y, cam.transform.position);
+        }
         
         motor.Move(velocity);
         motor.Jump(jumpForce);

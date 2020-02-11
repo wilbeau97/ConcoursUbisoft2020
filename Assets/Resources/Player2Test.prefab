@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 150200333447539144}
   - component: {fileID: 1857251339476201991}
   - component: {fileID: 8326920161354019473}
-  m_Layer: 0
+  - component: {fileID: 5178209016381729230}
+  m_Layer: 2
   m_Name: Player2Test
   m_TagString: Player2
   m_Icon: {fileID: 0}
@@ -239,6 +240,23 @@ CapsuleCollider:
   m_Height: 1.9811707
   m_Direction: 1
   m_Center: {x: 0, y: -0.012252808, z: 0}
+--- !u!114 &5178209016381729230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094253302079792955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958750fe6fccbb24db85cbc6893f27d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tkMovementSpeed: 5
+  cam: {fileID: 4763896581403549104}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 4
 --- !u!1 &4763896581403549104
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +268,7 @@ GameObject:
   - component: {fileID: 5941270036636850625}
   - component: {fileID: 7520540941528809554}
   - component: {fileID: 5274042611758300841}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -334,7 +352,7 @@ GameObject:
   - component: {fileID: 3380246468094798327}
   - component: {fileID: 5815808444431902458}
   - component: {fileID: 1649276466330207071}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5300517269419424289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CamPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +473,7 @@ GameObject:
   - component: {fileID: 6713026982179673751}
   - component: {fileID: 5294391929704106986}
   - component: {fileID: 2712080509953996295}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Player2
   m_Icon: {fileID: 0}
@@ -532,7 +550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7448351869168134777}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,10 +579,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6929963065936329599}
     m_Modifications:
+    - target: {fileID: 907768397195201755, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}
@@ -670,6 +698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8388494300580453829, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
