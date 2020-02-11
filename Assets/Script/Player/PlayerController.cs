@@ -9,9 +9,10 @@ public class PlayerController : MonoBehaviour
     private PlayerMotor motor;
     private CameraController cam;
     private TelekinesisAbility tk;
-    public float speed = 10f;
-    public float jumpForceY = 5f;
-    public bool onGround = true;
+    private float speed = 10f;
+    private float jumpForceY = 7.5f;
+    private bool onGround = true;
+    private int nbJump = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +42,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 jumpForce;
 
-        if (onGround && Input.GetButtonDown("Jump"))
+        if ((onGround || nbJump <= 1) && Input.GetButtonDown("Jump"))
         {
             jumpForce = new Vector3(0, jumpForceY, 0);
+            nbJump += 1;
         }
         else
         {
@@ -74,6 +76,15 @@ public class PlayerController : MonoBehaviour
         motor.Move(velocity);
         motor.Jump(jumpForce);
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            nbJump = 0;
+        }
+    }
+    
 
     private void OnTriggerStay(Collider other)
     {
