@@ -16,6 +16,7 @@ public class TelekinesisAbility : MonoBehaviour
     private Quaternion objectRotation;
     private bool isObjectRotationSet = false;
     private Vector3 playerPosition;
+    private bool isPressed;
     
     [SerializeField]
     private GameObject cam;
@@ -32,7 +33,7 @@ public class TelekinesisAbility : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isInteractable)
+        if (isInteractable && isPressed)
         {
             PerformMovement();
         }
@@ -43,26 +44,8 @@ public class TelekinesisAbility : MonoBehaviour
         
         objectToMove.transform.rotation = objectRotation;
         
-        objectToMove.transform.RotateAround(playerPosition, Vector3.up * 2, angleY);
         Transform objectTransform = objectToMove.transform;
         objectTransform.RotateAround(playerPosition, -objectTransform.right, angleZ);
-        
-        //ObjectRotation fonctionne pas parce que l'objet ne tourne pas, utiliser position en Y
-        
-        /*if (objectRotation.x < 0.70 && objectRotation.x > -0.35)
-        {
-            objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
-        }
-        else if (angleZ > 0 && objectRotation.x >= 0.70)
-        {
-            objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
-        }
-        else if (angleZ < 0 && objectRotation.x <= -0.35)
-        {
-            objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
-        }*/
-        
-        //juste que ici
     }
 
     private void OnTriggerStay(Collider other)
@@ -70,22 +53,21 @@ public class TelekinesisAbility : MonoBehaviour
         if (other.CompareTag("InteractablePhysicsObject"))
         {
             RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
+            //SphereCast pour ajouter un rayon au raycast
+            if (Physics.SphereCast(cam.transform.position, 2f, cam.transform.TransformDirection(Vector3.forward),
                 out hit, Mathf.Infinity))
             {
-                Debug.DrawRay(cam.transform.position, cam.transform.TransformDirection(Vector3.forward) * 10, Color.blue);
                 if (hit.collider.CompareTag("InteractablePhysicsObject"))
                 {
                     // Activer le texte du HUD pour l'intéraction
+                    // Highlight lobject pouvant etre selectionner
+                    // Parenter l'objet a controller si le bouton est appuyer, le deparenter si le bouton est relacher
+                    if (isPressed)
+                    {
+                        objectToMove.transform.parent = transform;
+                    }
                     isInteractable = true;
                     objectToMove = other.gameObject;
-                }
-                else
-                {
-                    isInteractable = false;
-                    objectToMove = null;
-                    angleZ = 0;
-                    angleY = 0;
                 }
             }
         }
@@ -114,5 +96,18 @@ public class TelekinesisAbility : MonoBehaviour
         angleY = _angleY;
         playerPosition = _playerPosition;
         distance = Vector3.Distance(objectToMove.transform.position, _playerPosition);
+    }
+    
+    public void Pressed()
+    {
+        isPressed = true;
+    }
+
+    public void Release()
+    {
+        isPressed = false;
+        isInteractable = false;
+        if (objectToMove == null) return;
+        objectToMove.transform.parent = null;
     }
 }
