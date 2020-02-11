@@ -755,7 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
+  m_SubmitButton: Jump
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1492402848}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &963174879
@@ -1410,6 +1410,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMenu: {fileID: 1565414288}
   playerChoiceMenu: {fileID: 279021511}
+  player1Button: {fileID: 1905693873}
+  startButton: {fileID: 1492402850}
+  player2Button: {fileID: 457978959}
 --- !u!114 &1738393783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,6 +1542,7 @@ MonoBehaviour:
     type: 3}
   player2Prefab: {fileID: 4094253302079792955, guid: 0e61c9f1d7119a841a9ccdd023158d58,
     type: 3}
+  menuManager: {fileID: 1738393782}
 --- !u!1 &1905693871
 GameObject:
   m_ObjectHideFlags: 0
