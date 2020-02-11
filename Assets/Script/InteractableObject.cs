@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using ExitGames.Demos.DemoAnimator;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    [SerializeField] private PhotonView interactableObjectView;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +17,8 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player2") || other.CompareTag("Player1"))
+        if((interactableObjectView.ownerId == PhotonNetwork.player.ID) && 
+           other.CompareTag("Player2") || other.CompareTag("Player1"))
         {
             other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
         }
@@ -29,7 +26,8 @@ public class InteractableObject : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player2") || other.CompareTag("Player1"))
+        if ((interactableObjectView.ownerId == PhotonNetwork.player.ID) && 
+            other.CompareTag("Player2") || other.CompareTag("Player1"))
         {
             other.gameObject.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
         }
