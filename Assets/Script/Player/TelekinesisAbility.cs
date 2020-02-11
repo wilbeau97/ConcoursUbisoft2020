@@ -13,6 +13,8 @@ public class TelekinesisAbility : MonoBehaviour
     private float angleY;
     private float distance;
     private Vector3 middlePosition;
+    private Quaternion objectRotation;
+    private bool isObjectRotationSet = false;
     
     [SerializeField]
     private GameObject cam;
@@ -37,11 +39,13 @@ public class TelekinesisAbility : MonoBehaviour
 
     private void PerformMovement()
     {
+        
+        objectToMove.transform.rotation = objectRotation;
+        
         objectToMove.transform.RotateAround(middlePosition, Vector3.up, angleY);
         Transform objectTransform = objectToMove.transform;
-        Quaternion objectRotation = objectTransform.rotation;
-       
-        
+        Quaternion objectRotationLocal = objectTransform.rotation;
+
         if (objectRotation.x < 0.70 && objectRotation.x > -0.35)
         {
             objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
@@ -61,11 +65,10 @@ public class TelekinesisAbility : MonoBehaviour
         if (other.CompareTag("InteractablePhysicsObject"))
         {
             RaycastHit hit;
-            Debug.Log("Pas encore hit");
             if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
                 out hit, Mathf.Infinity))
             {
-                Debug.DrawRay(cam.transform.position, cam.transform.TransformDirection(Vector3.forward) * 1000, Color.blue);
+                Debug.DrawRay(cam.transform.position, cam.transform.TransformDirection(Vector3.forward) * 10, Color.blue);
                 Debug.Log("ect");
                 if (hit.collider.CompareTag("InteractablePhysicsObject"))
                 {
@@ -73,6 +76,12 @@ public class TelekinesisAbility : MonoBehaviour
                     isInteractable = true;
                     objectToMove = hit.collider.gameObject;
                 }
+            }
+            else
+            {
+                isInteractable = false;
+                objectToMove = null;
+                isObjectRotationSet = false;
             }
         }
     }
@@ -83,14 +92,21 @@ public class TelekinesisAbility : MonoBehaviour
         {
             isInteractable = false;
             objectToMove = null;
+            isObjectRotationSet = false;
         }
     }
 
     public void MoveObject(float _angleZ, float _angleY, Vector3 _camPosition)
     {
         if (objectToMove is null) return;
+        if (!isObjectRotationSet)
+        {
+            objectRotation = objectToMove.transform.rotation;
+            isObjectRotationSet = true;
+        }
         
         angleZ = _angleZ;
+        angleY = _angleY;
         distance = Vector3.Distance(_camPosition, objectToMove.transform.position);
         CalculateMiddlePoint(_camPosition, objectToMove.transform.position);
     }
