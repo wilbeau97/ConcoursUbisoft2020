@@ -224,6 +224,7 @@ MonoBehaviour:
   - {fileID: 5168576474725836400}
   - {fileID: 6517010804799981114}
   - {fileID: 8723281023201200824}
+  playerUI: {fileID: 4278582091082197782}
 --- !u!136 &8326920161354019473
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -672,6 +673,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
+--- !u!1 &4278582091082197782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
+    type: 3}
+  m_PrefabInstance: {fileID: 7205028897624869879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &252407718186736144 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,

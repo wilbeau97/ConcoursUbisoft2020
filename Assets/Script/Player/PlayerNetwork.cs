@@ -9,6 +9,7 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject playerGraphics;
     [SerializeField] private MonoBehaviour[] playerControlScript;
+    [SerializeField] private GameObject playerUI;
 
     private PhotonView photonView;
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class PlayerNetwork : MonoBehaviour
             {
                 playerCamera.SetActive(false);
                 playerGraphics.SetActive(false);
+                playerUI.SetActive(false);
                 foreach (MonoBehaviour script in playerControlScript)
                 {
                     script.enabled = false;
