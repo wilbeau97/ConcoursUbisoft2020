@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float sensitivity = 2.5f;
+    private float sensitivity = 5f;
     private PlayerMotor motor;
     private CameraController cam;
     private TelekinesisAbility tk;
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("TelekinesisMove") > 0)
         {
-            tk.MoveObject(rotationZ, rotation.y, cam.transform.position);
+            tk.MoveObject(rotationZ * sensitivity, rotation.y, transform.position);
         }
         
         motor.Move(velocity);
