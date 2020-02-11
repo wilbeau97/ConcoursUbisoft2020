@@ -15,6 +15,7 @@ public class TelekinesisAbility : MonoBehaviour
     private Vector3 middlePosition;
     private Quaternion objectRotation;
     private bool isObjectRotationSet = false;
+    private Vector3 playerPosition;
     
     [SerializeField]
     private GameObject cam;
@@ -23,7 +24,7 @@ public class TelekinesisAbility : MonoBehaviour
     private LayerMask playerMask;
     
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
         
     }
@@ -42,11 +43,13 @@ public class TelekinesisAbility : MonoBehaviour
         
         objectToMove.transform.rotation = objectRotation;
         
-        objectToMove.transform.RotateAround(middlePosition, Vector3.up, angleY);
+        objectToMove.transform.RotateAround(playerPosition, Vector3.up * 2, angleY);
         Transform objectTransform = objectToMove.transform;
-        Quaternion objectRotationLocal = objectTransform.rotation;
-
-        if (objectRotation.x < 0.70 && objectRotation.x > -0.35)
+        objectTransform.RotateAround(playerPosition, -objectTransform.right, angleZ);
+        
+        //ObjectRotation fonctionne pas parce que l'objet ne tourne pas, utiliser position en Y
+        
+        /*if (objectRotation.x < 0.70 && objectRotation.x > -0.35)
         {
             objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
         }
@@ -57,7 +60,9 @@ public class TelekinesisAbility : MonoBehaviour
         else if (angleZ < 0 && objectRotation.x <= -0.35)
         {
             objectTransform.RotateAround(middlePosition, -objectTransform.right, angleZ);
-        }
+        }*/
+        
+        //juste que ici
     }
 
     private void OnTriggerStay(Collider other)
@@ -69,19 +74,19 @@ public class TelekinesisAbility : MonoBehaviour
                 out hit, Mathf.Infinity))
             {
                 Debug.DrawRay(cam.transform.position, cam.transform.TransformDirection(Vector3.forward) * 10, Color.blue);
-                Debug.Log("ect");
                 if (hit.collider.CompareTag("InteractablePhysicsObject"))
                 {
                     // Activer le texte du HUD pour l'intéraction
                     isInteractable = true;
-                    objectToMove = hit.collider.gameObject;
+                    objectToMove = other.gameObject;
                 }
-            }
-            else
-            {
-                isInteractable = false;
-                objectToMove = null;
-                isObjectRotationSet = false;
+                else
+                {
+                    isInteractable = false;
+                    objectToMove = null;
+                    angleZ = 0;
+                    angleY = 0;
+                }
             }
         }
     }
@@ -96,7 +101,7 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
-    public void MoveObject(float _angleZ, float _angleY, Vector3 _camPosition)
+    public void MoveObject(float _angleZ, float _angleY, Vector3 _playerPosition)
     {
         if (objectToMove is null) return;
         if (!isObjectRotationSet)
@@ -107,12 +112,7 @@ public class TelekinesisAbility : MonoBehaviour
         
         angleZ = _angleZ;
         angleY = _angleY;
-        distance = Vector3.Distance(_camPosition, objectToMove.transform.position);
-        CalculateMiddlePoint(_camPosition, objectToMove.transform.position);
-    }
-
-    private void CalculateMiddlePoint(Vector3 _pos1, Vector3 _pos2)
-    {
-        middlePosition = new Vector3((_pos1.x + _pos2.x) / 2, (_pos1.y + _pos2.y) / 2, (_pos1.z + _pos2.z) / 2);
+        playerPosition = _playerPosition;
+        distance = Vector3.Distance(objectToMove.transform.position, _playerPosition);
     }
 }
