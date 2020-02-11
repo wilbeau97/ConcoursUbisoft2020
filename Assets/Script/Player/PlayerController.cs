@@ -70,7 +70,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("TelekinesisMove") > 0)
         {
-            tk.MoveObject(rotationZ * sensitivity, rotation.y, transform.position);
+            tk.Pressed();
+            tk.MoveObject(rotationZ, rotation.y, transform.position);
+        }
+        else
+        {
+            tk.Release();
         }
         
         motor.Move(velocity);
