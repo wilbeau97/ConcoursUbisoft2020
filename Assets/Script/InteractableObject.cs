@@ -12,21 +12,24 @@ public class InteractableObject : MonoBehaviour
     private int green;
     private bool lookingAtObject = false;
     private bool flashingIn;
+    private bool startedFlashing = false;
+    private Renderer renderer;
+    public Transform parent;
 
     
     private void Start()
     {
-        r = GetComponent<Renderer>().material.color.r;
-        g = GetComponent<Renderer>().material.color.g;
-        b = GetComponent<Renderer>().material.color.b;
+        renderer = GetComponent<Renderer>();
+        r = renderer.material.color.r;
+        g = renderer.material.color.g;
+        b = renderer.material.color.b;
     }
 
     private void Update()
     {
         if (lookingAtObject)
         {
-            FlashObject();
-            lookingAtObject = false;
+            renderer.material.color = new Color32((byte) red, (byte) green, (byte) blue, 255);
         }
     }
 
@@ -51,9 +54,22 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    public void FlashObject()
+    public void StartFlashing()
     {
-        StartCoroutine("StartFlashObject");
+        lookingAtObject = true;
+        if (!startedFlashing)
+        {
+            startedFlashing = true;
+            StartCoroutine("StartFlashObject");
+        }
+    }
+
+    public void StopFlashing()
+    {
+        startedFlashing = false;
+        lookingAtObject = false;
+        StopCoroutine("StartFlashObject");
+        renderer.material.color = new Color32((byte) r, (byte) g, (byte) b, 255);
     }
 
     private IEnumerator StartFlashObject()
@@ -63,7 +79,7 @@ public class InteractableObject : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             if (flashingIn)
             {
-                if (b <= 30)
+                if (blue <= 30)
                 {
                     flashingIn = false;
                 }

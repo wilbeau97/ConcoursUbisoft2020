@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             //activer la visée
             tk.Pressed();
+            tk.test();
             hud.ActivateAim();
             tk.MoveObject(rotationZ, rotation.y, transform.position);
         }

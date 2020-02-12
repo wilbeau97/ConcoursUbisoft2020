@@ -6,6 +6,7 @@ using UnityEngine;
 public class TelekinesisAbility : MonoBehaviour
 {
     private bool isInteractable = false;
+    public LayerMask mask;
     private GameObject objectToMove;
     private float angleZ;
     private Vector3 middlePosition;
@@ -13,7 +14,8 @@ public class TelekinesisAbility : MonoBehaviour
     private Vector3 playerPosition;
     private bool isPressed;
     [SerializeField] private GameObject cam;
-    
+    [SerializeField] private float distance;
+
     void FixedUpdate()
     {
         if (isInteractable && isPressed)
@@ -28,36 +30,22 @@ public class TelekinesisAbility : MonoBehaviour
         objectTransform.RotateAround(playerPosition, -cam.transform.right, angleZ);
     }
 
-    private void OnTriggerStay(Collider other)
+    public void test()
     {
-        if (other.CompareTag("InteractablePhysicsObject"))
+        RaycastHit hit;
+        if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
+            out hit, distance, mask))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
-                out hit, Mathf.Infinity))
+            if (hit.collider.CompareTag("InteractablePhysicsObject"))
             {
-                if (hit.collider.CompareTag("InteractablePhysicsObject"))
+                isInteractable = true;
+                objectToMove = hit.collider.gameObject;
+                if (isPressed)
                 {
-                    //A changer
-                    hit.collider.gameObject.GetComponent<InteractableObject>().FlashObject();
-                    isInteractable = true;
-                    objectToMove = other.gameObject;
-                    if (isPressed)
-                    {
-                        objectToMove.transform.parent = transform;
-                    }
+                    objectToMove.transform.parent = transform;
                 }
+                objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("InteractablePhysicsObject"))
-        {
-            isInteractable = false;
-            objectToMove = null;
-            isObjectRotationSet = false;
         }
     }
 
@@ -79,22 +67,21 @@ public class TelekinesisAbility : MonoBehaviour
         {
             return;
         }
-        objectToMove.GetComponent<Rigidbody>().isKinematic = true;
-
-            isPressed = true;
+        objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = true;
+        isPressed = true;
     }
 
     public void Release()
     {
         isPressed = false;
         isInteractable = false;
+        isObjectRotationSet = false;
         if (objectToMove == null)
         {
             return;
         }
-        
-        objectToMove.GetComponent<Rigidbody>().isKinematic = false;
-        objectToMove.transform.parent = null;
-            
+        objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
+        objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
+        objectToMove = null;
     }
 }
