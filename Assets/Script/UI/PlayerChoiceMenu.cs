@@ -13,6 +13,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     [SerializeField] private Button readyButton;
     [SerializeField] private GameObject player1Prefab;
     [SerializeField] private GameObject player2Prefab;
+    [SerializeField] private MenuManager menuManager;
     
     private bool player1Selected = false;
     private bool player2Selected = false;
@@ -62,6 +63,7 @@ public class PlayerChoiceMenu : MonoBehaviour
         if (player1Selected && player2Selected)
         {
             readyButton.interactable = true;
+            readyButton.Select();
         }
     }
     
@@ -70,6 +72,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     {
         player1Selected = true;
         player1Button.interactable = false;
+        menuManager.ActivatedButtonPlayer2();
         view.RPC("IsReady", PhotonTargets.All);
     }
     
@@ -78,11 +81,16 @@ public class PlayerChoiceMenu : MonoBehaviour
     {
         player2Selected = true;
         player2Button.interactable = false;
+        menuManager.ActivatedButtonPlayer1();
         view.RPC("IsReady", PhotonTargets.All);
     }
 
     public void Ready()
     {
+        if (view.ownerId != PhotonNetwork.player.ID)
+        {
+            view.TransferOwnership(PhotonNetwork.player.ID);
+        }
         readyButton.interactable = false;
         ready += 1;
     }
