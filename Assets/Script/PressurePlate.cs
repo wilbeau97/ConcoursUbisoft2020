@@ -6,10 +6,15 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     private bool isPressed;
-    [SerializeField] private PhotonView gameManagerView;
+    private PhotonView gameManagerView;
     [SerializeField] private int playerTarget;
     [SerializeField] private string punRPCMethodeName;
     [SerializeField] private PressurePlate PairPressurePlate;
+
+    public void Start()
+    {
+        gameManagerView = gameObject.GetPhotonView();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
