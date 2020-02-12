@@ -33,14 +33,13 @@ public class TelekinesisAbility : MonoBehaviour
         if (other.CompareTag("InteractablePhysicsObject"))
         {
             RaycastHit hit;
-            if (Physics.SphereCast(cam.transform.position, 2f, cam.transform.TransformDirection(Vector3.forward),
+            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
                 out hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("InteractablePhysicsObject"))
                 {
-                    // Activer le texte du HUD pour l'intéraction
-                    // Activer la visé
-                    // Highlight lobject pouvant etre selectionner
+                    //A changer
+                    hit.collider.gameObject.GetComponent<InteractableObject>().FlashObject();
                     isInteractable = true;
                     objectToMove = other.gameObject;
                     if (isPressed)

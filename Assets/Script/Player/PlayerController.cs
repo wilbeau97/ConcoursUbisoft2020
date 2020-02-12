@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMotor motor;
     private CameraController cam;
     private TelekinesisAbility tk;
+    private PlayerHUD hud;
     private float speed = 10f;
     private float jumpForceY = 7.5f;
     private bool onGround = true;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
         cam = GetComponent<CameraController>();
         tk = GetComponent<TelekinesisAbility>();
+        hud = GetComponentInChildren<PlayerHUD>();
     }
 
     // Update is called once per frame
@@ -70,11 +72,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("TelekinesisMove") > 0)
         {
+            //activer la visée
             tk.Pressed();
+            hud.ActivateAim();
             tk.MoveObject(rotationZ, rotation.y, transform.position);
         }
         else
         {
+            hud.DeactivateAim();
             tk.Release();
         }
         

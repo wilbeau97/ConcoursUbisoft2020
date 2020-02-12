@@ -7,11 +7,13 @@ public class PlayerHUD : MonoBehaviour
 {
     private Text ObjectviveText;
     [SerializeField] private Text InteractableHintText;
-    
+    [SerializeField] private GameObject aim;
+
     // Start is called before the first frame update
     void Start()
     {
         InteractableHintText.gameObject.SetActive(false);
+        aim.SetActive(false);
     }
 
     public void ShowInteractableHint()
@@ -22,5 +24,15 @@ public class PlayerHUD : MonoBehaviour
     public void HideInteractableHint()
     {
         InteractableHintText.gameObject.SetActive(false);
+    }
+
+    public void ActivateAim()
+    {
+        aim.SetActive(true);
+    }
+    
+    public void DeactivateAim()
+    {
+        aim.SetActive(false);
     }
 }
