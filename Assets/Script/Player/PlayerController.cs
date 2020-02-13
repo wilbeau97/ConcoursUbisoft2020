@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMotor motor;
     private CameraController cam;
     private TelekinesisAbility tk;
+    private Ability ability;
     private PlayerHUD hud;
     private float speed = 10f;
     private float jumpForceY = 7.5f;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
         cam = GetComponent<CameraController>();
         tk = GetComponent<TelekinesisAbility>();
+        ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
     }
 
@@ -43,6 +45,20 @@ public class PlayerController : MonoBehaviour
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
+
+        if (Input.GetAxis("TelekinesisMove") != 0)
+        {
+            //activer la visée
+            ability.Pressed();
+            ability.test();
+            hud.ActivateAim();
+            ability.SetValue(rotationZ, transform.position);
+        }
+        else
+        {
+            hud.DeactivateAim();
+            tk.Release();
+        }
 
         if ((onGround || nbJump <= 1) && Input.GetButtonDown("Jump"))
         {
@@ -70,19 +86,6 @@ public class PlayerController : MonoBehaviour
             cam.ReplaceCam();
         }
 
-        if (Input.GetAxis("TelekinesisMove") > 0)
-        {
-            //activer la visée
-            tk.Pressed();
-            tk.test();
-            hud.ActivateAim();
-            tk.MoveObject(rotationZ, rotation.y, transform.position);
-        }
-        else
-        {
-            hud.DeactivateAim();
-            tk.Release();
-        }
         
         motor.Move(velocity);
         motor.Jump(jumpForce);
