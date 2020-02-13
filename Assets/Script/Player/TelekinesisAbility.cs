@@ -6,20 +6,21 @@ using UnityEngine;
 public class TelekinesisAbility :  Ability
 {
     private bool isInteractable = false;
-    public LayerMask mask;
+    [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
     private float angleZ;
     private Vector3 middlePosition;
-    private bool isObjectRotationSet = false;
     private Vector3 playerPosition;
     private bool isPressed;
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
     private PlayerNetwork playerNetwork;
+    private PhotonView view;
 
     private void Start()
     {
         playerNetwork = GetComponent<PlayerNetwork>();
+        view = GetComponent<PhotonView>();
     }
 
     void FixedUpdate()
@@ -45,27 +46,49 @@ public class TelekinesisAbility :  Ability
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject"))
             {
-                isInteractable = true;
-                objectToMove = hit.collider.gameObject;
+                view = GetComponent<PhotonView>();
+                view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
                 if (isPressed)
                 {
-                    objectToMove.transform.parent = transform;
+                    view.RPC("ParentObject", PhotonTargets.All);
                 }
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
         }
     }
 
+    [PunRPC]
+    public void ParentObject()
+    {
+        objectToMove.transform.parent = transform;
+        isInteractable = true;
+    }
+    
+    [PunRPC]
+    public void DeparentObject()
+    {
+        objectToMove.transform.parent = null;
+        isInteractable = false;
+    }
+
+    [PunRPC]
+    public void SetObjectToMove(String str)
+    {
+        objectToMove = GameObject.Find(str);
+    }
+    
+    [PunRPC]
+    public void RemoveObjectToMove()
+    {
+        objectToMove = null;
+    }
+
     public override void SetValue(float _angleZ, Vector3 _playerPosition)
     {
         if (objectToMove is null) return;
-        if (!isObjectRotationSet)
-        {
-            isObjectRotationSet = true;
-        }
-        
+
         angleZ = _angleZ;
         playerPosition = _playerPosition;
     }
@@ -83,8 +106,6 @@ public class TelekinesisAbility :  Ability
     public override void Release()
     {
         isPressed = false;
-        isInteractable = false;
-        isObjectRotationSet = false;
         if (objectToMove == null)
         {
             return;
@@ -92,7 +113,7 @@ public class TelekinesisAbility :  Ability
         Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>(), false);
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
-        objectToMove.transform.parent = null;
-        objectToMove = null; 
+        view.RPC("DeparentObject", PhotonTargets.All);
+        view.RPC("RemoveObjectToMove",PhotonTargets.All);
     }
 }
