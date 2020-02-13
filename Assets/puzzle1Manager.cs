@@ -5,6 +5,7 @@ using UnityEngine;
 public class puzzle1Manager : MonoBehaviour
 {
     [SerializeField] private GameObject bridge;
+    [SerializeField] private PhotonView doorView;
 
     [PunRPC]
     public void RotateBridgeToPass()
@@ -50,6 +51,11 @@ public class puzzle1Manager : MonoBehaviour
             yield return null;
         }
         bridge.transform.rotation = to;
+    }
+    
+    public void OpenDoor()
+    {
+        doorView.RPC("OpenDoorRPC", PhotonTargets.All);
     }
     
    

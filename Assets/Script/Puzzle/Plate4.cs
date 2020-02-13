@@ -9,7 +9,7 @@ public class Plate4 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (!puzzle1ManagerView.isMine) return;
+        //if (!puzzle1ManagerView.isMine) return;
         if (other.CompareTag("Player2") || other.CompareTag("Player1") || other.CompareTag("InteractablePhysicsObject")) 
         {
             Debug.Log("IsPressed");
