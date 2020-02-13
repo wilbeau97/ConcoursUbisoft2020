@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TelekinesisAbility : MonoBehaviour
+public class TelekinesisAbility :  Ability
 {
     private bool isInteractable = false;
     public LayerMask mask;
@@ -30,8 +30,9 @@ public class TelekinesisAbility : MonoBehaviour
         objectTransform.RotateAround(playerPosition, -cam.transform.right, angleZ);
     }
 
-    public void test()
+    public override void test()
     {
+        if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
@@ -49,7 +50,7 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
-    public void MoveObject(float _angleZ, float _angleY, Vector3 _playerPosition)
+    public override void SetValue(float _angleZ, Vector3 _playerPosition)
     {
         if (objectToMove is null) return;
         if (!isObjectRotationSet)
@@ -61,7 +62,7 @@ public class TelekinesisAbility : MonoBehaviour
         playerPosition = _playerPosition;
     }
     
-    public void Pressed()
+    public override void Pressed()
     {
         if (objectToMove == null)
         {
