@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float sensitivity = 2.5f;
+    private float sensitivity = 5f;
     private PlayerMotor motor;
     private CameraController cam;
-    public float speed = 10f;
-    public float jumpForceY = 5f;
-    public bool onGround = true;
+    private Ability ability;
+    private PlayerHUD hud;
+    private float speed = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
         cam = GetComponent<CameraController>();
+        ability = GetComponent<Ability>();
+        hud = GetComponentInChildren<PlayerHUD>();
     }
 
     // Update is called once per frame
@@ -39,13 +41,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 jumpForce;
 
-        if (onGround && Input.GetButtonDown("Jump"))
+        if (Input.GetAxis("TelekinesisMove") != 0)
         {
-            jumpForce = new Vector3(0, jumpForceY, 0);
+            //activer la visée
+            ability.Pressed();
+            ability.Interact();
+            hud.ActivateAim();
+            ability.SetValue(rotationZ, transform.position);
         }
         else
         {
-            jumpForce = Vector3.zero;
+            hud.DeactivateAim();
+            ability.Release();
         }
 
         if (Input.GetButton("RotateCam"))
@@ -63,25 +70,8 @@ public class PlayerController : MonoBehaviour
         {
             cam.ReplaceCam();
         }
-        
+
         
         motor.Move(velocity);
-        motor.Jump(jumpForce);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
     }
 }
