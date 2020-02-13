@@ -15,6 +15,12 @@ public class TelekinesisAbility :  Ability
     private bool isPressed;
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
+    private PlayerNetwork playerNetwork;
+
+    private void Start()
+    {
+        playerNetwork = GetComponent<PlayerNetwork>();
+    }
 
     void FixedUpdate()
     {
@@ -30,7 +36,7 @@ public class TelekinesisAbility :  Ability
         objectTransform.RotateAround(playerPosition, -cam.transform.right, angleZ);
     }
 
-    public override void test()
+    public override void Interact()
     {
         if (objectToMove != null) return;
         RaycastHit hit;
@@ -41,6 +47,8 @@ public class TelekinesisAbility :  Ability
             {
                 isInteractable = true;
                 objectToMove = hit.collider.gameObject;
+                playerNetwork.ChangeOwner(hit.collider);
+                Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
                 if (isPressed)
                 {
                     objectToMove.transform.parent = transform;
@@ -64,15 +72,15 @@ public class TelekinesisAbility :  Ability
     
     public override void Pressed()
     {
+        isPressed = true;
         if (objectToMove == null)
         {
             return;
         }
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = true;
-        isPressed = true;
     }
 
-    public void Release()
+    public override void Release()
     {
         isPressed = false;
         isInteractable = false;
@@ -81,8 +89,10 @@ public class TelekinesisAbility :  Ability
         {
             return;
         }
+        Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>(), false);
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
-        objectToMove = null;
+        objectToMove.transform.parent = null;
+        objectToMove = null; 
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Ability : MonoBehaviour
 {
     public abstract void Pressed();
-    public abstract void test();
+    public abstract void Interact();
     public abstract void SetValue(float _angleZ, Vector3 _playerPosition);
+    public abstract void Release();
 }

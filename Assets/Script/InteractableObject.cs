@@ -14,7 +14,6 @@ public class InteractableObject : MonoBehaviour
     private bool flashingIn;
     private bool startedFlashing = false;
     private Renderer renderer;
-    public Transform parent;
 
     
     private void Start()
@@ -103,6 +102,17 @@ public class InteractableObject : MonoBehaviour
                     green += 25;
                 }
             }
+        }
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(transform.position);
+        } else if (stream.isReading)
+        {
+            transform.localPosition = (Vector3) stream.ReceiveNext();
         }
     }
 }

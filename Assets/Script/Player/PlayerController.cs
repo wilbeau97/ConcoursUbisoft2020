@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private float sensitivity = 5f;
     private PlayerMotor motor;
     private CameraController cam;
-    private TelekinesisAbility tk;
     private Ability ability;
     private PlayerHUD hud;
     private float speed = 10f;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     {
         motor = GetComponent<PlayerMotor>();
         cam = GetComponent<CameraController>();
-        tk = GetComponent<TelekinesisAbility>();
         ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
     }
@@ -50,14 +48,14 @@ public class PlayerController : MonoBehaviour
         {
             //activer la visée
             ability.Pressed();
-            ability.test();
+            ability.Interact();
             hud.ActivateAim();
             ability.SetValue(rotationZ, transform.position);
         }
         else
         {
             hud.DeactivateAim();
-            tk.Release();
+            ability.Release();
         }
 
         if ((onGround || nbJump <= 1) && Input.GetButtonDown("Jump"))

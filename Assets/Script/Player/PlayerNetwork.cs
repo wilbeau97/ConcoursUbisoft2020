@@ -44,7 +44,7 @@ public class PlayerNetwork : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void ChangeOwner(Collider other)
          {
              if (other.gameObject.CompareTag("InteractablePhysicsObject"))
              {
