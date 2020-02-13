@@ -9,7 +9,7 @@ public class Plate3 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player2"))
+        if (other.gameObject.CompareTag("Player1"))
         {
             isPressed = true;
             Debug.Log("Plate3 IsPressed");
@@ -19,7 +19,7 @@ public class Plate3 : MonoBehaviour
     
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player2"))
+        if (other.gameObject.CompareTag("Player1"))
         {
             isPressed = false;
             Debug.Log("leave");

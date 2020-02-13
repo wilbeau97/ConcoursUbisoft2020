@@ -68,7 +68,7 @@ public class InteractableObject : MonoBehaviour
         startedFlashing = false;
         lookingAtObject = false;
         StopCoroutine("StartFlashObject");
-        renderer.material.color = new Color32((byte) r, (byte) g, (byte) b, 255);
+        renderer.material.color = new Color32(255, 131, 0, 255);
     }
 
     private IEnumerator StartFlashObject()
