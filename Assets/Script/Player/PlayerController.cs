@@ -11,9 +11,6 @@ public class PlayerController : MonoBehaviour
     private Ability ability;
     private PlayerHUD hud;
     private float speed = 10f;
-    private float jumpForceY = 7.5f;
-    private bool onGround = true;
-    private int nbJump = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -58,16 +55,6 @@ public class PlayerController : MonoBehaviour
             ability.Release();
         }
 
-        if ((onGround || nbJump <= 1) && Input.GetButtonDown("Jump"))
-        {
-            jumpForce = new Vector3(0, jumpForceY, 0);
-            nbJump += 1;
-        }
-        else
-        {
-            jumpForce = Vector3.zero;
-        }
-
         if (Input.GetButton("RotateCam"))
         {
             cam.RotateY(rotation.y);
@@ -86,31 +73,5 @@ public class PlayerController : MonoBehaviour
 
         
         motor.Move(velocity);
-        motor.Jump(jumpForce);
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            nbJump = 0;
-        }
-    }
-    
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
     }
 }
