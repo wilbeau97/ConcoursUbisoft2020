@@ -631,7 +631,7 @@ MonoBehaviour:
   plate3: 0
   open2: 0
   doorView: {fileID: 278993887}
-  playerPrefab: {fileID: 4874260208748471155, guid: 700d9f331ea3b304f8791201e67ce5c1,
+  playerPrefab: {fileID: 4094253302079792955, guid: 0e61c9f1d7119a841a9ccdd023158d58,
     type: 3}
   doorView2: {fileID: 223974228}
   cubeView: {fileID: 0}
@@ -639,6 +639,7 @@ MonoBehaviour:
     type: 3}
   spawnPointP2: {fileID: 2064727917454739990, guid: c77a315f4190e964ca44b5081a6d135d,
     type: 3}
+  spawnPointNotconnected: {fileID: 908462812}
 --- !u!1 &701139974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1231,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0.1, z: 9.999999}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &908462811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908462812}
+  m_Layer: 0
+  m_Name: SpwnPointNotConnected
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &908462812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908462811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.54, y: 1, z: -2.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1820960462}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958623446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,6 +1794,7 @@ Transform:
   - {fileID: 40919615}
   - {fileID: 223974227}
   - {fileID: 840578515}
+  - {fileID: 908462812}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
