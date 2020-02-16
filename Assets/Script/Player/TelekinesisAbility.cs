@@ -33,8 +33,15 @@ public class TelekinesisAbility :  Ability
 
     private void PerformMovement()
     {
-        Transform objectTransform = objectToMove.transform;
-        objectTransform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        Debug.Log(objectToMove.transform.position.y);
+        //changer les valeurs magiques par des valeurs dynamiques
+        if (objectToMove.transform.position.y <= 4f && objectToMove.transform.position.y >= 0f)
+        {
+            objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        } else if (objectToMove.transform.position.y >= 4f && angleZ < 0f)
+        {
+            objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        }
     }
 
     public override void Interact()

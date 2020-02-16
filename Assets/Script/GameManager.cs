@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PhotonView cubeView;
     [SerializeField] private Transform spawnPointP1;
     [SerializeField] private Transform spawnPointP2;
+    [SerializeField] private Transform spawnPointNotconnected;
+    
 
 
     private void Start()
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Instantiate(playerPrefab, spawnPointP1.position, Quaternion.identity);
+            Instantiate(playerPrefab, spawnPointNotconnected.position, Quaternion.identity);
         }
     }
     

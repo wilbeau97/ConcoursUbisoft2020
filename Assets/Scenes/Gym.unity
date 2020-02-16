@@ -1580,6 +1580,7 @@ MonoBehaviour:
     type: 3}
   spawnPointP2: {fileID: 2064727917454739990, guid: c77a315f4190e964ca44b5081a6d135d,
     type: 3}
+  spawnPointNotconnected: {fileID: 0}
 --- !u!4 &802147339
 Transform:
   m_ObjectHideFlags: 0
@@ -2283,7 +2284,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 0.1, z: 10}
+  m_Size: {x: 10, y: 0, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &1169027064
 MeshCollider:
