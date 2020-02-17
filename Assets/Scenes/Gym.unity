@@ -211,7 +211,7 @@ Transform:
   m_LocalScale: {x: 50.00003, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 139959602}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &51987198
 GameObject:
@@ -332,10 +332,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -170.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 348629448}
-  - {fileID: 1588744726}
-  - {fileID: 740960890}
-  - {fileID: 2020240812}
   - {fileID: 874015217}
   - {fileID: 730344994}
   - {fileID: 27596710}
@@ -962,11 +958,11 @@ GameObject:
   - component: {fileID: 348629448}
   - component: {fileID: 348629453}
   - component: {fileID: 348629452}
+  - component: {fileID: 348629449}
   - component: {fileID: 348629451}
   - component: {fileID: 348629450}
-  - component: {fileID: 348629449}
   m_Layer: 0
-  m_Name: platePlayer1
+  m_Name: platePlayer1Puzzle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -980,11 +976,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348629447}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.01, z: 4}
+  m_LocalPosition: {x: 3, y: 0.01, z: -166.7}
   m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 139959602}
-  m_RootOrder: 0
+  m_Father: {fileID: 1844664509}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &348629449
 BoxCollider:
@@ -1008,6 +1004,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 348629447}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activatedByTag: Player1
+  pressurePlateManager: {fileID: 1520069760}
+  PressurePlateManagerPhotonView: {fileID: 1520069761}
+  gameManagerView: {fileID: 802147337}
+--- !u!114 &348629451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348629447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1020,25 +1032,12 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 348629451}
+  - {fileID: 1520069759}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 6
-  instantiationId: 6
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &348629451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348629447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6746f4a5ad84e45489f21512ecbefdc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManagerView: {fileID: 802147337}
 --- !u!23 &348629452
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1278,7 +1277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487246330}
   m_Layer: 0
-  m_Name: Puzzle2
+  m_Name: TutoPart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,6 +1296,7 @@ Transform:
   m_Children:
   - {fileID: 1094354092}
   - {fileID: 1305796218}
+  - {fileID: 2020240812}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1390,7 +1390,7 @@ Transform:
   m_LocalScale: {x: 50.00003, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 139959602}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &740960889
 GameObject:
@@ -1421,12 +1421,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 740960889}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09, y: 10, z: 14.24}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.09, y: 10, z: -156.45999}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
-  m_Father: {fileID: 139959602}
-  m_RootOrder: 2
+  m_Father: {fileID: 1844664509}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &740960891
 Rigidbody:
@@ -1663,7 +1663,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 139959602}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &874015218
 MonoBehaviour:
@@ -2282,7 +2282,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 139959602}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1094354090
 GameObject:
@@ -2743,6 +2743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 1094354091}
+  PressurePlateManagerPhotonView: {fileID: 0}
   gameManagerView: {fileID: 802147337}
 --- !u!114 &1305796220
 MonoBehaviour:
@@ -3039,6 +3040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520069759}
   - component: {fileID: 1520069760}
+  - component: {fileID: 1520069761}
   m_Layer: 0
   m_Name: PPM1
   m_TagString: Untagged
@@ -3073,7 +3075,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorView: {fileID: 740960892}
-  AllPlateMustStayActivated: 1
+  AllPlateMustStayActivated: 0
+--- !u!114 &1520069761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520069758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 1520069759}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 8
+  instantiationId: 8
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1528316150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,7 +3155,7 @@ GameObject:
   - component: {fileID: 1588744728}
   - component: {fileID: 1588744727}
   m_Layer: 0
-  m_Name: platePlayer2
+  m_Name: platePlayer2Puzzle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3140,13 +3169,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588744725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.01, z: 4}
+  m_LocalPosition: {x: -3, y: 0.01, z: -166.7}
   m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 139959602}
-  m_RootOrder: 1
+  m_Father: {fileID: 1844664509}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1588744727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588744725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activatedByTag: Player2
+  pressurePlateManager: {fileID: 1520069760}
+  PressurePlateManagerPhotonView: {fileID: 1520069761}
+  gameManagerView: {fileID: 802147337}
+--- !u!114 &1588744728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3167,25 +3212,12 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 1588744728}
+  - {fileID: 1520069759}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 6
+  instantiationId: 6
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &1588744728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588744725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1983b79337d27814499187f87528d7a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManagerView: {fileID: 802147337}
 --- !u!65 &1588744729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3637,7 +3669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844664509}
   m_Layer: 0
-  m_Name: Puzzle1
+  m_Name: TutoPart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3657,6 +3689,9 @@ Transform:
   - {fileID: 1874021038}
   - {fileID: 1520069759}
   - {fileID: 2071234465}
+  - {fileID: 348629448}
+  - {fileID: 1588744726}
+  - {fileID: 740960890}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3795,13 +3830,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874021037}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _activatedByTag: Player2
   pressurePlateManager: {fileID: 1520069760}
+  PressurePlateManagerPhotonView: {fileID: 0}
   gameManagerView: {fileID: 802147337}
 --- !u!65 &1874021040
 BoxCollider:
@@ -3918,12 +3954,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020240811}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09, y: 10, z: 40.7}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.09, y: 10, z: -130}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
-  m_Father: {fileID: 139959602}
-  m_RootOrder: 3
+  m_Father: {fileID: 487246330}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2020240813
 Rigidbody:
