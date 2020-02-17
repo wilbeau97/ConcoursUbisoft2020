@@ -17,7 +17,6 @@ public class PressurePlate : MonoBehaviour
     private void Start()
     {
         pressurePlateName = this.name;
-        
         pressurePlateManager.AddPressurePlate(pressurePlateName);
     }
 
