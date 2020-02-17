@@ -46,11 +46,6 @@ public class Door : MonoBehaviour
     
     private IEnumerator CloseDoor()
     {
-        // while (door.position.y > 4)
-        // {
-        //     door.position -= new Vector3(0, 1, 0);
-        //     yield return null;
-        // }
         _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         yield return null;
