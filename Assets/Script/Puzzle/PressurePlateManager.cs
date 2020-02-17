@@ -9,7 +9,7 @@ public class PressurePlateManager : MonoBehaviour
     
     [SerializeField] private PhotonView doorView;
     [SerializeField] private bool AllPlateMustStayActivated = true;
-    private Dictionary<PressurePlate, bool> listOfPlates = new Dictionary<PressurePlate, bool>();
+    private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();
     private bool _doorActivated = false;
     
     // Start is called before the first frame update
@@ -31,7 +31,6 @@ public class PressurePlateManager : MonoBehaviour
         {
             if (!plate.Value)
             {
-                //Debug.Log(plate.Key + "is not pressed");
                 allPlateActivated = false;
                 CloseDoor();
             }
@@ -44,23 +43,27 @@ public class PressurePlateManager : MonoBehaviour
             OpenDoor();
         }
     }
-    public void AddPressurePlate(PressurePlate pressurePlate)
+    public void AddPressurePlate(string pressurePlateName)
     {
-        listOfPlates.Add(pressurePlate, false);
-        Debug.Log("id pressure plate = " + pressurePlate.GetInstanceID());
+        listOfPlates.Add(pressurePlateName, false);
     }
-
-    public void PressurePlateIsPressed(PressurePlate pressurePlate)
+    [PunRPC]
+    public void PressurePlateIsPressedRPC(string pressurePlateName)
     {
-        listOfPlates[pressurePlate] = true;
+        PressurePlateIsPressed(pressurePlateName);
+    }
+    public void PressurePlateIsPressed(string pressurePlateName)
+    {
+        listOfPlates[pressurePlateName] = true;
         Debug.Log("Pressure plate is pressed on PPM");
+        printDictio();
     }
 
-    public void PressurePlateIsReleased(PressurePlate pressurePlate)
+    public void PressurePlateIsReleased(string pressurePlateName)
     {
         if (AllPlateMustStayActivated)
         {
-            listOfPlates[pressurePlate] = false;
+            listOfPlates[pressurePlateName] = false;
             Debug.Log("Pressure plate is released");
         }
     }
@@ -74,16 +77,26 @@ public class PressurePlateManager : MonoBehaviour
     {
         doorView.RPC("CloseDoorRPC", PhotonTargets.All);
     }
-    
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(listOfPlates);
 
-        } else if (stream.isReading)
+    private void printDictio()
+    {
+        Debug.Log("instance : " + this.GetInstanceID());
+        foreach (var plate in listOfPlates)
         {
-            listOfPlates = (Dictionary<PressurePlate, bool>) stream.ReceiveNext();
+            Debug.Log("Key : " + plate.Key + ", Value : " + plate.Value);
         }
     }
+    
+    
+    // public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     if (stream.isWriting)
+    //     {
+    //         stream.SendNext(listOfPlates);
+    //
+    //     } else if (stream.isReading)
+    //     {
+    //         listOfPlates = (Dictionary<PressurePlate, bool>) stream.ReceiveNext();
+    //     }
+    // }
 }
