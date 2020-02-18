@@ -23,7 +23,6 @@ public class puzzle1Manager : MonoBehaviour
 
     public IEnumerator RotateBridgeToPassRoutine()
     {
-        //de quelque chose (90) a 0
         Quaternion from = bridge.transform.rotation;
         Quaternion to = bridge.transform.rotation;
         to *= Quaternion.Euler( Vector3.up * 60);
@@ -40,7 +39,6 @@ public class puzzle1Manager : MonoBehaviour
     
     public IEnumerator RotateBridgeToBlockRoutine()
     {
-        // de quelquechose (0) a 90
         Quaternion from = bridge.transform.rotation;
         Quaternion to = bridge.transform.rotation;
         to *= Quaternion.Euler( Vector3.up * -60);
@@ -59,6 +57,4 @@ public class puzzle1Manager : MonoBehaviour
     {
         doorView.RPC("OpenDoorRPC", PhotonTargets.All);
     }
-    
-   
 }

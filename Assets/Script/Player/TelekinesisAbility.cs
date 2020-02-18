@@ -27,6 +27,7 @@ public class TelekinesisAbility :  Ability
     {
         if (isInteractable && isPressed)
         {
+            
             PerformMovement();
         }
     }
@@ -122,5 +123,16 @@ public class TelekinesisAbility :  Ability
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
         view.RPC("DeparentObject", PhotonTargets.All);
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
+    }
+
+    public override void ActivateTutorial()
+    {
+        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().setText(
+            "Vous pouvez utilisez la gachette de gauche (LT) pour utilisé la télékinésie sur certain objet");
+    }
+
+    public override void DesactivateTutorial()
+    {
+        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().DeactivateAbilityText();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     private float jumpForceY = 5f;
-    private bool onGround = true;
+    private bool canJump = true;
     private int nbJump = 0;
     private PlayerMotor motor;
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class Jump : MonoBehaviour
     void Update()
     {
         Vector3 jumpForce;
-        if ((onGround || nbJump <= 1) && Input.GetButtonDown("Jump"))
+        if ((canJump || nbJump <= 1) && Input.GetButtonDown("Jump"))
         {
             jumpForce = new Vector3(0, jumpForceY, 0);
             nbJump += 1;
@@ -32,24 +32,24 @@ public class Jump : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
         {
             nbJump = 0;
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
         {
-            onGround = true;
+            canJump = true;
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
         {
-            onGround = false;
+            canJump = false;
         }
     }
 }
