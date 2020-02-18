@@ -4,14 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractiveButton : MonoBehaviour
-{ [SerializeField] private puzzle1Manager puzzle1ManagerView;
+{ 
+    [SerializeField] private puzzle1Manager puzzleManagerView;
     private bool canInteract = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -25,22 +20,25 @@ public class InteractiveButton : MonoBehaviour
     private void Interact()
     {
         if (!canInteract) return;
-        puzzle1ManagerView.OpenDoor();
+        puzzleManagerView.OpenDoor();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player1"))
+        if (other.CompareTag("Player1") && other.gameObject.GetPhotonView().isMine)
         {
             canInteract = true;
+            other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
+            
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player1"))
+        if (other.CompareTag("Player1") && other.gameObject.GetPhotonView().isMine)
         {
             canInteract = false;
+            other.gameObject.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
         }
     }
 }
