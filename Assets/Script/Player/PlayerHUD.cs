@@ -6,22 +6,16 @@ using UnityEngine.UI;
 public class PlayerHUD : MonoBehaviour
 {
     private Text ObjectviveText;
+    [SerializeField] private Text InteractableHintText;
+    [SerializeField] private GameObject aim;
 
-    [SerializeField]
-    private Text InteractableHintText;
-    
     // Start is called before the first frame update
     void Start()
     {
         InteractableHintText.gameObject.SetActive(false);
+        aim.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     public void ShowInteractableHint()
     {
         InteractableHintText.gameObject.SetActive(true);
@@ -30,5 +24,15 @@ public class PlayerHUD : MonoBehaviour
     public void HideInteractableHint()
     {
         InteractableHintText.gameObject.SetActive(false);
+    }
+
+    public void ActivateAim()
+    {
+        aim.SetActive(true);
+    }
+    
+    public void DeactivateAim()
+    {
+        aim.SetActive(false);
     }
 }

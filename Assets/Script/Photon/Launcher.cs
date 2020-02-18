@@ -59,9 +59,8 @@ public class Launcher: Photon.MonoBehaviour
     {
 
         idleMenu.SetActive(false);
-        startMenu.SetActive(true);
-     }
-
-
+        startMenu.SetActive(true); 
+    }
+    
     #endregion
 }

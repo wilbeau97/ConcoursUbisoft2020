@@ -44,14 +44,17 @@ public class PlayerNetwork : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("InteractablePhysicsObject"))
-        {
-            if (other.gameObject.GetPhotonView().ownerId != PhotonNetwork.player.ID)
-            {
-                other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
-            }
-        }
-    }
+    public void ChangeOwner(Collider other)
+         {
+             if (other.gameObject.CompareTag("InteractablePhysicsObject"))
+             {
+                 if (photonView.isMine)
+                 {
+                     if (other.gameObject.GetPhotonView().ownerId != PhotonNetwork.player.ID)
+                     {
+                         other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                     }
+                 }
+             }
+         }
 }
