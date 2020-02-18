@@ -1006,9 +1006,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: 0
-  punRPCMethodeName: 
-  PairPressurePlate: {fileID: 0}
+  _activatedByTag: Player1
+  pressurePlateManager: {fileID: 1520069760}
+  PressurePlateManagerPhotonView: {fileID: 1520069761}
+  gameManagerView: {fileID: 0}
 --- !u!114 &348629451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,17 +1599,17 @@ PrefabInstance:
     - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.71211
+      value: -59.9
       objectReference: {fileID: 0}
     - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 102.6
+      value: 129.1
       objectReference: {fileID: 0}
     - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
         type: 3}
@@ -1649,6 +1650,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006433229477314627, guid: fa0850887df8db940aa7c6f11852d009,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4006433229477314631, guid: fa0850887df8db940aa7c6f11852d009,
         type: 3}
@@ -1998,6 +2014,7 @@ MonoBehaviour:
     type: 3}
   spawnPointP2: {fileID: 2064727917454739990, guid: c77a315f4190e964ca44b5081a6d135d,
     type: 3}
+  spawnPointNotconnected: {fileID: 0}
 --- !u!4 &802147339
 Transform:
   m_ObjectHideFlags: 0
@@ -2564,7 +2581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a746cd44591a7b84990a7c5e288e2b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleManagerView: {fileID: 147002498}
+  puzzleManagerView: {fileID: 0}
 --- !u!65 &942802434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3155,9 +3172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: 0
-  punRPCMethodeName: 
-  PairPressurePlate: {fileID: 0}
+  _activatedByTag: Player1
+  pressurePlateManager: {fileID: 1094354091}
+  PressurePlateManagerPhotonView: {fileID: 1094354093}
+  gameManagerView: {fileID: 0}
 --- !u!114 &1305796220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3583,7 +3601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588744725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.01, z: -166.7}
+  m_LocalPosition: {x: -2.9, y: 0.01, z: -166.7}
   m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1844664509}
@@ -3601,9 +3619,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: 0
-  punRPCMethodeName: 
-  PairPressurePlate: {fileID: 0}
+  _activatedByTag: Player2
+  pressurePlateManager: {fileID: 1520069760}
+  PressurePlateManagerPhotonView: {fileID: 1520069761}
+  gameManagerView: {fileID: 0}
 --- !u!114 &1588744728
 MonoBehaviour:
   m_ObjectHideFlags: 0
