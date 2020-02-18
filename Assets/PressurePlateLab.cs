@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour
+public class PressurePlateLab : MonoBehaviour
 {
     private bool isPressed;
     private PhotonView gameManagerView;
     [SerializeField] private int playerTarget;
     [SerializeField] private string punRPCMethodeName;
-    [SerializeField] private PressurePlate PairPressurePlate;
+    [SerializeField] private PressurePlateLab PairPressurePlate;
 
     public void Start()
     {
