@@ -8,13 +8,11 @@ public class Jump : MonoBehaviour
     private float jumpForceY = 5f;
     private bool canJump = true;
     private int nbJump = 0;
-    private PlayerMotor motor;
     private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        //motor = GetComponent<PlayerMotor>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -48,6 +46,5 @@ public class Jump : MonoBehaviour
                 nbJump++;
             }
         }
-        //motor.Jump(jumpForce);
     }
 }
