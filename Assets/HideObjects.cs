@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class HideObjects : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class HideObjects : MonoBehaviour
                 Renderer r = hit.collider.GetComponent<Renderer>();
                 if (r)
                 {
-                    r.enabled = true;
+                    r.shadowCastingMode = ShadowCastingMode.On;
                 }
             }
         }
@@ -42,7 +43,7 @@ public class HideObjects : MonoBehaviour
             Renderer r = hit.collider.GetComponent<Renderer>();
             if (r)
             {
-                r.enabled = false;
+                r.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
             }
         }
     }
