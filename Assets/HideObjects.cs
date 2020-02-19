@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,11 @@ public class HideObjects : MonoBehaviour
     
     [SerializeField] private Transform player;
     private RaycastHit[] hits = null;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private LayerMask mask;
+
+    private void Start()
     {
-        
+        mask = ~mask;
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class HideObjects : MonoBehaviour
 
         hits = Physics.RaycastAll(this.transform.position,
             (player.position - this.transform.position),
-            Vector3.Distance(this.transform.position, player.position));
+            Vector3.Distance(this.transform.position, player.position), mask);
 
         foreach (RaycastHit hit in hits)
         {
