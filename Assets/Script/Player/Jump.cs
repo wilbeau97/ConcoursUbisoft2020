@@ -9,11 +9,13 @@ public class Jump : MonoBehaviour
     private bool canJump = true;
     private int nbJump = 0;
     private PlayerMotor motor;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class Jump : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
+                rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 nbJump++;
             }
             else
@@ -54,6 +57,7 @@ public class Jump : MonoBehaviour
             if (nbJump <= 1 && Input.GetButtonDown("Jump"))
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
+                rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 nbJump++;
             }
         }
@@ -63,6 +67,6 @@ public class Jump : MonoBehaviour
         
         
         
-        motor.Jump(jumpForce);
+        //motor.Jump(jumpForce);
     }
 }
