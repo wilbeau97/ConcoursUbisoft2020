@@ -19,21 +19,50 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1.5f);
-        Vector3 jumpForce;
-        if ((isGrounded || nbJump < 1) && Input.GetButtonDown("Jump"))
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1.1f);
+        Vector3 jumpForce = Vector3.zero;
+        // if ((isGrounded || nbJump < 1) && Input.GetButtonDown("Jump"))
+        // {
+        //     jumpForce = new Vector3(0, jumpForceY, 0);
+        //     nbJump ++;
+        // }
+        // else
+        // {
+        //     if (isGrounded)
+        //     {
+        //         nbJump = 0;
+        //     }
+        //     jumpForce = Vector3.zero;
+        // }
+
+        if (isGrounded)
         {
-            jumpForce = new Vector3(0, jumpForceY, 0);
-            nbJump ++;
-        }
-        else
-        {
-            if (isGrounded)
+            //a terre
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpForce = new Vector3(0, jumpForceY, 0);
+                nbJump++;
+            }
+            else
             {
                 nbJump = 0;
             }
-            jumpForce = Vector3.zero;
         }
+        else
+        {
+            //dans les air
+            if (nbJump <= 1 && Input.GetButtonDown("Jump"))
+            {
+                jumpForce = new Vector3(0, jumpForceY, 0);
+                nbJump++;
+            }
+        }
+        
+        
+        
+        
+        
+        
         motor.Jump(jumpForce);
     }
 }
