@@ -151,7 +151,6 @@ GameObject:
   - component: {fileID: 4712363846529878135}
   - component: {fileID: 6168911395164695999}
   - component: {fileID: 3152672078893490866}
-  - component: {fileID: 7896503734521267991}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -219,19 +218,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7896503734521267991
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2422377699853117273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4137029913157310968
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +531,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4874260208748471155}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -576,6 +562,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83672314b050fa94f8f4c6a3a146c007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 4
 --- !u!1001 &8198049717426858399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -587,6 +576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}
