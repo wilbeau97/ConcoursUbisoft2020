@@ -26,7 +26,8 @@ public class PlayerMotor : MonoBehaviour
 
     private void PerformJump()
     {
-        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+        //rb.AddForce(jumpForce, ForceMode.Impulse);
+        rb.velocity += jumpForce;
     }
 
     public void Move(Vector3 _velocity)
