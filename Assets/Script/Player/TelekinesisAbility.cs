@@ -124,15 +124,4 @@ public class TelekinesisAbility :  Ability
         view.RPC("DeparentObject", PhotonTargets.All);
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
     }
-
-    public override void ActivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().setText(
-            "Vous pouvez utilisez la gachette de gauche (LT) pour utilisé la télékinésie sur certain objet");
-    }
-
-    public override void DesactivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().DeactivateAbilityText();
-    }
 }
