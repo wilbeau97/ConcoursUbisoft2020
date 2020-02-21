@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("TelekinesisMove") != 0)
         {
-            //activer la visée
             ability.Pressed();
             ability.Interact();
             hud.ActivateAim();
