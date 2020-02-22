@@ -16,6 +16,7 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private float distance;
     private PlayerNetwork playerNetwork;
     private PhotonView view;
+    private bool alreadyParent = false;
 
     private void Start()
     {
@@ -36,15 +37,15 @@ public class TelekinesisAbility :  Ability
     private void PerformMovement()
     {
         float positionY = objectToMove.transform.position.y;
-        Debug.Log(objectToMove.transform.localPosition.y);
+        Debug.Log(positionY);
         //changer les valeurs magiques par des valeurs dynamiques; 1 = hauteur du cube a la base; 4 = une valeur max au dessus du joueur
-        if (positionY <= 3f && positionY >= 0f)
+        if (positionY <= 3.8f && positionY >= 1f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY >= 3f && angleZ < 0f)
+        } else if (positionY >= 3.7f && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY <= 1f && angleZ > 0)
+        } else if (positionY <= 1.1f && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -82,8 +83,11 @@ public class TelekinesisAbility :  Ability
     [PunRPC]
     public void ParentObject()
     {
-        objectToMove.transform.parent = transform;
         isInteractable = true;
+        if (alreadyParent) return;
+        objectToMove.transform.parent = transform;
+        objectToMove.transform.position = transform.position + transform.forward * 3;
+        alreadyParent = true;
     }
     
     [PunRPC]
@@ -91,6 +95,7 @@ public class TelekinesisAbility :  Ability
     {
         objectToMove.transform.parent = null;
         isInteractable = false;
+        alreadyParent = false;
     }
 
     [PunRPC]
