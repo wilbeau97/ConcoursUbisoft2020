@@ -37,15 +37,16 @@ public class TelekinesisAbility :  Ability
     private void PerformMovement()
     {
         float positionY = objectToMove.transform.position.y;
-        Debug.Log(positionY);
+        float playerPosY = transform.position.y - 1;
+        Debug.Log(playerPosY);
         //changer les valeurs magiques par des valeurs dynamiques; 1 = hauteur du cube a la base; 4 = une valeur max au dessus du joueur
-        if (positionY <= 3.8f && positionY >= 1f)
+        if (positionY <= playerPosY + 3.8f && positionY >= 1f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY >= 3.7f && angleZ < 0f)
+        } else if (positionY >= playerPosY + 3.7f && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY <= 1.1f && angleZ > 0)
+        } else if (positionY <= playerPosY + 1.1f && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -86,7 +87,7 @@ public class TelekinesisAbility :  Ability
         isInteractable = true;
         if (alreadyParent) return;
         objectToMove.transform.parent = transform;
-        objectToMove.transform.position = transform.position + transform.forward * 3;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position)) ;
         alreadyParent = true;
     }
     
