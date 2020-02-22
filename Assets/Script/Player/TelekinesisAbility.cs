@@ -25,6 +25,7 @@ public class TelekinesisAbility :  Ability
 
     void FixedUpdate()
     {
+        
         if (isInteractable && isPressed)
         {
             
@@ -34,12 +35,16 @@ public class TelekinesisAbility :  Ability
 
     private void PerformMovement()
     {
-        Debug.Log(objectToMove.transform.position.y);
-        //changer les valeurs magiques par des valeurs dynamiques
-        if (objectToMove.transform.position.y <= 4f && objectToMove.transform.position.y >= 0f)
+        float positionY = objectToMove.transform.position.y;
+        Debug.Log(objectToMove.transform.localPosition.y);
+        //changer les valeurs magiques par des valeurs dynamiques; 1 = hauteur du cube a la base; 4 = une valeur max au dessus du joueur
+        if (positionY <= 3f && positionY >= 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMove.transform.position.y >= 4f && angleZ < 0f)
+        } else if (positionY >= 3f && angleZ < 0f)
+        {
+            objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        } else if (positionY <= 1f && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -47,7 +52,7 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
-        if (objectToMove != null) return;
+        //if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
@@ -63,6 +68,13 @@ public class TelekinesisAbility :  Ability
                     view.RPC("ParentObject", PhotonTargets.All);
                 }
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
+            }
+        }
+        else
+        {
+            if (objectToMove != null)
+            {
+                Release();
             }
         }
     }
