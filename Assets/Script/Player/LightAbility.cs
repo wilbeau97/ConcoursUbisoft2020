@@ -23,15 +23,4 @@ public class LightAbility : Ability
     {
         
     }
-
-    public override void ActivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().setText(
-            "Vous pouvez utilisez le bouton A pour sauté jusqu'à deux fois");
-    }
-
-    public override void DesactivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().DeactivateAbilityText();
-    }
 }
