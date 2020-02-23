@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
+    private static float MAX_HEIGHT = 3.8F;
+    private static float TOLERENCE = 0.1F;
+    
     private bool isInteractable = false;
     [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
@@ -29,24 +32,24 @@ public class TelekinesisAbility :  Ability
         
         if (isInteractable && isPressed)
         {
-            
             PerformMovement();
         }
     }
 
     private void PerformMovement()
     {
-        float positionY = objectToMove.transform.position.y;
+        float objectToMovePosY = objectToMove.transform.position.y;
+        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)
         float playerPosY = transform.position.y - 1;
-        Debug.Log(playerPosY);
-        //changer les valeurs magiques par des valeurs dynamiques; 1 = hauteur du cube a la base; 4 = une valeur max au dessus du joueur
-        if (positionY <= playerPosY + 3.8f && positionY >= 1f)
+        float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
+        
+        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY >= playerPosY + 3.7f && angleZ < 0f)
+        } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (positionY <= playerPosY + 1.1f && angleZ > 0)
+        } else if (objectToMovePosY <= playerPosY + objectToMoveScaleY + TOLERENCE && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -54,7 +57,6 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
-        //if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
