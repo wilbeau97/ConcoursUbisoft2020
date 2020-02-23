@@ -39,7 +39,7 @@ public class TelekinesisAbility :  Ability
     private void PerformMovement()
     {
         float objectToMovePosY = objectToMove.transform.position.y;
-        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)
+        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
         float playerPosY = transform.position.y - 1;
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
         
