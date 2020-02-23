@@ -39,6 +39,7 @@ public class TelekinesisAbility :  Ability
     private void PerformMovement()
     {
         float objectToMovePosY = objectToMove.transform.position.y;
+        
         // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
         float playerPosY = transform.position.y - 1;
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
@@ -66,11 +67,14 @@ public class TelekinesisAbility :  Ability
                 view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
+                
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
+                
                 if (isPressed)
                 {
                     view.RPC("ParentObject", PhotonTargets.All);
                 }
+                
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
         }
@@ -88,8 +92,14 @@ public class TelekinesisAbility :  Ability
     {
         isInteractable = true;
         if (alreadyParent) return;
+        
         objectToMove.transform.parent = transform;
-        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position)) ;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position));
+        
+        if ( objectToMove.transform.position.y < 0)
+        {
+            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, 1 , objectToMove.transform.position.z );
+        }
         alreadyParent = true;
     }
     
