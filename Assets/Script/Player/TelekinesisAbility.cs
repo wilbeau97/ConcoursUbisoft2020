@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
+    private static float MAX_HEIGHT = 3.8F;
+    private static float TOLERENCE = 0.1F;
+    
     private bool isInteractable = false;
     [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
@@ -16,6 +19,7 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private float distance;
     private PlayerNetwork playerNetwork;
     private PhotonView view;
+    private bool alreadyParent = false;
 
     private void Start()
     {
@@ -25,21 +29,27 @@ public class TelekinesisAbility :  Ability
 
     void FixedUpdate()
     {
+        
         if (isInteractable && isPressed)
         {
-            
             PerformMovement();
         }
     }
 
     private void PerformMovement()
     {
-        Debug.Log(objectToMove.transform.position.y);
-        //changer les valeurs magiques par des valeurs dynamiques
-        if (objectToMove.transform.position.y <= 4f && objectToMove.transform.position.y >= 0f)
+        float objectToMovePosY = objectToMove.transform.position.y;
+        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
+        float playerPosY = transform.position.y - 1;
+        float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
+        
+        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMove.transform.position.y >= 4f && angleZ < 0f)
+        } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
+        {
+            objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        } else if (objectToMovePosY <= playerPosY + objectToMoveScaleY + TOLERENCE && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -47,7 +57,6 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
-        if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
@@ -65,13 +74,23 @@ public class TelekinesisAbility :  Ability
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
         }
+        else
+        {
+            if (objectToMove != null)
+            {
+                Release();
+            }
+        }
     }
 
     [PunRPC]
     public void ParentObject()
     {
-        objectToMove.transform.parent = transform;
         isInteractable = true;
+        if (alreadyParent) return;
+        objectToMove.transform.parent = transform;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position)) ;
+        alreadyParent = true;
     }
     
     [PunRPC]
@@ -79,6 +98,7 @@ public class TelekinesisAbility :  Ability
     {
         objectToMove.transform.parent = null;
         isInteractable = false;
+        alreadyParent = false;
     }
 
     [PunRPC]
@@ -123,16 +143,5 @@ public class TelekinesisAbility :  Ability
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
         view.RPC("DeparentObject", PhotonTargets.All);
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
-    }
-
-    public override void ActivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().setText(
-            "Vous pouvez utilisez la gachette de gauche (LT) pour utilisé la télékinésie sur certain objet");
-    }
-
-    public override void DesactivateTutorial()
-    {
-        transform.GetChild(0).gameObject.GetComponent<PlayerHUD>().DeactivateAbilityText();
     }
 }

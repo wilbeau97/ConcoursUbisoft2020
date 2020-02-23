@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1857251339476201991}
   - component: {fileID: 8326920161354019473}
   - component: {fileID: 5178209016381729230}
+  - component: {fileID: 6662277367124601484}
   m_Layer: 2
   m_Name: Player2Test
   m_TagString: Player2
@@ -253,6 +254,20 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 4763896581403549104}
   distance: 10
+--- !u!114 &6662277367124601484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094253302079792955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c5910e9dec06c14ea452c4273ee94ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  telekinesisScript: {fileID: 5178209016381729230}
+  abilityTutorialText: {fileID: 6618886960833393563}
 --- !u!1 &4763896581403549104
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +279,7 @@ GameObject:
   - component: {fileID: 5941270036636850625}
   - component: {fileID: 7520540941528809554}
   - component: {fileID: 5274042611758300841}
+  - component: {fileID: 1055391421822703601}
   m_Layer: 2
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -336,6 +352,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4763896581403549104}
   m_Enabled: 1
+--- !u!114 &1055391421822703601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763896581403549104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729d2de34d44a754d9fefdd7d95bbaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6929963065936329599}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1536
 --- !u!1 &6551453044099982097
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +775,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7205028897624869879}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6618886960833393563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
+    type: 3}
+  m_PrefabInstance: {fileID: 7205028897624869879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &252407718186736144 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,

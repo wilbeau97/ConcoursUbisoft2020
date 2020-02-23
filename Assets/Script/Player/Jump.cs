@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,49 +8,43 @@ public class Jump : MonoBehaviour
     private float jumpForceY = 5f;
     private bool canJump = true;
     private int nbJump = 0;
-    private PlayerMotor motor;
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        motor = GetComponent<PlayerMotor>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 jumpForce;
-        if ((canJump || nbJump <= 1) && Input.GetButtonDown("Jump"))
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1.1f);
+        Vector3 jumpForce = Vector3.zero;
+
+        if (isGrounded)
         {
-            jumpForce = new Vector3(0, jumpForceY, 0);
-            nbJump += 1;
+            //a terre
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpForce = new Vector3(0, jumpForceY, 0);
+                rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                nbJump++;
+            }
+            else
+            {
+                nbJump = 0;
+            }
         }
         else
         {
-            jumpForce = Vector3.zero;
-        }
-        motor.Jump(jumpForce);
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
-        {
-            nbJump = 0;
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
-        {
-            canJump = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("InteractablePhysicsObject"))
-        {
-            canJump = false;
+            //dans les air
+            if (nbJump <= 1 && Input.GetButtonDown("Jump"))
+            {
+                jumpForce = new Vector3(0, jumpForceY, 0);
+                rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                nbJump++;
+            }
         }
     }
 }
