@@ -37,8 +37,8 @@ public class TelekinesisAbility :  Ability
             {
                 float rotationY = Input.GetAxis("Mouse X");
                 float rotationX= -Input.GetAxis("Mouse Y");
-                rotation = new Vector3(rotationX, rotationY, 0) * sensitivity;
-                objectToMove.transform.LookAt(cam.transform.forward);
+                rotation = new Vector3(rotationX, rotationY, 0);
+
             }
             else
             {
@@ -51,7 +51,7 @@ public class TelekinesisAbility :  Ability
     private void PerformRotationAroundItself(Vector3 rotation)
     {
         objectToMove.transform.Rotate(rotation);
-        
+        objectToMove.transform.RotateAround(objectToMove.transform.position, rotation, sensitivity);
     }
 
     private void PerformRotationAroundPlayer()
