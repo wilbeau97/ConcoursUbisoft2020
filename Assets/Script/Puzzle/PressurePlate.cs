@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 [System.Serializable]
 
 public class PressurePlate : MonoBehaviour
 {
+    [SerializeField] private string playerWriting = "all";
     [SerializeField ]private bool isUserConnected= false;
     private bool _isPressed;
     private string pressurePlateName;
@@ -66,12 +68,23 @@ public class PressurePlate : MonoBehaviour
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting)
+        if (PlayerManager.LocalPlayerInstance.CompareTag(playerWriting) || playerWriting == "all")
         {
-            stream.SendNext(_isPressed);
-        } else if (stream.isReading)
-        {
-            _isPressed = (bool) stream.ReceiveNext();
+            if (stream.isWriting)
+            {
+                stream.SendNext(_isPressed);
+            } else if (stream.isReading)
+            {
+                _isPressed = (bool) stream.ReceiveNext();
+            }
         }
+        else
+        {
+            if (stream.isReading)
+            {
+                _isPressed = (bool) stream.ReceiveNext();
+            }
+        }
+
     }
 }

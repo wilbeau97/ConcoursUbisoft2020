@@ -1018,6 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWriting: all
+  isUserConnected: 0
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 1520069760}
   PressurePlateManagerPhotonView: {fileID: 1520069761}
@@ -4020,6 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7775e118f3ac6a742a9cda057051e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUserConnected: 0
   doorView: {fileID: 2020240815}
   AllPlateMustStayActivated: 1
 --- !u!4 &1094354092
@@ -4447,6 +4450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWriting: Player1
+  isUserConnected: 0
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 1094354091}
   PressurePlateManagerPhotonView: {fileID: 1094354093}
@@ -4796,6 +4801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7775e118f3ac6a742a9cda057051e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUserConnected: 0
   doorView: {fileID: 740960892}
   AllPlateMustStayActivated: 0
 --- !u!114 &1520069761
@@ -4911,6 +4917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe4e64dec962a48bf72817874e8a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWriting: all
+  isUserConnected: 0
   _activatedByTag: Player2
   pressurePlateManager: {fileID: 1520069760}
   PressurePlateManagerPhotonView: {fileID: 1520069761}
