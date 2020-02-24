@@ -12,7 +12,6 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
     private float angleZ;
-    private Vector3 middlePosition;
     private Vector3 playerPosition;
     private bool isPressed;
     [SerializeField] private GameObject cam;
@@ -20,6 +19,7 @@ public class TelekinesisAbility :  Ability
     private PlayerNetwork playerNetwork;
     private PhotonView view;
     private bool alreadyParent = false;
+    private float sensitivity = 3f;
 
     private void Start()
     {
@@ -32,11 +32,29 @@ public class TelekinesisAbility :  Ability
         
         if (isInteractable && isPressed)
         {
-            PerformMovement();
+            Vector3 rotation = Vector3.zero;
+            if (Input.GetAxis("TelekinesisRotate") != 0)
+            {
+                float rotationY = Input.GetAxis("Mouse X");
+                float rotationX= -Input.GetAxis("Mouse Y");
+                rotation = new Vector3(rotationX, rotationY, 0) * sensitivity;
+                objectToMove.transform.LookAt(cam.transform.forward);
+            }
+            else
+            {
+                PerformRotationAroundPlayer();
+            }
+            PerformRotationAroundItself(rotation);
         }
     }
 
-    private void PerformMovement()
+    private void PerformRotationAroundItself(Vector3 rotation)
+    {
+        objectToMove.transform.Rotate(rotation);
+        
+    }
+
+    private void PerformRotationAroundPlayer()
     {
         float objectToMovePosY = objectToMove.transform.position.y;
         
@@ -58,6 +76,7 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
+        if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
@@ -76,13 +95,6 @@ public class TelekinesisAbility :  Ability
                 }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
-            }
-        }
-        else
-        {
-            if (objectToMove != null)
-            {
-                Release();
             }
         }
     }
