@@ -12,7 +12,6 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
     private float angleZ;
-    private Vector3 middlePosition;
     private Vector3 playerPosition;
     private bool isPressed;
     [SerializeField] private GameObject cam;
@@ -20,6 +19,7 @@ public class TelekinesisAbility :  Ability
     private PlayerNetwork playerNetwork;
     private PhotonView view;
     private bool alreadyParent = false;
+    private float sensitivity = 3f;
 
     private void Start()
     {
@@ -32,13 +32,32 @@ public class TelekinesisAbility :  Ability
         
         if (isInteractable && isPressed)
         {
-            PerformMovement();
+            Vector3 rotation = Vector3.zero;
+            if (Input.GetAxis("TelekinesisRotate") != 0)
+            {
+                float rotationY = Input.GetAxis("Mouse X");
+                float rotationX= -Input.GetAxis("Mouse Y");
+                rotation = new Vector3(rotationX, rotationY, 0);
+
+            }
+            else
+            {
+                PerformRotationAroundPlayer();
+            }
+            PerformRotationAroundItself(rotation);
         }
     }
 
-    private void PerformMovement()
+    private void PerformRotationAroundItself(Vector3 rotation)
+    {
+        objectToMove.transform.Rotate(rotation);
+        objectToMove.transform.RotateAround(objectToMove.transform.position, rotation, sensitivity);
+    }
+
+    private void PerformRotationAroundPlayer()
     {
         float objectToMovePosY = objectToMove.transform.position.y;
+        
         // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
         float playerPosY = transform.position.y - 1;
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
@@ -57,6 +76,7 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
+        if (objectToMove != null) return;
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
@@ -66,19 +86,15 @@ public class TelekinesisAbility :  Ability
                 view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
+                
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
+                
                 if (isPressed)
                 {
                     view.RPC("ParentObject", PhotonTargets.All);
                 }
+                
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
-            }
-        }
-        else
-        {
-            if (objectToMove != null)
-            {
-                Release();
             }
         }
     }
@@ -88,8 +104,14 @@ public class TelekinesisAbility :  Ability
     {
         isInteractable = true;
         if (alreadyParent) return;
+        
         objectToMove.transform.parent = transform;
-        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position)) ;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position));
+        
+        if ( objectToMove.transform.position.y < 0)
+        {
+            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, 1 , objectToMove.transform.position.z );
+        }
         alreadyParent = true;
     }
     
