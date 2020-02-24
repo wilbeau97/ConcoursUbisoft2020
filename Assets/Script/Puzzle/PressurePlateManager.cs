@@ -22,10 +22,7 @@ public class PressurePlateManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        platesVerification();
-    }
+
 
     private void platesVerification()
     {
@@ -57,6 +54,7 @@ public class PressurePlateManager : MonoBehaviour
     public void PressurePlateIsPressed(string pressurePlateName)
     {
         listOfPlates[pressurePlateName] = true;
+        platesVerification();
     }
 
     public void PressurePlateIsReleased(string pressurePlateName)
@@ -65,6 +63,7 @@ public class PressurePlateManager : MonoBehaviour
         {
             listOfPlates[pressurePlateName] = false;
         }
+        platesVerification();
     }
 
     public void OpenDoor()
