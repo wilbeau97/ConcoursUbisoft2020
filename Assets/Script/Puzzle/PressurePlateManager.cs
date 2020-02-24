@@ -7,17 +7,22 @@ using UnityEngine;
 public class PressurePlateManager : MonoBehaviour
 {
     
+    [SerializeField] private bool isUserConnected= false;
     [SerializeField] private PhotonView doorView;
     [SerializeField] private bool AllPlateMustStayActivated = true;
     private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();
     private bool _doorActivated = false;
-    
+
+    private void Start()
+    {
+        if (PhotonNetwork.connected)
+        {
+            isUserConnected = true;
+        }
+    }
 
     // Update is called once per frame
-    void Update()
-    {
-        platesVerification();
-    }
+
 
     private void platesVerification()
     {
@@ -49,6 +54,7 @@ public class PressurePlateManager : MonoBehaviour
     public void PressurePlateIsPressed(string pressurePlateName)
     {
         listOfPlates[pressurePlateName] = true;
+        platesVerification();
     }
 
     public void PressurePlateIsReleased(string pressurePlateName)
@@ -57,16 +63,31 @@ public class PressurePlateManager : MonoBehaviour
         {
             listOfPlates[pressurePlateName] = false;
         }
+        platesVerification();
     }
 
     public void OpenDoor()
     {
-        doorView.RPC("OpenDoorRPC", PhotonTargets.All);
+        if (isUserConnected)
+        {
+            doorView.RPC("OpenDoorRPC", PhotonTargets.All);
+        }
+        else
+        {
+            doorView.GetComponent<Door>().OpenDoorRPC();
+        }
     }
 
     public void CloseDoor()
     {
-        doorView.RPC("CloseDoorRPC", PhotonTargets.All);
+        if (isUserConnected)
+        {
+            doorView.RPC("CloseDoorRPC", PhotonTargets.All);
+        }
+        else
+        {
+            doorView.GetComponent<Door>().CloseDoorRPC();
+        }
     }
     
 }
