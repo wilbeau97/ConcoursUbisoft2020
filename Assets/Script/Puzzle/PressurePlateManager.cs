@@ -7,7 +7,7 @@ using UnityEngine;
 public class PressurePlateManager : MonoBehaviour
 {
     
-    private bool isUserConnected= false;
+    [SerializeField] private bool isUserConnected= false;
     [SerializeField] private PhotonView doorView;
     [SerializeField] private bool AllPlateMustStayActivated = true;
     private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();

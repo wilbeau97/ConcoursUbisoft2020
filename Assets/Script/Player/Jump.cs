@@ -6,7 +6,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     private float jumpForceY = 5f;
-    private bool canJump = true;
+    [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    private bool isUserConnected= false;
+    [SerializeField ]private bool isUserConnected= false;
     private bool _isPressed;
     private string pressurePlateName;
     [SerializeField] private string _activatedByTag; // utilisé pour déterminer ce qui va l'activer
