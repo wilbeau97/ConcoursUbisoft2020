@@ -33,7 +33,7 @@ public class Door : MonoBehaviour
     }
     
 
-    private IEnumerator OpenDoor()
+    public IEnumerator OpenDoor()
     {
         while (door.position.y < 20)
         {
@@ -43,7 +43,7 @@ public class Door : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
     
-    private IEnumerator CloseDoor()
+    public IEnumerator CloseDoor()
     {
         _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 

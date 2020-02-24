@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
+    private bool isUserConnected= false;
     private bool _isPressed;
     private string pressurePlateName;
     [SerializeField] private string _activatedByTag; // utilisé pour déterminer ce qui va l'activer
@@ -18,6 +19,11 @@ public class PressurePlate : MonoBehaviour
     {
         pressurePlateName = this.name;
         pressurePlateManager.AddPressurePlate(pressurePlateName);
+        if (PhotonNetwork.connected)
+        {
+            isUserConnected = true;
+        }
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -40,9 +46,16 @@ public class PressurePlate : MonoBehaviour
 
     private void Pressed()
     {
-        //pressurePlateManager.PressurePlateIsPressed(this);
-        PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
-            PhotonTargets.All, pressurePlateName);
+        if (isUserConnected)
+        {
+            PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
+                PhotonTargets.All, pressurePlateName);
+        }
+        else
+        {
+            pressurePlateManager.PressurePlateIsPressed(pressurePlateName);
+        }
+            
         
     }
 
