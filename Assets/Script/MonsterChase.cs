@@ -18,6 +18,15 @@ public class MonsterChase : MonoBehaviour
 
     public Material matVert;
 
+    public Transform[] pathWaypoints;
+
+    public int waitTimeOnWaypoint = 0;
+    
+    public float chargeSpeed = 10.0f;
+
+    public float walkSpeed = 5.0f;
+
+    private float elapsedTime = 0;
     private GameObject playerOne;
     private GameObject playerTwo;
 
@@ -30,17 +39,15 @@ public class MonsterChase : MonoBehaviour
     private bool player1LineOfSight = false;
     private bool player2LineOfSight = false;
     
-    private SphereCollider col;
+    private int waypointCounter = 0;
 
     private bool chargePlayer = false;
-    private float chargeSpeed = 10.0f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
-        col = GetComponent<SphereCollider>();
-        
+
         playerOne = GameObject.Find("Player1Test (1)");
         playerTwo = GameObject.Find("Player2Test (1)");
 
@@ -50,6 +57,30 @@ public class MonsterChase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!chargePlayer && pathWaypoints.Length > 0)
+        {
+            Vector3 target = new Vector3(pathWaypoints[waypointCounter].transform.position.x, transform.position.y, pathWaypoints[waypointCounter].transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, target, walkSpeed * Time.deltaTime);
+
+            if (transform.position == target)
+            {
+                if (elapsedTime >= waitTimeOnWaypoint)
+                {
+                    elapsedTime = 0;
+                    waypointCounter++;
+                    if (waypointCounter > pathWaypoints.Length - 1)
+                    {
+                        waypointCounter = 0;
+                    }
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
+
+            }
+        }
+        
         if (player1InRange)
         {
             player1LineOfSight = CheckForLineOfSight(playerOne);
