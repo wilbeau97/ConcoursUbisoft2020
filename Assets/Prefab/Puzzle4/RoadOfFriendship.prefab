@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 633214097330124108}
   - component: {fileID: 6394541846729027517}
   m_Layer: 9
-  m_Name: PressurePlateRedPlayer1
+  m_Name: PressurePlateRedPlayer2
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 671d2437946dc944b859dc45a27d607e, type: 2}
+  - {fileID: 2100000, guid: 348b9928c6436ec41bfa9aa8f260eb22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f796ecfbb987ea842b19824719383a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: 1
+  playerTarget: 2
   punRPCMethodeName: SetActive
   PairPressurePlate: {fileID: 8714942560597107573}
 --- !u!114 &6394541846729027517
@@ -457,10 +457,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108475201282498828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732aa8e865177884aa7e85e552322239, type: 3}
+  m_Script: {fileID: 11500000, guid: a8c220a4090f41098aa8280fe9ca1ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGameObject: {fileID: 0}
+  targetGameObject: {fileID: 4692588847110879686}
 --- !u!1 &3013679275706535142
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,140 +753,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!1 &4597132818831436163
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2165418553860439849}
-  - component: {fileID: 8154464796571755984}
-  - component: {fileID: 5442615842516266346}
-  - component: {fileID: 7225121171844503761}
-  - component: {fileID: 6990670658077559707}
-  - component: {fileID: 2754005945258770774}
-  m_Layer: 0
-  m_Name: Door (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2165418553860439849
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 87.68, y: 5, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 3}
-  m_Children: []
-  m_Father: {fileID: 7043948926586639253}
-  m_RootOrder: 27
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!33 &8154464796571755984
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5442615842516266346
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 69ac67c4a23c034449752d74be118671, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &7225121171844503761
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_Material: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6990670658077559707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 2754005945258770774}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
---- !u!114 &2754005945258770774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597132818831436163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cb687d6cd68c954782725c5170b0737, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
 --- !u!1 &4692588847110879686
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +765,7 @@ GameObject:
   - component: {fileID: 8284528134164612897}
   - component: {fileID: 8188165359402732420}
   - component: {fileID: 5721359162814724762}
+  - component: {fileID: 1167974036387164619}
   m_Layer: 0
   m_Name: Cube (15)
   m_TagString: Ground
@@ -979,6 +846,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1167974036387164619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692588847110879686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0d13d3a80d49f40ad734754a013d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boolListGameObject:
+  - {fileID: 5313855064234958831}
+  endMaze: 1
+  targetRpcView: {fileID: 0}
 --- !u!1 &4827031292078375257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,7 +1373,7 @@ GameObject:
   - component: {fileID: 8714942560597107573}
   - component: {fileID: 2804359071155672423}
   m_Layer: 9
-  m_Name: PressurePlateRedPlayer2
+  m_Name: PressurePlateRedPlayer1
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,7 +1418,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 348b9928c6436ec41bfa9aa8f260eb22, type: 2}
+  - {fileID: 2100000, guid: 671d2437946dc944b859dc45a27d607e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1608,7 +1491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f796ecfbb987ea842b19824719383a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: 2
+  playerTarget: 1
   punRPCMethodeName: SetActive
   PairPressurePlate: {fileID: 633214097330124108}
 --- !u!114 &2804359071155672423
@@ -1620,7 +1503,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5633415292830989824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732aa8e865177884aa7e85e552322239, type: 3}
+  m_Script: {fileID: 11500000, guid: a8c220a4090f41098aa8280fe9ca1ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetGameObject: {fileID: 5313855064234958831}
@@ -2072,7 +1955,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5934809129818811297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2167d00edec5cb439f9618102263849, type: 3}
+  m_Script: {fileID: 11500000, guid: d781a9bb908240bbb09802547f6a7af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5677280512765624845
@@ -2331,7 +2214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6390077276089863520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2167d00edec5cb439f9618102263849, type: 3}
+  m_Script: {fileID: 11500000, guid: d781a9bb908240bbb09802547f6a7af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1233891728816826742
@@ -2955,7 +2838,6 @@ Transform:
   - {fileID: 3365409693594685093}
   - {fileID: 3273379854774377995}
   - {fileID: 1434200829597325619}
-  - {fileID: 2165418553860439849}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4044,7 +3926,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850728573491347444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732aa8e865177884aa7e85e552322239, type: 3}
+  m_Script: {fileID: 11500000, guid: a8c220a4090f41098aa8280fe9ca1ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetGameObject: {fileID: 6390077276089863520}
