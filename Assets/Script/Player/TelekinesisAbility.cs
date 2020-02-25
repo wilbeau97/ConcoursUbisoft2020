@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
+    private static float MAX_HEIGHT = 3.8F;
+    private static float TOLERENCE = 0.1F;
+    
     private bool isInteractable = false;
     [SerializeField] private LayerMask mask;
     private GameObject objectToMove;
     private float angleZ;
-    private Vector3 middlePosition;
     private Vector3 playerPosition;
     private bool isPressed;
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
     private PlayerNetwork playerNetwork;
     private PhotonView view;
+    private bool alreadyParent = false;
+    private float sensitivity = 3f;
 
     private void Start()
     {
@@ -25,21 +29,44 @@ public class TelekinesisAbility :  Ability
 
     void FixedUpdate()
     {
+        
         if (isInteractable && isPressed)
         {
-            
-            PerformMovement();
+            Vector3 rotation = Vector3.zero;
+            if (Input.GetAxis("TelekinesisRotate") != 0)
+            {
+                float rotationY = -Input.GetAxis("Mouse X");
+                float rotationX = -Input.GetAxis("Mouse Y");
+                rotation = new Vector3(rotationX, rotationY, 0);
+            }
+            else
+            {
+                PerformRotationAroundPlayer();
+            }
+            PerformRotationAroundItself(rotation);
         }
     }
 
-    private void PerformMovement()
+    private void PerformRotationAroundItself(Vector3 rotation)
     {
-        Debug.Log(objectToMove.transform.position.y);
-        //changer les valeurs magiques par des valeurs dynamiques
-        if (objectToMove.transform.position.y <= 4f && objectToMove.transform.position.y >= 0f)
+        objectToMove.transform.RotateAround(objectToMove.transform.position, rotation, sensitivity);
+    }
+
+    private void PerformRotationAroundPlayer()
+    {
+        float objectToMovePosY = objectToMove.transform.position.y;
+        
+        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
+        float playerPosY = transform.position.y - 1;
+        float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
+        
+        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMove.transform.position.y >= 4f && angleZ < 0f)
+        } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
+        {
+            objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+        } else if (objectToMovePosY <= playerPosY + objectToMoveScaleY + TOLERENCE && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -57,11 +84,14 @@ public class TelekinesisAbility :  Ability
                 view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
+                
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
+                
                 if (isPressed)
                 {
                     view.RPC("ParentObject", PhotonTargets.All);
                 }
+                
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
         }
@@ -70,8 +100,17 @@ public class TelekinesisAbility :  Ability
     [PunRPC]
     public void ParentObject()
     {
-        objectToMove.transform.parent = transform;
         isInteractable = true;
+        if (alreadyParent) return;
+        
+        objectToMove.transform.parent = transform;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position));
+        
+        if ( objectToMove.transform.position.y < 0)
+        {
+            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, 1 , objectToMove.transform.position.z );
+        }
+        alreadyParent = true;
     }
     
     [PunRPC]
@@ -79,6 +118,7 @@ public class TelekinesisAbility :  Ability
     {
         objectToMove.transform.parent = null;
         isInteractable = false;
+        alreadyParent = false;
     }
 
     [PunRPC]

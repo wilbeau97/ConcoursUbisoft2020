@@ -16,6 +16,12 @@ public class TutorialManager : MonoBehaviour
                 other.gameObject.GetComponent<Tutorial>().ActivateTutorial();
                 isActivated = true;
             }
+
+            if (!PhotonNetwork.connected)
+            {
+                other.gameObject.GetComponent<Tutorial>().ActivateTutorial();
+                isActivated = true;
+            }
         }
     }
 }
