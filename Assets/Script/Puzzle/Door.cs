@@ -33,18 +33,21 @@ public class Door : MonoBehaviour
     }
     
 
-    private IEnumerator OpenDoor()
+    public IEnumerator OpenDoor()
     {
+        StopCoroutine(CloseDoor());
         while (door.position.y < 20)
         {
             door.position += new Vector3(0, 1, 0);
             yield return null;
         }
+        
         _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
     
-    private IEnumerator CloseDoor()
+    public IEnumerator CloseDoor()
     {
+        StopCoroutine(OpenDoor());
         _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         yield return null;

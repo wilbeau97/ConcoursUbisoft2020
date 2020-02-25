@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 [System.Serializable]
 
 public class PressurePlate : MonoBehaviour
 {
+    [SerializeField] private string playerWriting = "all";
+    [SerializeField ]private bool isUserConnected= false;
     private bool _isPressed;
     private string pressurePlateName;
     [SerializeField] private string _activatedByTag; // utilisé pour déterminer ce qui va l'activer
@@ -18,6 +21,11 @@ public class PressurePlate : MonoBehaviour
     {
         pressurePlateName = this.name;
         pressurePlateManager.AddPressurePlate(pressurePlateName);
+        if (PhotonNetwork.connected)
+        {
+            isUserConnected = true;
+        }
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -40,9 +48,16 @@ public class PressurePlate : MonoBehaviour
 
     private void Pressed()
     {
-        //pressurePlateManager.PressurePlateIsPressed(this);
-        PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
-            PhotonTargets.All, pressurePlateName);
+        if (isUserConnected)
+        {
+            PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
+                PhotonTargets.All, pressurePlateName);
+        }
+        else
+        {
+            pressurePlateManager.PressurePlateIsPressed(pressurePlateName);
+        }
+            
         
     }
 
@@ -53,12 +68,23 @@ public class PressurePlate : MonoBehaviour
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting)
+        if (PlayerManager.LocalPlayerInstance.CompareTag(playerWriting) || playerWriting == "all")
         {
-            stream.SendNext(_isPressed);
-        } else if (stream.isReading)
-        {
-            _isPressed = (bool) stream.ReceiveNext();
+            if (stream.isWriting)
+            {
+                stream.SendNext(_isPressed);
+            } else if (stream.isReading)
+            {
+                _isPressed = (bool) stream.ReceiveNext();
+            }
         }
+        else
+        {
+            if (stream.isReading)
+            {
+                _isPressed = (bool) stream.ReceiveNext();
+            }
+        }
+
     }
 }
