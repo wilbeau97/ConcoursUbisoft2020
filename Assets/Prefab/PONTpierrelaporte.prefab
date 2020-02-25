@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 8691718868209765131}
   - component: {fileID: 3315390190320836095}
   - component: {fileID: 735556057577229647}
+  - component: {fileID: 7455457992492912019}
   m_Layer: 0
   m_Name: pasted__pCube4
   m_TagString: Untagged
@@ -124,6 +125,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7455457992492912019
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681918276860414365}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 6288198046689518721, guid: 201a0e93b257d274eac7a7e6132e0e32, type: 3}
 --- !u!1 &2677216204673336205
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +150,7 @@ GameObject:
   - component: {fileID: 1987653567295815800}
   - component: {fileID: 4228292982956398555}
   - component: {fileID: 5392144623151729727}
+  - component: {fileID: 310875303908236896}
   m_Layer: 0
   m_Name: mure3
   m_TagString: Untagged
@@ -202,6 +218,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &310875303908236896
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677216204673336205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -4695942010802266902, guid: 201a0e93b257d274eac7a7e6132e0e32, type: 3}
 --- !u!1 &2910050474228514051
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,9 +255,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2910050474228514051}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -111.2, y: -4, z: 0}
-  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 8663630335170615931}
   - {fileID: 3524860280669807178}
@@ -356,6 +386,7 @@ GameObject:
   - component: {fileID: 1537434150916564299}
   - component: {fileID: 4215824672484195613}
   - component: {fileID: 9008990083168510186}
+  - component: {fileID: 1072752209439497742}
   m_Layer: 0
   m_Name: pPlatonic296
   m_TagString: Untagged
@@ -423,3 +454,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1072752209439497742
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216125006093822519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4775589577546500433, guid: 201a0e93b257d274eac7a7e6132e0e32, type: 3}
