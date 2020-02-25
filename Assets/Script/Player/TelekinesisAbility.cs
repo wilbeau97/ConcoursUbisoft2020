@@ -35,8 +35,8 @@ public class TelekinesisAbility :  Ability
             Vector3 rotation = Vector3.zero;
             if (Input.GetAxis("TelekinesisRotate") != 0)
             {
-                float rotationY = Input.GetAxis("Mouse X");
-                float rotationX= -Input.GetAxis("Mouse Y");
+                float rotationY = -Input.GetAxis("Mouse X");
+                float rotationX = -Input.GetAxis("Mouse Y");
                 rotation = new Vector3(rotationX, rotationY, 0);
 
             }
