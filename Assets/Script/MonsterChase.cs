@@ -48,8 +48,8 @@ public class MonsterChase : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
 
-        playerOne = GameObject.Find("Player1Test (1)");
-        playerTwo = GameObject.Find("Player2Test (1)");
+        playerOne = GameObject.Find("Player1Test(Clone)");
+        playerTwo = GameObject.Find("Player2Test(Clone)");
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
