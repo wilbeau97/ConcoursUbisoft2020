@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Prefab.Puzzle4
 {
@@ -25,6 +26,22 @@ namespace Prefab.Puzzle4
         public void StateChange()
         {
             state = !state;
+        }
+
+        public void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.tag.Contains("Player"))
+            {
+                other.gameObject.transform.SetParent(gameObject.transform);
+            }
+        }
+        
+        public void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.tag.Contains("Player"))
+            {
+                other.gameObject.transform.SetParent(null);
+            }
         }
     }
 }
