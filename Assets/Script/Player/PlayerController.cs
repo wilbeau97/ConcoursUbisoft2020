@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Ability ability;
     private PlayerHUD hud;
     private float speed = 10f;
+    private bool dontMoveCam = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,10 @@ public class PlayerController : MonoBehaviour
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
         Vector3 jumpForce;
+        if (Input.GetAxis("TelekinesisRotate") != 0)
+        {
+            dontMoveCam = true;
+        }
 
         if (Input.GetAxis("TelekinesisMove") != 0)
         {
@@ -54,6 +59,20 @@ public class PlayerController : MonoBehaviour
             ability.Release();
         }
 
+        if (!dontMoveCam)
+        {
+            MoveCamera(rotation, rotationZ);
+        }
+        else
+        {
+            dontMoveCam = false;
+        }
+        
+        motor.Move(velocity);
+    }
+
+    private void MoveCamera(Vector3 rotation, float rotationZ)
+    {
         if (Input.GetButton("RotateCam"))
         {
             cam.RotateY(rotation.y);
@@ -69,8 +88,5 @@ public class PlayerController : MonoBehaviour
         {
             cam.ReplaceCam();
         }
-
-        
-        motor.Move(velocity);
     }
 }

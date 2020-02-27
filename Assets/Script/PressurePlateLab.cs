@@ -38,17 +38,6 @@ public class PressurePlateLab : MonoBehaviour
 
     private void Pressed()
     {
-        gameManagerView.RPC(punRPCMethodeName, PhotonTargets.All, isPressed);
-    }
-    
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(isPressed);
-        } else if (stream.isReading)
-        {
-            isPressed = (bool) stream.ReceiveNext();
-        }
+        gameManagerView.RPC(punRPCMethodeName, PhotonTargets.All);
     }
 }
