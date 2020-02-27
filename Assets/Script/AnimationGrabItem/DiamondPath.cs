@@ -23,8 +23,14 @@ namespace Script.AnimationGrabItem
                 if (_nextMaker < diamondMarker.Length)
                 {
                     Transform parent = gameObject.transform.parent;
-                    //gameObject.GetPhotonView().RPC("MoveDiamondPun", PhotonTargets.All, diamondMarker[_nextMaker]);
-                    gameObject.SendMessage("MoveDiamondPun", diamondMarker[_nextMaker]);
+                    if (PhotonNetwork.connected)
+                    {
+                        gameObject.GetPhotonView().RPC("MoveDiamondPun", PhotonTargets.All, diamondMarker[_nextMaker]);
+                    }
+                    else
+                    {
+                        gameObject.SendMessage("MoveDiamondPun", diamondMarker[_nextMaker]);
+                    }
                 }
                 else
                 {
@@ -43,7 +49,6 @@ namespace Script.AnimationGrabItem
         {
             Vector3 moveToDo = move - gameObject.transform.parent.transform.localPosition;
             const float speed = 3.0f;
-            print(moveToDo);
             _animationClip = new AnimationClip {legacy = true};
             AnimationCurve animationCurveX = AnimationCurve.Linear(0.0f,0.0f,speed,moveToDo.x);
             AnimationCurve animationCurveY = AnimationCurve.Linear(0.0f,0.0f,speed,moveToDo.y);
