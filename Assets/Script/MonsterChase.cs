@@ -80,7 +80,10 @@ public class MonsterChase : MonoBehaviour
         }
         
         // Fonction qui compare les distances des 2 joueurs par rapport au monstre
-        gameObject.GetPhotonView().RPC("CheckForChargeOpportunity", PhotonTargets.All);
+        if (player1InRange || player2InRange)
+        {
+            gameObject.GetPhotonView().RPC("CheckForChargeOpportunity", PhotonTargets.All);
+        }
     }
 
     private void FixedUpdate()
