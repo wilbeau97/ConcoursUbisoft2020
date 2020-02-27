@@ -43,13 +43,15 @@ public class MonsterChase : MonoBehaviour
 
     private bool chargePlayer = false;
 
+    private bool collidedPlayer = false;
+
     // Start is called before the first frame update
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
 
-        playerOne = GameObject.Find("Player1Test(Clone)");
-        playerTwo = GameObject.Find("Player2Test(Clone)");
+        playerOne = GameObject.Find("Player1Test (1)");
+        playerTwo = GameObject.Find("Player2Test (1)");
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
@@ -57,30 +59,7 @@ public class MonsterChase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!chargePlayer && pathWaypoints.Length > 0)
-        {
-            Vector3 target = new Vector3(pathWaypoints[waypointCounter].transform.position.x, transform.position.y, pathWaypoints[waypointCounter].transform.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, target, walkSpeed * Time.deltaTime);
-
-            if (transform.position == target)
-            {
-                if (elapsedTime >= waitTimeOnWaypoint)
-                {
-                    elapsedTime = 0;
-                    waypointCounter++;
-                    if (waypointCounter > pathWaypoints.Length - 1)
-                    {
-                        waypointCounter = 0;
-                    }
-                }
-                else
-                {
-                    elapsedTime += Time.deltaTime;
-                }
-
-            }
-        }
-        
+        // Si le joueur est dans le range du trigger, on regarde si on le voit ou si un objet est dans le champ de vision
         if (player1InRange)
         {
             player1LineOfSight = CheckForLineOfSight(playerOne);
@@ -90,13 +69,14 @@ public class MonsterChase : MonoBehaviour
         {
             player2LineOfSight = CheckForLineOfSight(playerTwo); 
         }
-
+        
+        // Fonction qui compare les distances des 2 joueurs par rapport au monstre
         CheckForChargeOpportunity();
     }
 
     private void FixedUpdate()
     {
-        if (chargePlayer)
+        if (chargePlayer && !collidedPlayer)
         {
             if (enemyColor == EnemiesColors.Bleu)
             {
@@ -105,6 +85,34 @@ public class MonsterChase : MonoBehaviour
             else
             {
                 transform.position = Vector3.MoveTowards(transform.position, playerTwo.transform.position, chargeSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            // Cycle de marche
+            if (pathWaypoints.Length > 0)
+            {
+                Vector3 target = new Vector3(pathWaypoints[waypointCounter].transform.position.x, transform.position.y,
+                    pathWaypoints[waypointCounter].transform.position.z);
+                transform.position = Vector3.MoveTowards(transform.position, target, walkSpeed * Time.deltaTime);
+            
+                if (transform.position == target)
+                {
+                    if (elapsedTime >= waitTimeOnWaypoint)
+                    {
+                        elapsedTime = 0;
+                        waypointCounter++;
+                        if (waypointCounter > pathWaypoints.Length - 1)
+                        {
+                            waypointCounter = 0;
+                        }
+                    }
+                    else
+                    {
+                        elapsedTime += Time.deltaTime;
+                    }
+            
+                }
             }
         }
     }
@@ -178,11 +186,13 @@ public class MonsterChase : MonoBehaviour
         {
             player1InRange = false;
             player1LineOfSight = false;
+            collidedPlayer = false;
         }
         else if (other.gameObject.CompareTag("Player2"))
         {
             player2InRange = false;
             player2LineOfSight = false;
+            collidedPlayer = false;
         }
     }
 
@@ -193,12 +203,15 @@ public class MonsterChase : MonoBehaviour
             Vector3 direction = other.transform.position - transform.position;
             Vector3 force = new Vector3(direction.x * 500, 1000, direction.z * 500);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
+            collidedPlayer = true;
         }
         else if (other.gameObject.CompareTag("Player2") && enemyColor == EnemiesColors.Vert)
         {
             Vector3 direction = other.transform.position - transform.position;
             Vector3 force = new Vector3(direction.x * 500, 1000, direction.z * 500);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
+            chargePlayer = false;
+            collidedPlayer = true;
         }
     }
 }
