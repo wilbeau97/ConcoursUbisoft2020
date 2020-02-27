@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     
 
 
-    private void Start()
+    private void Awake()
     {
         if (PhotonNetwork.connected)
         {
