@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
-    private static float MAX_HEIGHT = 3.8F;
+   private static float MAX_HEIGHT = 3.8F;
     private static float TOLERENCE = 0.1F;
     
     private bool isInteractable = false;
