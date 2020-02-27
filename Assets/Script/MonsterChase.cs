@@ -12,20 +12,23 @@ public class MonsterChase : MonoBehaviour
         Vert
     };
 
-    public EnemiesColors enemyColor = EnemiesColors.Bleu;
+    [SerializeField] private EnemiesColors enemyColor = EnemiesColors.Bleu;
 
-    public Material matBleu;
+    [SerializeField] private Material matBleu;
 
-    public Material matVert;
+    [SerializeField] private Material matVert;
 
-    public Transform[] pathWaypoints;
+    [SerializeField] private Transform[] pathWaypoints;
 
-    public int waitTimeOnWaypoint = 0;
+    [SerializeField] private int waitTimeOnWaypoint = 0;
     
-    public float chargeSpeed = 10.0f;
+    [SerializeField] private float chargeSpeed = 10.0f;
 
-    public float walkSpeed = 5.0f;
+    [SerializeField] private float walkSpeed = 5.0f;
 
+    [SerializeField] private PhotonView player1View;
+    [SerializeField] private PhotonView player2View;
+    
     private float elapsedTime = 0;
     private GameObject playerOne;
     private GameObject playerTwo;
@@ -49,13 +52,19 @@ public class MonsterChase : MonoBehaviour
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
-
-        playerOne = GameObject.Find("Player1Test (1)");
-        playerTwo = GameObject.Find("Player2Test (1)");
+        
+        gameObject.GetPhotonView().RPC("InitPlayer", PhotonTargets.All);
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
 
+    [PunRPC]
+    private void InitPlayer()
+    {
+        playerOne = GameObject.Find("Player1Test(Clone)");
+        playerTwo = GameObject.Find("Player2Test(Clone)");
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -71,7 +80,7 @@ public class MonsterChase : MonoBehaviour
         }
         
         // Fonction qui compare les distances des 2 joueurs par rapport au monstre
-        CheckForChargeOpportunity();
+        gameObject.GetPhotonView().RPC("CheckForChargeOpportunity", PhotonTargets.All);
     }
 
     private void FixedUpdate()
@@ -116,7 +125,8 @@ public class MonsterChase : MonoBehaviour
             }
         }
     }
-
+    
+    [PunRPC]
     private void CheckForChargeOpportunity()
     {
         if (enemyColor == EnemiesColors.Bleu)
