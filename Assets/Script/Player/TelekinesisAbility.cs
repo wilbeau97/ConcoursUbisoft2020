@@ -32,24 +32,25 @@ public class TelekinesisAbility :  Ability
         
         if (isInteractable && isPressed)
         {
-            Vector3 rotation = Vector3.zero;
+            float rotationY = 0;
+            float rotationX = 0;
             if (Input.GetAxis("TelekinesisRotate") != 0)
             {
-                float rotationY = -Input.GetAxis("Mouse X");
-                float rotationX = -Input.GetAxis("Mouse Y");
-                rotation = new Vector3(rotationX, rotationY, 0);
+                rotationY = -Input.GetAxis("Mouse X");
+                rotationX = -Input.GetAxis("Mouse Y");
             }
             else
             {
                 PerformRotationAroundPlayer();
             }
-            PerformRotationAroundItself(rotation);
+            PerformRotationAroundItself(rotationX, rotationY);
         }
     }
 
-    private void PerformRotationAroundItself(Vector3 rotation)
+    private void PerformRotationAroundItself(float rotationX, float rotationY)
     {
-        objectToMove.transform.RotateAround(objectToMove.transform.position, rotation, sensitivity);
+        objectToMove.transform.RotateAround(objectToMove.transform.position, rotationX * cam.transform.right, sensitivity);
+        objectToMove.transform.RotateAround(objectToMove.transform.position, rotationY * cam.transform.up, sensitivity);
     }
 
     private void PerformRotationAroundPlayer()
