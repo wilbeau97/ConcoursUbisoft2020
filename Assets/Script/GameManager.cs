@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPointP1;
     [SerializeField] private Transform spawnPointP2;
     [SerializeField] private Transform spawnPointNotconnected;
-    
 
+    [SerializeField] private BigTree tree;
+    //private GameObject player1;
+    //private GameObject player2;
 
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
         {
             if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
             {
-                PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
+                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
                     Quaternion.identity, 0);
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
             Instantiate(playerPrefab, spawnPointNotconnected.position, Quaternion.identity);
         }
     }
-    
+
     public virtual void OnJoinedLobby()
     {
         Debug.Log("Join lobby");
@@ -103,5 +105,12 @@ public class GameManager : MonoBehaviour
             plate2 = (bool) stream.ReceiveNext();
             plate3 = (bool) stream.ReceiveNext();
         }
+    }
+
+    [PunRPC]
+    public void EndedPuzzle()
+    {
+        tree.Grow();
+        PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
     }
 }

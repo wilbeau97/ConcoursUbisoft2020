@@ -9,6 +9,7 @@ public class Jump : MonoBehaviour
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
+    private static bool canDoubleJump = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +40,17 @@ public class Jump : MonoBehaviour
         else
         {
             //dans les air
-            if (nbJump <= 1 && Input.GetButtonDown("Jump"))
+            if (nbJump <= 1 && Input.GetButtonDown("Jump") && canDoubleJump)
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
                 rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 nbJump++;
             }
         }
+    }
+
+    public void IncreaseAbility()
+    {
+        canDoubleJump = true;
     }
 }

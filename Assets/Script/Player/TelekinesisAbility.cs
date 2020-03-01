@@ -20,6 +20,7 @@ public class TelekinesisAbility :  Ability
     private PhotonView view;
     private bool alreadyParent = false;
     private float sensitivity = 3f;
+    private static bool canRotate = false;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class TelekinesisAbility :  Ability
         {
             float rotationY = 0;
             float rotationX = 0;
-            if (Input.GetAxis("TelekinesisRotate") != 0)
+            if (Input.GetAxis("TelekinesisRotate") != 0 && canRotate)
             {
                 rotationY = -Input.GetAxis("Mouse X") * sensitivity;
                 rotationX = -Input.GetAxis("Mouse Y") * sensitivity;
@@ -165,5 +166,10 @@ public class TelekinesisAbility :  Ability
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
         view.RPC("DeparentObject", PhotonTargets.All);
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
+    }
+
+    public override void IncreaseAbility()
+    {
+        canRotate = true;
     }
 }
