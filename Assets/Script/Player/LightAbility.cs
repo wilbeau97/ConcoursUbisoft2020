@@ -23,4 +23,9 @@ public class LightAbility : Ability
     {
         
     }
+
+    public override void IncreaseAbility()
+    {
+        GetComponent<Jump>().IncreaseAbility();
+    }
 }
