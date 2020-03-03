@@ -20,7 +20,7 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1.1f);
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1.1f); //1.01
         Vector3 jumpForce = Vector3.zero;
 
         if (isGrounded)

@@ -43,23 +43,17 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     [PunRPC]
     public void EndedPuzzle()
     {
         tree.Grow();
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
-        nbOfPuzzleSuceeed += 1;
     }
 
     private void OpenNextDoor()
     {
         doorViews[nbOfPuzzleSuceeed].RPC("OpenDoorRPC", PhotonTargets.All);
+        nbOfPuzzleSuceeed += 1;
     }
 }

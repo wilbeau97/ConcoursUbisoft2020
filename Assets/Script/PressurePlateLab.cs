@@ -21,7 +21,6 @@ public class PressurePlateLab : MonoBehaviour
         if (other.gameObject.CompareTag("Player"+playerTarget))
         {
             isPressed = true;
-            Debug.Log("IsPressed");
             if(PairPressurePlate.isPressed)Pressed();
         }
     }
@@ -31,7 +30,6 @@ public class PressurePlateLab : MonoBehaviour
         if (other.gameObject.CompareTag("Player"+playerTarget))
         {
             isPressed = false;
-            Debug.Log("leave");
             if(PairPressurePlate.isPressed)Pressed();
         }
     }
