@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FlashAura : MonoBehaviour
 {
+    public float elapsedTime = 0.0f;
+    
     private Material mat;
 
-    public bool startedFlashing = false;
+    private bool startedFlashing = false;
     
     // Start is called before the first frame update
     void Start()
@@ -14,6 +16,16 @@ public class FlashAura : MonoBehaviour
         mat = GetComponent<Material>();
     }
 
+    void Update()
+    {
+        elapsedTime += Time.deltaTime;
+
+        if (elapsedTime >= 2)
+        {
+            startedFlashing = true;
+        }
+    }
+    
     public void StartFlashing()
     {
         if (!startedFlashing)
