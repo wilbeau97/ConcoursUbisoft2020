@@ -607,6 +607,7 @@ GameObject:
   - component: {fileID: 253858469492260890}
   - component: {fileID: 9072592750979204042}
   - component: {fileID: 9068096302578026875}
+  - component: {fileID: 1742074064114981027}
   m_Layer: 1
   m_Name: Aura
   m_TagString: Player1
@@ -674,6 +675,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1742074064114981027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5051987587750471107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25030e8ee21a0584db8bce0eb626e14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elapsedTime: 0
 --- !u!1001 &8198049717426858399
 PrefabInstance:
   m_ObjectHideFlags: 0
