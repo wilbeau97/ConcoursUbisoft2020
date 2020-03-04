@@ -25,7 +25,7 @@ public class TutorialP2 : Tutorial
         }
     }
 
-    public override void ActivateTutorial()
+    public override void ActivateTutorialPuzzle1()
     {
         abilityTutorialText.gameObject.SetActive(true);
         telekinesisScript.enabled = true;

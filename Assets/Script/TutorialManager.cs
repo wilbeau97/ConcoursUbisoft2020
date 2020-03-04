@@ -13,13 +13,13 @@ public class TutorialManager : MonoBehaviour
         {
             if (other.gameObject.GetPhotonView().isMine)
             {
-                other.gameObject.GetComponent<Tutorial>().ActivateTutorial();
+                other.gameObject.GetComponent<Tutorial>().ActivateTutorialPuzzle1();
                 isActivated = true;
             }
 
             if (!PhotonNetwork.connected)
             {
-                other.gameObject.GetComponent<Tutorial>().ActivateTutorial();
+                other.gameObject.GetComponent<Tutorial>().ActivateTutorialPuzzle1();
                 isActivated = true;
             }
         }
