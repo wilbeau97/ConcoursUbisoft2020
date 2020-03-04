@@ -9,13 +9,11 @@ namespace Prefab.Puzzle4
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("IsPressed");
             Pressed();
         }
     
         public void OnTriggerExit(Collider other)
         {
-            Debug.Log("leave");
             Pressed();
         }
 

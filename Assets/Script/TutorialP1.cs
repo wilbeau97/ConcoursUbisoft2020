@@ -7,7 +7,8 @@ public class TutorialP1 : Tutorial
 {
     [SerializeField] private MonoBehaviour jumpScript;
     [SerializeField] private Text abilityTutorialText;
-    
+    private bool canDeactivate = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class TutorialP1 : Tutorial
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && canDeactivate)
         {
             DesactivateTutorial();
         }
@@ -28,6 +29,7 @@ public class TutorialP1 : Tutorial
     {
         abilityTutorialText.gameObject.SetActive(true);
         jumpScript.enabled = true;
+        canDeactivate = true;
         abilityTutorialText.text =
             "Appuyez sur A pour utilisé votre double saut pour atteindre la plaque sur la roche";
     }
