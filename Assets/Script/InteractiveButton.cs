@@ -29,13 +29,24 @@ public class InteractiveButton : MonoBehaviour
         {
             canInteract = true;
             other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
-            
+
+        }
+
+        if (other.CompareTag("Player1") && !PhotonNetwork.connected)
+        {
+            canInteract = true;
+            other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player1") && other.gameObject.GetPhotonView().isMine)
+        {
+            canInteract = false;
+            other.gameObject.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
+        }
+        if (other.CompareTag("Player1") && !PhotonNetwork.connected)
         {
             canInteract = false;
             other.gameObject.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
