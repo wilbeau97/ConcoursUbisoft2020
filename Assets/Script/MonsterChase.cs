@@ -199,12 +199,14 @@ public class MonsterChase : MonoBehaviour
         {
             player1InRange = false;
             player1LineOfSight = false;
+            chargePlayer = false;
             collidedPlayer = false;
         }
         else if (other.gameObject.CompareTag("Player2"))
         {
             player2InRange = false;
             player2LineOfSight = false;
+            chargePlayer = false;
             collidedPlayer = false;
         }
     }
@@ -226,6 +228,19 @@ public class MonsterChase : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;
+        }
+    }
+    
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(chargePlayer);
+            stream.SendNext(collidedPlayer);
+        } else if (stream.isReading)
+        {
+            chargePlayer = (bool) stream.ReceiveNext();
+            collidedPlayer = (bool) stream.ReceiveNext();
         }
     }
 }
