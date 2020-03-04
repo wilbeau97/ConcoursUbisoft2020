@@ -43,7 +43,6 @@ public class Jump : MonoBehaviour
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
-                Debug.Log("1");
                 rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 nbJump++;
             }
@@ -57,7 +56,6 @@ public class Jump : MonoBehaviour
             //dans les air
             if (nbJump <= 1 && Input.GetButtonDown("Jump") && canDoubleJump)
             {
-                Debug.Log("2");
                 jumpForce = new Vector3(0, jumpForceY, 0);
                 rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 nbJump = 2;
