@@ -5,27 +5,40 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
+    [SerializeField] private PhysicMaterial physicsMaterial;
+    private Collider playerCollider;
     private float jumpForceY = 7f;
     public float height = 1.01f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
-    private static bool canDoubleJump = false;
+    [SerializeField] private static bool canDoubleJump = true;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, height); //1.01
+        RaycastHit hit;
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up,out hit, height); //1.01
+       
         Vector3 jumpForce = Vector3.zero;
 
         if (isGrounded)
         {
+            if (hit.collider.CompareTag("Jumpable"))
+            {
+                playerCollider.material = null;
+            }
+            else
+            {
+                playerCollider.material = physicsMaterial;
+            }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
             {
