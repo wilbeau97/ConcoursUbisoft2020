@@ -6,25 +6,28 @@ using UnityEngine;
 public class TelekinesisAbility :  Ability
 {
    private static float MAX_HEIGHT = 3.8F;
-    private static float TOLERENCE = 0.1F;
+   private static float TOLERENCE = 0.1F;
     
-    private bool isInteractable = false;
-    [SerializeField] private LayerMask mask;
-    private GameObject objectToMove;
-    private float angleZ;
-    private Vector3 playerPosition;
-    private bool isPressed;
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
+    [SerializeField] private LayerMask mask;
+    private bool isInteractable = false;
+    private bool isPressed;
+    private bool alreadyParent = false;
+    private float angleZ;
+    private float sensitivity = 3f;
+    private static bool canRotate = false;
+    private GameObject objectToMove;
+    private Vector3 playerPosition;
+    private Collider playerCollider;
     private PlayerNetwork playerNetwork;
     private PhotonView view;
-    private bool alreadyParent = false;
-    private float sensitivity = 3f;
 
     private void Start()
     {
         playerNetwork = GetComponent<PlayerNetwork>();
         view = GetComponent<PhotonView>();
+        playerCollider = transform.gameObject.GetComponent<Collider>();
     }
 
     void FixedUpdate()
@@ -34,7 +37,7 @@ public class TelekinesisAbility :  Ability
         {
             float rotationY = 0;
             float rotationX = 0;
-            if (Input.GetAxis("TelekinesisRotate") != 0)
+            if (Input.GetAxis("TelekinesisRotate") != 0 && canRotate)
             {
                 rotationY = -Input.GetAxis("Mouse X") * sensitivity;
                 rotationX = -Input.GetAxis("Mouse Y") * sensitivity;
@@ -83,11 +86,11 @@ public class TelekinesisAbility :  Ability
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject"))
             {
-                view = GetComponent<PhotonView>();
+                //view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
                 
-                Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>());
+                Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), playerCollider);
                 
                 if (isPressed)
                 {
@@ -165,5 +168,10 @@ public class TelekinesisAbility :  Ability
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
         view.RPC("DeparentObject", PhotonTargets.All);
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
+    }
+
+    public override void IncreaseAbility()
+    {
+        canRotate = true;
     }
 }

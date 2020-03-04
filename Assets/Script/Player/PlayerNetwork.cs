@@ -59,4 +59,9 @@ public class PlayerNetwork : MonoBehaviour
              }
          }
      }
+
+    public void EndedPuzzle()
+    {
+        GetComponent<Ability>().IncreaseAbility();
+    }
 }

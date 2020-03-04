@@ -32,7 +32,7 @@ public class MonsterChase : MonoBehaviour
     private float elapsedTime = 0;
     private GameObject playerOne;
     private GameObject playerTwo;
-
+    private PhotonView view;
     private MeshRenderer mesh;
 
     private bool player1InRange = false;
@@ -52,8 +52,8 @@ public class MonsterChase : MonoBehaviour
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
-        
-        gameObject.GetPhotonView().RPC("InitPlayer", PhotonTargets.All);
+        view = gameObject.GetPhotonView();
+        view.RPC("InitPlayer", PhotonTargets.All);
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
@@ -82,7 +82,7 @@ public class MonsterChase : MonoBehaviour
         // Fonction qui compare les distances des 2 joueurs par rapport au monstre
         if ((player1InRange || player2InRange) && !collidedPlayer)
         {
-            gameObject.GetPhotonView().RPC("CheckForChargeOpportunity", PhotonTargets.All);
+            view.RPC("CheckForChargeOpportunity", PhotonTargets.All);
         }
     }
 
