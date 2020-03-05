@@ -17,7 +17,7 @@ namespace Script.UI
 
         public void UpdateSprite()
         {
-            if (nbPiece != sprites.Length)
+            if (nbPiece != sprites.Length-1)
             {
                 nbPiece++;
             }
