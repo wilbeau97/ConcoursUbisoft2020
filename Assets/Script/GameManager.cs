@@ -57,9 +57,8 @@ public class GameManager : MonoBehaviour
         if (nbOfPuzzleSuceeed == 0)
         {
             player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
-            player.GetComponentInChildren<PlayerHUD>().FadeIn();
+            player.GetComponentInChildren<PlayerHUD>().FadeOut();
             StartCoroutine(WaitForAnimation());
-            //Afficher au moins 5 secondes le concept art
         }
         doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
         nbOfPuzzleSuceeed += 1;
@@ -67,9 +66,9 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator WaitForAnimation()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
         player.GetComponent<TeleporteInGame>().TpInGame();
         player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
-        yield return new WaitForSeconds(0.7f);
+        player.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 }
