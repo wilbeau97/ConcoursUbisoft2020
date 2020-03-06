@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,7 @@ public class TutorialP1 : Tutorial
         {
             jumpUpgradeText.gameObject.SetActive(true);
             yield return new WaitForSeconds(5);
+            disableDoubleJumpText();
         }
     }
 
