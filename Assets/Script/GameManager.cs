@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
     private int nbOfPuzzleSuceeed = 0;
+    private GameObject player;
     private void Awake()
     {
         if (PhotonNetwork.connected)
@@ -55,12 +56,20 @@ public class GameManager : MonoBehaviour
     {
         if (nbOfPuzzleSuceeed == 0)
         {
-            GameObject player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
-            player.GetComponent<TeleporteInGame>().TpInGame();
-            player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
+            player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
+            player.GetComponentInChildren<PlayerHUD>().FadeIn();
+            StartCoroutine(WaitForAnimation());
             //Afficher au moins 5 secondes le concept art
         }
         doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
         nbOfPuzzleSuceeed += 1;
+    }
+    
+    private IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(0.3f);
+        player.GetComponent<TeleporteInGame>().TpInGame();
+        player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
+        yield return new WaitForSeconds(0.7f);
     }
 }

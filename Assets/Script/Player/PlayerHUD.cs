@@ -6,15 +6,17 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
-    private Text ObjectviveText;
     [SerializeField] private Text InteractableHintText;
     [SerializeField] private GameObject aim;
     [SerializeField] private GameObject tuto;
     [SerializeField] private GameObject tutorialConceptArt;
+    [SerializeField] private GameObject canDeactivateText;
     [SerializeField] private Text tutorialText;
+    [SerializeField] private Animator fadeAnimator;
+    private Text ObjectviveText;
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerHUD : MonoBehaviour
         tutorialText.gameObject.SetActive(false);
         aim.SetActive(false);
         tutorialConceptArt.SetActive(false);
+        canDeactivateText.SetActive(false);
     }
 
     private void Update()
@@ -46,6 +49,7 @@ public class PlayerHUD : MonoBehaviour
     private void DeactivateConceptArt()
     {
        tutorialConceptArt.SetActive(false);
+       canDeactivateText.SetActive(false);
     }
     
     public void ActivateConceptArt()
@@ -58,6 +62,7 @@ public class PlayerHUD : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         //show can desactivate
+        canDeactivateText.SetActive(true);
         canDeactivateConceptArt = true;
     }
     public void ShowInteractableHint()
@@ -94,5 +99,16 @@ public class PlayerHUD : MonoBehaviour
     public void DeactivateAbilityText()
     {
         tutorialText.gameObject.SetActive(false);
+    }
+
+    public void FadeIn()
+    {
+        fadeAnimator.SetTrigger("FadeIn");
+    }
+
+    public void FadeOut()
+    {
+        fadeAnimator.SetTrigger("FadeOut");
+        
     }
 }

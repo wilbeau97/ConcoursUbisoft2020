@@ -73,7 +73,7 @@ public class PlayerChoiceMenu : MonoBehaviour
         player1Selected = true;
         player1Button.interactable = false;
         menuManager.ActivatedButtonPlayer2();
-        view.RPC("IsReady", PhotonTargets.All);
+        IsReady();
     }
     
     [PunRPC]
@@ -82,7 +82,7 @@ public class PlayerChoiceMenu : MonoBehaviour
         player2Selected = true;
         player2Button.interactable = false;
         menuManager.ActivatedButtonPlayer1();
-        view.RPC("IsReady", PhotonTargets.All);
+        IsReady();
     }
 
     public void Ready()
