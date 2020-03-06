@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerHUD hud;
     private float speed = 10f;
     private bool dontMoveCam = false;
+    private FlashAura aura;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
         cam = GetComponent<CameraController>();
         ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
+        aura = GetComponentInChildren<FlashAura>();
     }
 
     // Update is called once per frame
@@ -34,7 +36,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 velocity = (movementHorizontal + movementVerticaltal).normalized * speed;
 
-
+        if (!Vector3.Equals(velocity, Vector3.zero))
+        {
+            aura.isMoving = true;
+        }
+        else
+        {
+            aura.isMoving = false;
+        }
+        
         float rotationY = Input.GetAxis("Mouse X");
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
 
@@ -45,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             dontMoveCam = true;
         }
-
+        
         if (Input.GetAxis("TelekinesisMove") != 0)
         {
             ability.Pressed();
