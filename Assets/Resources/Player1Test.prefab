@@ -597,6 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpScript: {fileID: -5623593994746726929}
   abilityTutorialText: {fileID: 5324160537847828979}
+  jumpUpgradeText: {fileID: 4904843031778204240}
 --- !u!114 &3674932572957398100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,9 +630,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1970677552643030839}
     m_Modifications:
+    - target: {fileID: 302709796269083449, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 413654962321508618, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1878529165701093709, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741932705216732558, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
@@ -770,6 +786,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8198049717426858399}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4904843031778204240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3878956112854692815, guid: 3ceb0eeeebf0945479561aac5609ea18,
+    type: 3}
+  m_PrefabInstance: {fileID: 8198049717426858399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1276926800306681976 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
