@@ -64,7 +64,7 @@ public class puzzle1Manager : MonoBehaviour
     {
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
-            other.gameObject.GetComponentInChildren<PlayerHUD>().FadeIn();
+            other.gameObject.GetComponentInChildren<PlayerHUD>().FadeOut();
             StartCoroutine("WaitForAnimation");
             playerToRespawn = other.transform;
         }
@@ -72,8 +72,8 @@ public class puzzle1Manager : MonoBehaviour
 
     private IEnumerator WaitForAnimation()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
         playerToRespawn.position = respawnPoint.position;
-        yield return new WaitForSeconds(0.7f);
+        playerToRespawn.gameObject.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 }
