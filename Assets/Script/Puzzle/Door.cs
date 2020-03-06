@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public bool isLastDoor;
+    public bool alreadyOpen;
     [SerializeField] private Transform door;
-    private bool open = false;
+    
 
     private Rigidbody _rigidbody;
     // Start is called before the first frame update
@@ -41,7 +43,8 @@ public class Door : MonoBehaviour
             door.position += new Vector3(0, 1, 0);
             yield return null;
         }
-        
+
+        alreadyOpen = true;
         _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
     
@@ -51,16 +54,5 @@ public class Door : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         yield return null;
-    }
-    
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(open);
-        } else if (stream.isReading)
-        {
-            open = (bool) stream.ReceiveNext();
-        }
     }
 }

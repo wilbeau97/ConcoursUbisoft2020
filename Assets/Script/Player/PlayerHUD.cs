@@ -10,16 +10,18 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Text InteractableHintText;
     [SerializeField] private GameObject aim;
     [SerializeField] private GameObject tuto;
-    private bool isDesactivated = false;
-
+    [SerializeField] private GameObject tutorialConceptArt;
     [SerializeField] private Text tutorialText;
-
+    private bool isDesactivated = false;
+    private bool canDeactivateConceptArt = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         InteractableHintText.gameObject.SetActive(false);
         tutorialText.gameObject.SetActive(false);
         aim.SetActive(false);
+        tutorialConceptArt.SetActive(false);
     }
 
     private void Update()
@@ -31,8 +33,33 @@ public class PlayerHUD : MonoBehaviour
                 DeactivateTuto();
             }
         }
+
+        if (canDeactivateConceptArt)
+        {
+            if (Input.GetButtonDown("Start"))
+            {
+                DeactivateConceptArt();
+            }
+        }
     }
 
+    private void DeactivateConceptArt()
+    {
+       tutorialConceptArt.SetActive(false);
+    }
+    
+    public void ActivateConceptArt()
+    {
+        tutorialConceptArt.SetActive(true);
+        StartCoroutine("ShowConceptArt");
+    }
+
+    private IEnumerator ShowConceptArt()
+    {
+        yield return new WaitForSeconds(3f);
+        //show can desactivate
+        canDeactivateConceptArt = true;
+    }
     public void ShowInteractableHint()
     {
         InteractableHintText.gameObject.SetActive(true);
