@@ -9,37 +9,51 @@ public class FlashAura : MonoBehaviour
     private Material mat;
 
     private bool startedFlashing = false;
-    
+
+    private float alpha = 0.0f;
+    private GameObject parent;
+
     // Start is called before the first frame update
     void Start()
     {
-        mat = GetComponent<Material>();
+        mat = GetComponent<MeshRenderer>().material;
+        parent = transform.parent.gameObject;
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
 
-        if (elapsedTime >= 2)
+        if ()
         {
-            startedFlashing = true;
+            elapsedTime = 0;
+            StopFlashing();
         }
-    }
-    
-    public void StartFlashing()
-    {
+
         if (!startedFlashing)
         {
-            startedFlashing = true;
-            StartCoroutine("StartFlashObject");
+            if (elapsedTime > 2.0f && !parent.GetPhotonView().isMine)
+            {
+                StartFlashing();
+            }
         }
+        else
+        {
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, alpha);
+        }
+    }
+
+    public void StartFlashing()
+    {
+        startedFlashing = true;
+        StartCoroutine("StartFlashObject");
     }
 
     public void StopFlashing()
     {
         startedFlashing = false;
         StopCoroutine("StartFlashObject");
-        
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.0f);
     }
 
     private IEnumerator StartFlashObject()
@@ -47,7 +61,7 @@ public class FlashAura : MonoBehaviour
         while (startedFlashing)
         {
             yield return new WaitForSeconds(Random.Range(0.01f, 0.75f));
-            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, Random.Range(0.0f, 0.150f) * 100);
+            alpha = Random.Range(0.0f, 0.150f);
         }
     }
 }
