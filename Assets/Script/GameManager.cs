@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPointNotconnected;
 
     [SerializeField] private BigTree tree;
-    [SerializeField] private PhotonView[] doorViews;
+    [SerializeField] private Door[] doorViews;
     private int nbOfPuzzleSuceeed = 0;
     private void Awake()
     {
@@ -53,7 +53,14 @@ public class GameManager : MonoBehaviour
 
     private void OpenNextDoor()
     {
-        doorViews[nbOfPuzzleSuceeed].RPC("OpenDoorRPC", PhotonTargets.All);
+        if (nbOfPuzzleSuceeed == 0)
+        {
+            GameObject player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
+            player.GetComponent<TeleporteInGame>().TpInGame();
+            player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
+            //Afficher au moins 5 secondes le concept art
+        }
+        doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
         nbOfPuzzleSuceeed += 1;
     }
 }

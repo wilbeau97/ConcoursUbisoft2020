@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8326920161354019473}
   - component: {fileID: 5178209016381729230}
   - component: {fileID: 6662277367124601484}
+  - component: {fileID: 5476557453278675902}
   m_Layer: 0
   m_Name: Player2Test
   m_TagString: Player2
@@ -34,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4094253302079792955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 576.95197, y: 281.1152, z: -150.75}
+  m_LocalPosition: {x: 1.8, y: 1, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 252407718186736144}
@@ -268,6 +269,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   telekinesisScript: {fileID: 5178209016381729230}
   abilityTutorialText: {fileID: 6618886960833393563}
+--- !u!114 &5476557453278675902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094253302079792955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ada6cd33e05e04a82944fa89ad1df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportationPoint: {fileID: 5579907496309668448, guid: 4a041f021e2201d4a9025ea551c6581b,
+    type: 3}
 --- !u!1 &4763896581403549104
 GameObject:
   m_ObjectHideFlags: 0
