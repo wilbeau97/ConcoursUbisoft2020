@@ -5,26 +5,29 @@ using UnityEngine;
 public class FlashAura : MonoBehaviour
 {
     public float elapsedTime = 0.0f;
+
+    public bool isMoving = false;
     
     private Material mat;
 
     private bool startedFlashing = false;
 
     private float alpha = 0.0f;
-    private GameObject parent;
+    private PhotonView parent;
 
     // Start is called before the first frame update
     void Start()
     {
         mat = GetComponent<MeshRenderer>().material;
-        parent = transform.parent.gameObject;
+        parent = transform.parent.gameObject.GetPhotonView();
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
 
-        if ()
+        // Si joueur bouge
+        if (true)
         {
             elapsedTime = 0;
             StopFlashing();
@@ -32,7 +35,7 @@ public class FlashAura : MonoBehaviour
 
         if (!startedFlashing)
         {
-            if (elapsedTime > 2.0f && !parent.GetPhotonView().isMine)
+            if (elapsedTime > 2.0f && parent.isMine)
             {
                 StartFlashing();
             }
@@ -62,6 +65,17 @@ public class FlashAura : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(0.01f, 0.75f));
             alpha = Random.Range(0.0f, 0.150f);
+        }
+    }
+    
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(isMoving);
+        } else if (stream.isReading)
+        {
+            isMoving = (bool) stream.ReceiveNext();
         }
     }
 }
