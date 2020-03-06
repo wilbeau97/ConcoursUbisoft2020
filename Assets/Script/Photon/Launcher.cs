@@ -26,7 +26,7 @@ public class Launcher: Photon.MonoBehaviour
         Debug.Log("Join lobby");
         RoomOptions room = new RoomOptions();
         room.maxPlayers = 2;
-        PhotonNetwork.JoinOrCreateRoom("testvcj", room, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom("testjp", room, TypedLobby.Default);
     }
 
     public virtual void OnJoinedRoom()

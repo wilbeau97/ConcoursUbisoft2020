@@ -309,6 +309,8 @@ GameObject:
   - component: {fileID: 323374543691643423}
   - component: {fileID: 7326258474159735832}
   - component: {fileID: 9095445282741320337}
+  - component: {fileID: 8248041697561140860}
+  - component: {fileID: 449289962193018509}
   m_Layer: 5
   m_Name: HUD Background
   m_TagString: Untagged
@@ -373,6 +375,56 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8248041697561140860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922271006926516305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad436324bd9ffb347b4c7d688e6dcad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeImage: {fileID: 5502250576637762380}
+  energyImage: {fileID: 1299549625618951634}
+  sprites:
+  - {fileID: 21300000, guid: 4a831eb5bb840ed49948a611a4e54f59, type: 3}
+  - {fileID: 21300000, guid: 1491ca670cb05654d80f4dd85e5341eb, type: 3}
+  - {fileID: 21300000, guid: 8b90d3e21d6d35f4e9bb2e315b821d2e, type: 3}
+  - {fileID: 21300000, guid: 53d4e0d7118401e40893fda23dcc4baf, type: 3}
+  - {fileID: 21300000, guid: e342d943e4def7046b1f9e4cf0254cce, type: 3}
+  - {fileID: 21300000, guid: ad12ba2572787f34cb8560aac7aa2c56, type: 3}
+  nbPiece: 0
+--- !u!114 &449289962193018509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922271006926516305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 8248041697561140860}
+  - {fileID: 1299549625618951634}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &5210682364318396486
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +707,6 @@ GameObject:
   - component: {fileID: 2336154652738794853}
   - component: {fileID: 3084394471976045657}
   - component: {fileID: 5502250576637762380}
-  - component: {fileID: 640940646513081374}
   m_Layer: 5
   m_Name: Life
   m_TagString: Untagged
@@ -718,26 +769,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &640940646513081374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274258837777537158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb9342fa526ddf042be2cf639518fc2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 4a831eb5bb840ed49948a611a4e54f59, type: 3}
-  - {fileID: 21300000, guid: 1491ca670cb05654d80f4dd85e5341eb, type: 3}
-  - {fileID: 21300000, guid: 8b90d3e21d6d35f4e9bb2e315b821d2e, type: 3}
-  - {fileID: 21300000, guid: 53d4e0d7118401e40893fda23dcc4baf, type: 3}
-  - {fileID: 21300000, guid: e342d943e4def7046b1f9e4cf0254cce, type: 3}
-  - {fileID: 21300000, guid: ad12ba2572787f34cb8560aac7aa2c56, type: 3}
-  nbPiece: 0
 --- !u!1 &8388494300580453829
 GameObject:
   m_ObjectHideFlags: 0
