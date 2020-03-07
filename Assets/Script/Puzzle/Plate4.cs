@@ -9,10 +9,9 @@ public class Plate4 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        //if (!puzzle1ManagerView.isMine) return;
+        if (!puzzle1ManagerView.isMine) return;
         if (other.CompareTag("Player2") || other.CompareTag("Player1") || other.CompareTag("InteractablePhysicsObject")) 
         {
-            Debug.Log("IsPressed");
             puzzle1ManagerView.RPC("RotateBridgeToPass", PhotonTargets.All);
         }
     }
@@ -22,7 +21,6 @@ public class Plate4 : MonoBehaviour
         if (!puzzle1ManagerView.isMine) return;
         if (other.CompareTag("Player2") || other.CompareTag("Player1") || other.CompareTag("InteractablePhysicsObject")) 
         {
-            Debug.Log("leave");
             puzzle1ManagerView.RPC("RotateBridgeToBlock", PhotonTargets.All);
         }
     }

@@ -31,19 +31,16 @@ public class HideObjects : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(this.transform.position, (player.position - this.transform.position),
-            Color.magenta);
-
         hits = Physics.RaycastAll(this.transform.position,
             (player.position - this.transform.position),
             Vector3.Distance(this.transform.position, player.position), mask);
 
         foreach (RaycastHit hit in hits)
         {
-            Renderer r = hit.collider.GetComponent<Renderer>();
-            if (r)
+            Renderer renderer = hit.collider.GetComponent<Renderer>();
+            if (renderer)
             {
-                r.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+                renderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
             }
         }
     }
