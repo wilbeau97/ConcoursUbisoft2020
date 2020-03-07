@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashAura : MonoBehaviour
+public class FlashAura : MonoBehaviour, IPunObservable
 {
     public float elapsedTime = 0.0f;
 
-    public bool isMoving = false;
-    
     private Material mat;
 
     private bool startedFlashing = false;
@@ -20,22 +18,16 @@ public class FlashAura : MonoBehaviour
     {
         mat = GetComponent<MeshRenderer>().material;
         parent = transform.parent.gameObject.GetPhotonView();
+        if (parent) parent.ObservedComponents.Add(this);
     }
 
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-
-        // Si joueur bouge
-        if (true)
+        if (parent.isMine)
         {
-            elapsedTime = 0;
-            StopFlashing();
-        }
+            elapsedTime += Time.deltaTime;
 
-        if (!startedFlashing)
-        {
-            if (elapsedTime > 2.0f && parent.isMine)
+            if (elapsedTime > 2.0f && !startedFlashing)
             {
                 StartFlashing();
             }
@@ -56,7 +48,7 @@ public class FlashAura : MonoBehaviour
     {
         startedFlashing = false;
         StopCoroutine("StartFlashObject");
-        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.0f);
+        alpha = 0;
     }
 
     private IEnumerator StartFlashObject()
@@ -72,10 +64,10 @@ public class FlashAura : MonoBehaviour
     {
         if (stream.isWriting)
         {
-            stream.SendNext(isMoving);
+            stream.SendNext(alpha);
         } else if (stream.isReading)
         {
-            isMoving = (bool) stream.ReceiveNext();
+            alpha = (float) stream.ReceiveNext();
         }
     }
 }
