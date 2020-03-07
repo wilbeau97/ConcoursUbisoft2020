@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -36,15 +37,12 @@ public class PlayerController : MonoBehaviour
 
         Vector3 velocity = (movementHorizontal + movementVerticaltal).normalized * speed;
 
-        if (!Vector3.Equals(velocity, Vector3.zero))
+        if (Vector3.Distance(velocity, Vector3.zero) > 0.01f && gameObject.GetPhotonView().isMine)
         {
-            aura.isMoving = true;
+            aura.elapsedTime = 0;
+            aura.StopFlashing();
         }
-        else
-        {
-            aura.isMoving = false;
-        }
-        
+
         float rotationY = Input.GetAxis("Mouse X");
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
 
