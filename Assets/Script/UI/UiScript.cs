@@ -14,7 +14,7 @@ namespace Script.UI
         public int nbPiece = 0;
         public static UiScript Instance;
         private static PhotonView _photonView;
-        private bool _restoreEnergy = true;
+        private Coroutine _coroutine;
 
 
         public void Awake()
@@ -28,43 +28,51 @@ namespace Script.UI
 
         public void UpdateLife()
         {
-            if (nbPiece != sprites.Length-1)
-            {
-                nbPiece++;
-            }
-            lifeImage.sprite = sprites[nbPiece];
+            _photonView.RPC("RoutineGainLife",PhotonTargets.All);
         }
         
         public void UpdateEnergy()
         {
             _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All);
-            //energyImage.fillAmount -= 0.01f;
         }
         
         [PunRPC]
         public void RoutineSpendEnergy()
         {
-            //Instance._restoreEnergy = !Instance._restoreEnergy;
+            if (Instance._coroutine != null)
+            {
+                StopCoroutine(Instance._coroutine);
+            }
             Instance.energyImage.fillAmount -= 0.01f;
-            Debug.LogWarning("test");
+            Instance._coroutine = StartCoroutine(RoutineEnergy());
+        }
+        
+        [PunRPC]
+        public void RoutineGainLife()
+        {
+            if (Instance.nbPiece != Instance.sprites.Length-1)
+            {
+                Instance.nbPiece++;
+            }
         }
 
         private IEnumerator RoutineEnergy()
         {
-            
-            yield return null;
+            yield return new WaitForSeconds(3);
+            while (true)
+            {
+                Instance.energyImage.fillAmount += 0.01f;
+                yield return null;
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            Instance.lifeImage.sprite = Instance.sprites[nbPiece];
         }
 
         public void Update()
         {
-            if (Instance._restoreEnergy)
-            {
-                //energyImage.fillAmount += 0.01f;    
-            }
-            else
-            {
-                //energyImage.fillAmount -= 0.01f;
-            }
             if (Input.GetKeyDown("k"))
             {
                 UpdateLife();
