@@ -10,6 +10,7 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] private GameObject playerGraphics;
     [SerializeField] private MonoBehaviour[] playerControlScript;
     [SerializeField] private GameObject playerUI;
+
     private PhotonView photonView;
     // Start is called before the first frame update
     void Start()
