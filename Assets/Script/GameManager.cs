@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         {
             if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
             {
+                //look for player here
                  PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
                     Quaternion.identity, 0);
             }
