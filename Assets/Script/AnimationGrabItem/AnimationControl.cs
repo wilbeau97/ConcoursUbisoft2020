@@ -22,10 +22,4 @@ public class AnimationControl : MonoBehaviour
     {
         animator.SetTrigger(triggerName);
     }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        //UiScript.Instance.UpdateLife();
-        //UiScript.Instance.UpdateEnergy();
-    }
 }
