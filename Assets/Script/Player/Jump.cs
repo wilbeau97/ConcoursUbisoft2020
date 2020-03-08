@@ -11,11 +11,14 @@ public class Jump : MonoBehaviour
     private int nbJump = 0;
     private Rigidbody rb;
     private static bool canDoubleJump = true;
+    private Collider playerCollider;
+    [SerializeField] private PhysicMaterial slideMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -25,8 +28,18 @@ public class Jump : MonoBehaviour
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
         Vector3 jumpForce = Vector3.zero;
 
+       
+
         if (isGrounded)
         {
+            if (hit.collider.CompareTag("Jumpable"))
+            {
+                playerCollider.material = null;
+            }
+            else
+            {
+                playerCollider.material = slideMaterial;
+            }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
             {
@@ -61,5 +74,10 @@ public class Jump : MonoBehaviour
     public void IncreaseJumpForce()
     {
         jumpForceY = 8f;
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        playerCollider.material = slideMaterial;
     }
 }
