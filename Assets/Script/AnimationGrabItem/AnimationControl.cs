@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Script.UI;
 using UnityEngine;
 
 public class AnimationControl : MonoBehaviour
