@@ -10,7 +10,6 @@ public class Door : MonoBehaviour
     [SerializeField] private float maxOpeningHeight = 20;
     [SerializeField] private bool releaseRigidBody = true;
     [SerializeField] private float openingSpeed = 1;
-    private bool open = false;
     private float initialPositionY;
     
 
@@ -27,21 +26,17 @@ public class Door : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     [PunRPC]
     public void OpenDoorRPC()
     {
         StartCoroutine(OpenDoor());
+        alreadyOpen = true;
     }
 
     [PunRPC]
     public void CloseDoorRPC()
     {
+        StopCoroutine(OpenDoor());
         StartCoroutine(CloseDoor());
     }
     
@@ -60,7 +55,6 @@ public class Door : MonoBehaviour
     
     public IEnumerator CloseDoor()
     {
-        StopCoroutine(OpenDoor());
         if (releaseRigidBody) {
             _rigidbody.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         } 
