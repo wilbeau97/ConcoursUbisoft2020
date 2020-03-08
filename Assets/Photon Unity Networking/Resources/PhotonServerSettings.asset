@@ -24,8 +24,8 @@ MonoBehaviour:
   VoiceServerPort: 5055
   JoinLobby: 1
   EnableLobbyStatistics: 0
-  PunLogging: 2
-  NetworkLogging: 5
+  PunLogging: 0
+  NetworkLogging: 1
   RunInBackground: 1
   RpcList:
   - Chat
@@ -65,4 +65,9 @@ MonoBehaviour:
   - StateChange
   - MoveDiamondPun
   - EndedPuzzle
+  - UpdateEnergy
+  - RoutineEnergy
+  - RoutineSpendEnergy
+  - RoutineGainLife
+  - RestoreEnergyPunRpc
   DisableAutoOpenWizard: 1
