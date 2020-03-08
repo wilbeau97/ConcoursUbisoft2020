@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         player.GetComponent<TeleporteInGame>().TpInGame();
         player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
-        GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().Test();
+        GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().DesactivateGraphicsOtherPlayer();
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 }
