@@ -15,6 +15,7 @@ namespace Script.UI
         public static UiScript Instance;
         private static PhotonView _photonView;
         private Coroutine _coroutine;
+        private bool _restoreEnergy = true;
 
 
         public void Awake()
@@ -39,6 +40,7 @@ namespace Script.UI
         [PunRPC]
         public void RoutineSpendEnergy()
         {
+            Instance._restoreEnergy = false;
             if (Instance._coroutine != null)
             {
                 StopCoroutine(Instance._coroutine);
@@ -59,16 +61,22 @@ namespace Script.UI
         private IEnumerator RoutineEnergy()
         {
             yield return new WaitForSeconds(3);
-            while (true)
-            {
-                Instance.energyImage.fillAmount += 0.01f;
-                yield return null;
-            }
+            _photonView.RPC("RestoreEnergyPunRpc",PhotonTargets.All);
+        }
+
+        [PunRPC]
+        public void RestoreEnergyPunRpc()
+        {
+            Instance._restoreEnergy = true;
         }
 
         public void FixedUpdate()
         {
             Instance.lifeImage.sprite = Instance.sprites[nbPiece];
+            if (Instance._restoreEnergy)
+            {
+                Instance.energyImage.fillAmount += 0.01f;
+            }
         }
 
         public void Update()
@@ -78,7 +86,7 @@ namespace Script.UI
                 UpdateLife();
             }
             
-            if (Input.GetKeyDown("l"))
+            if (Input.GetKey("l"))
             {
                 UpdateEnergy();
             }
