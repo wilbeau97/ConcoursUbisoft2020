@@ -17,6 +17,11 @@ public class ExitPuzzleArea : Photon.MonoBehaviour
             gm.RPC("EndedPuzzle", PhotonTargets.All);
             alreadyTrigger = true;
         }
+
+        if (other.CompareTag("Player1"))
+        {
+            other.GetComponent<TutorialP1>().activateDoubleJumpText();
+        }
     }
     
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

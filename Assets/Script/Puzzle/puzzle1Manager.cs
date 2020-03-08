@@ -8,8 +8,9 @@ public class puzzle1Manager : MonoBehaviour
     [SerializeField] private GameObject bridge;
     [SerializeField] private PhotonView doorView;
     [SerializeField] private Transform respawnPoint;
-    
 
+    private Transform playerToRespawn;
+    
     [PunRPC]
     public void RotateBridgeToPass()
     {
@@ -63,8 +64,16 @@ public class puzzle1Manager : MonoBehaviour
     {
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
-            //ajouter un fade, ici c'est le respawn du joueur
-            other.transform.position = respawnPoint.position;
+            other.gameObject.GetComponentInChildren<PlayerHUD>().FadeOut();
+            StartCoroutine("WaitForAnimation");
+            playerToRespawn = other.transform;
         }
+    }
+
+    private IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(1f);
+        playerToRespawn.position = respawnPoint.position;
+        playerToRespawn.gameObject.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 }
