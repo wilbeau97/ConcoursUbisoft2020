@@ -43,7 +43,7 @@ namespace Prefab.MazeEnterArea
         {
             if (other.CompareTag("Player1") || other.CompareTag("Player2"))
             {
-                textArea.text = objectif;
+                //textArea.text = objectif;
                 nbPlayerInPuzzle++;
                 if (nbPlayerInPuzzle == 2)
                 {
