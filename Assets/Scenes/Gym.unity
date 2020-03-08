@@ -4014,6 +4014,11 @@ PrefabInstance:
       propertyPath: instantiationId
       value: 26
       objectReference: {fileID: 0}
+    - target: {fileID: 1336510157212475519, guid: a2609f0c2ba7671488407bb7b7872029,
+        type: 3}
+      propertyPath: puzzleEnterDoorView
+      value: 
+      objectReference: {fileID: 445521543910599861}
     - target: {fileID: 2825706786995532316, guid: a2609f0c2ba7671488407bb7b7872029,
         type: 3}
       propertyPath: viewIdField
@@ -4066,6 +4071,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &445521543910599861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2825706786995532316, guid: a2609f0c2ba7671488407bb7b7872029,
+    type: 3}
+  m_PrefabInstance: {fileID: 445521543910599859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8611164440489147890
