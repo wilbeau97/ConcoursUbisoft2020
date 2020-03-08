@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Door[] doorViews;
     private int nbOfPuzzleSuceeed = 0;
     private GameObject player;
+    private string notLocalPlayer;
     private void Awake()
     {
         if (PhotonNetwork.connected)
@@ -24,11 +25,13 @@ public class GameManager : MonoBehaviour
                 //look for player here
                  PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
                     Quaternion.identity, 0);
+                 notLocalPlayer = "Player2Test(Clone)";
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);
+                notLocalPlayer = "Player1Test(Clone)";
             }
         }
         else
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         player.GetComponent<TeleporteInGame>().TpInGame();
         player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
+        GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().Test();
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 }
