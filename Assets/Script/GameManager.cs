@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IPunObservable
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointP1;
@@ -64,8 +64,12 @@ public class GameManager : MonoBehaviour
             player.GetComponentInChildren<PlayerHUD>().FadeOut();
             StartCoroutine(WaitForAnimation());
         }
-        doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
-        nbOfPuzzleSuceeed += 1;
+
+        if (!doorViews[nbOfPuzzleSuceeed].alreadyOpen)
+        {
+            doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
+            nbOfPuzzleSuceeed += 1;
+        }
     }
     
     private IEnumerator WaitForAnimation()
@@ -75,5 +79,10 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
         GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().DesactivateGraphicsOtherPlayer();
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        
     }
 }

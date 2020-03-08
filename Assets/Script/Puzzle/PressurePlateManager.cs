@@ -75,7 +75,7 @@ public class PressurePlateManager : MonoBehaviour
         if (isUserConnected)
         {
             door.OpenDoorRPC();
-            if (door.isLastDoor && !door.alreadyOpen)
+            if (door.isLastDoor)
             {
                 gameManagerView.EndedPuzzle();
             }
