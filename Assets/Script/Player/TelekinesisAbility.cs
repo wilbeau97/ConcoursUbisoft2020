@@ -12,7 +12,7 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private float distance;
     [SerializeField] private LayerMask mask;
     [SerializeField] private bool canLiftHeavyObject = false; 
-    [SerializeField] private bool canRotate = false;
+    // [SerializeField] private bool canRotate = false;
     // Quand on call increase ability, on va vérifier si canRotate == true, sinon, on laisse canLiftHeavyobject a false
     // Sinon, si can rotate == true, on met canLiftHeavyObject à true
     // dans la fonction qui vérifier si on peut intéragir, on rajoute un check, que si canLiftHeavyObject, on va checker si l'objet est 
