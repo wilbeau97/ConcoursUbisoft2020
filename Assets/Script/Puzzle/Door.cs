@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public bool isLastDoor;
+    public bool alreadyOpen;
     [SerializeField] private Transform door;
     [SerializeField] private float maxOpeningHeight = 20;
     [SerializeField] private bool releaseRigidBody = true;
@@ -70,16 +72,5 @@ public class Door : MonoBehaviour
             }
         }
         yield return null;
-    }
-    
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(open);
-        } else if (stream.isReading)
-        {
-            open = (bool) stream.ReceiveNext();
-        }
     }
 }

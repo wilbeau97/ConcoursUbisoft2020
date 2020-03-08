@@ -28,8 +28,7 @@ public class PlayerNetwork : MonoBehaviour
             //Handle not local player
             if (!photonView.isMine)
             {
-                playerCamera.SetActive(false); 
-                DesactivateGraphicsOtherPlayer();
+                playerCamera.SetActive(false);
                 playerUI.SetActive(false);
                 foreach (MonoBehaviour script in playerControlScript)
                 {

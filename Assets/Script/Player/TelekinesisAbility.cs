@@ -23,6 +23,7 @@ public class TelekinesisAbility :  Ability
     private bool alreadyParent = false;
     private float angleZ;
     private float sensitivity = 3f;
+    private static bool canRotate = true;
     private GameObject objectToMove;
     private Vector3 playerPosition;
     private Collider playerCollider;

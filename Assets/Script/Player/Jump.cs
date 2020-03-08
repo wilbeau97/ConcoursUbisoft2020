@@ -6,11 +6,11 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     private float jumpForceY = 7f;
-    public float height = 1.01f;
+    public float height = 1.05f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
-    private static bool canDoubleJump = false;
+    private static bool canDoubleJump = true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,8 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, height); //1.01
+        RaycastHit hit;
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
         Vector3 jumpForce = Vector3.zero;
 
         if (isGrounded)
