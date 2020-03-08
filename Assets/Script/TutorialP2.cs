@@ -7,6 +7,7 @@ public class TutorialP2 : Tutorial
 {
     [SerializeField] private MonoBehaviour telekinesisScript;
     [SerializeField] private Text abilityTutorialText;
+    [SerializeField] private Text heavyUpgradeText;
     private bool canDeactivate = false;
 
     // Start is called before the first frame update
@@ -38,5 +39,21 @@ public class TutorialP2 : Tutorial
     {
         abilityTutorialText.gameObject.SetActive(false);
         this.enabled = false;
+    }
+
+    public void activateHeavyUpdateText()
+    {
+        StartCoroutine(CoroutineHeavyUpdateText());
+        IEnumerator CoroutineHeavyUpdateText()
+        {
+            heavyUpgradeText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(5);
+            disableHeavyUpdateText();
+        }
+    }
+
+    public void disableHeavyUpdateText()
+    {
+        disableHeavyUpdateText();
     }
 }
