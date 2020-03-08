@@ -34,7 +34,7 @@ public class TutorialP1 : Tutorial
         jumpScript.enabled = true;
         canDeactivate = true;
         abilityTutorialText.text =
-            "Appuyez sur A pour utilisé votre double saut pour atteindre la plaque sur la roche";
+            "Appuyez sur A pour sauté";
     }
     
     public override void DesactivateTutorial()
