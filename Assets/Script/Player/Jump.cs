@@ -69,4 +69,9 @@ public class Jump : MonoBehaviour
     {
         canDoubleJump = true;
     }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        playerCollider.material = slideMaterial;
+    }
 }
