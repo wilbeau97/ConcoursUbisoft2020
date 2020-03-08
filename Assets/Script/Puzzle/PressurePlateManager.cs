@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
 public class PressurePlateManager : MonoBehaviour
@@ -10,11 +11,14 @@ public class PressurePlateManager : MonoBehaviour
     [SerializeField] private bool isUserConnected= false;
     [SerializeField] private PhotonView doorView;
     [SerializeField] private bool AllPlateMustStayActivated = true;
+    [SerializeField] private GameManager gameManagerView;
     private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();
     private bool _doorActivated = false;
+    private Door door;
 
     private void Start()
     {
+        door = doorView.GetComponent<Door>();
         if (PhotonNetwork.connected)
         {
             isUserConnected = true;
@@ -70,7 +74,11 @@ public class PressurePlateManager : MonoBehaviour
     {
         if (isUserConnected)
         {
-            doorView.RPC("OpenDoorRPC", PhotonTargets.All);
+            door.OpenDoorRPC();
+            if (door.isLastDoor)
+            {
+                gameManagerView.EndedPuzzle();
+            }
         }
         else
         {

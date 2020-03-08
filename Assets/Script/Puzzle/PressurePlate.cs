@@ -50,8 +50,11 @@ public class PressurePlate : MonoBehaviour
     {
         if (isUserConnected)
         {
-            PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
+            if (PressurePlateManagerPhotonView.isMine)
+            {
+                PressurePlateManagerPhotonView.RPC("PressurePlateIsPressedRPC",
                 PhotonTargets.All, pressurePlateName);
+            }
         }
         else
         {

@@ -6,13 +6,14 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     [SerializeField] private PhysicMaterial physicsMaterial;
-    private Collider playerCollider;
     private float jumpForceY = 7f;
-    public float height = 1.01f;
+    public float height = 1.05f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
-    [SerializeField] private static bool canDoubleJump = true;
+    private static bool canDoubleJump = true;
+    private Collider playerCollider;
+    [SerializeField] private PhysicMaterial slideMaterial;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,18 @@ public class Jump : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up,out hit, height); //1.01
-       
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
+
         Vector3 jumpForce = Vector3.zero;
+
+        if (hit.collider.CompareTag("Jumpable"))
+        {
+            playerCollider.material = null;
+        }
+        else
+        {
+            playerCollider.material = slideMaterial;
+        }
 
         if (isGrounded)
         {
@@ -66,5 +76,10 @@ public class Jump : MonoBehaviour
     public void IncreaseAbility()
     {
         canDoubleJump = true;
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        playerCollider.material = slideMaterial;
     }
 }

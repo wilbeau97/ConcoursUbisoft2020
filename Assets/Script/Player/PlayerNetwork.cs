@@ -10,6 +10,7 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] private GameObject playerGraphics;
     [SerializeField] private MonoBehaviour[] playerControlScript;
     [SerializeField] private GameObject playerUI;
+
     private PhotonView photonView;
     // Start is called before the first frame update
     void Start()
@@ -27,8 +28,7 @@ public class PlayerNetwork : MonoBehaviour
             //Handle not local player
             if (!photonView.isMine)
             {
-                playerCamera.SetActive(false); 
-                DesactivateGraphicsOtherPlayer();
+                playerCamera.SetActive(false);
                 playerUI.SetActive(false);
                 foreach (MonoBehaviour script in playerControlScript)
                 {
