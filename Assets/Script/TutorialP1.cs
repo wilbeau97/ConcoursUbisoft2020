@@ -9,6 +9,8 @@ public class TutorialP1 : Tutorial
     [SerializeField] private MonoBehaviour jumpScript;
     [SerializeField] private Text abilityTutorialText;
     [SerializeField] private Text jumpUpgradeText;
+    [SerializeField] private Text jumpUgradeForceText;
+
     private bool canDeactivate = false;
 
     // Start is called before the first frame update
@@ -59,6 +61,24 @@ public class TutorialP1 : Tutorial
     {
         jumpUpgradeText.gameObject.SetActive(false);
     }
+    
+    public void ActivatejumpUgradeForceText()
+    {
+        StartCoroutine(CoroutineJumpUpgradeForceText());
+        IEnumerator CoroutineJumpUpgradeForceText()
+        {
+            jumpUgradeForceText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(5);
+            disableDoubleJumpText();
+        }
+    }
+    
+    public void DisableDoubleJumpForceText()
+    {
+        jumpUgradeForceText.gameObject.SetActive(false);
+    }
+    
+    
     
 
 
