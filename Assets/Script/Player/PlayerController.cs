@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerHUD hud;
     private float speed = 10f;
     private bool dontMoveCam = false;
+    private FlashAura aura;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
         cam = GetComponent<CameraController>();
         ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
+        aura = GetComponentInChildren<FlashAura>();
     }
 
     // Update is called once per frame
@@ -34,6 +37,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 velocity = (movementHorizontal + movementVerticaltal).normalized * speed;
 
+        if (Vector3.Distance(velocity, Vector3.zero) > 0.01f && gameObject.GetPhotonView().isMine)
+        {
+            aura.elapsedTime = 0;
+            aura.StopFlashing();
+        }
 
         float rotationY = Input.GetAxis("Mouse X");
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
@@ -45,7 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             dontMoveCam = true;
         }
-
+        
         if (Input.GetAxis("TelekinesisMove") != 0)
         {
             ability.Pressed();
