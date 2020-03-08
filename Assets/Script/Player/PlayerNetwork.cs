@@ -11,12 +11,23 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] private MonoBehaviour[] playerControlScript;
     [SerializeField] private GameObject playerUI;
     private PhotonView photonView;
+
+    private bool test = false;
     // Start is called before the first frame update
     void Start()
     {
         photonView = GetComponent<PhotonView>();
         
         Initialize();
+    }
+
+    private void Update()
+    {
+        if (test)
+        {
+            DesactivateGraphicsOtherPlayer();
+            test = false;
+        }
     }
 
     private void Initialize()
@@ -34,6 +45,11 @@ public class PlayerNetwork : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Test()
+    {
+        test = true;
     }
 
     public void DesactivateGraphicsOtherPlayer()
