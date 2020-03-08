@@ -49,7 +49,7 @@ public class PlayerNetwork : MonoBehaviour
 
     public void ChangeOwner(Collider other)
      {
-         if (other.gameObject.CompareTag("InteractablePhysicsObject"))
+         if (other.gameObject.CompareTag("InteractablePhysicsObject") || other.gameObject.CompareTag("InteractableHeavyPhysicsObject"))
          {
              if (photonView.isMine)
              {
