@@ -69,11 +69,11 @@ public class TutorialP1 : Tutorial
         {
             jumpUgradeForceText.gameObject.SetActive(true);
             yield return new WaitForSeconds(5);
-            disableDoubleJumpText();
+            DisableJumpForceText();
         }
     }
     
-    public void DisableDoubleJumpForceText()
+    public void DisableJumpForceText()
     {
         jumpUgradeForceText.gameObject.SetActive(false);
     }

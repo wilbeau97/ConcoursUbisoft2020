@@ -3015,7 +3015,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341131067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -98.6, y: 2.34, z: 22.6}
+  m_LocalPosition: {x: -125.8, y: 2.34, z: -29.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4373,6 +4373,11 @@ PrefabInstance:
       propertyPath: instantiationId
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6316840655632563439, guid: a2609f0c2ba7671488407bb7b7872029,
+        type: 3}
+      propertyPath: m_Name
+      value: levelUpJumpForce
+      objectReference: {fileID: 0}
     - target: {fileID: 6893510093456990755, guid: a2609f0c2ba7671488407bb7b7872029,
         type: 3}
       propertyPath: releaseRigidBody
@@ -4387,6 +4392,16 @@ PrefabInstance:
         type: 3}
       propertyPath: instantiationId
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686274661566741970, guid: a2609f0c2ba7671488407bb7b7872029,
+        type: 3}
+      propertyPath: viewIdField
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686274661566741970, guid: a2609f0c2ba7671488407bb7b7872029,
+        type: 3}
+      propertyPath: instantiationId
+      value: 97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2609f0c2ba7671488407bb7b7872029, type: 3}
