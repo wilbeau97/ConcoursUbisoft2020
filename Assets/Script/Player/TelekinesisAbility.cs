@@ -179,13 +179,11 @@ public class TelekinesisAbility :  Ability
 
     public override void IncreaseAbility()
     {
-        if (canRotate) // level 2 (si level 1 atteint)
-        {
-            canLiftHeavyObject = true;
-        }
-        else // level 1 
-        {
-            canRotate = true;
-        }
+        canRotate = true;
+    }
+
+    public void increaseMaxWeight()
+    {
+        canLiftHeavyObject = true;
     }
 }

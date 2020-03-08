@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    private float jumpForceY = 7f;
+    [SerializeField]private float jumpForceY = 7f;
     public float height = 1.05f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
@@ -56,5 +56,10 @@ public class Jump : MonoBehaviour
     public void IncreaseAbility()
     {
         canDoubleJump = true;
+    }
+
+    public void IncreaseJumpForce()
+    {
+        jumpForceY = 8f;
     }
 }
