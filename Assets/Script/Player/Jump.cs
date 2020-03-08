@@ -28,17 +28,18 @@ public class Jump : MonoBehaviour
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
         Vector3 jumpForce = Vector3.zero;
 
-        if (hit.collider.CompareTag("Jumpable"))
-        {
-            playerCollider.material = null;
-        }
-        else
-        {
-            playerCollider.material = slideMaterial;
-        }
+       
 
         if (isGrounded)
         {
+            if (hit.collider.CompareTag("Jumpable"))
+            {
+                playerCollider.material = null;
+            }
+            else
+            {
+                playerCollider.material = slideMaterial;
+            }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
             {
