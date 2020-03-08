@@ -4,10 +4,12 @@ using UnityEngine.UI;
 
 namespace Prefab.MazeEnterArea
 {
-    public class PuzzleEnterArea : MonoBehaviour
+    public class PuzzleEnterArea : MonoBehaviour, IPunObservable
     {
         private Text textArea;
         public string objectif;
+        private int nbPlayerInPuzzle = 0;
+        [SerializeField] private PhotonView puzzleEnterDoorView;
 
         public void Start()
         {
@@ -39,7 +41,26 @@ namespace Prefab.MazeEnterArea
 
         public void OnTriggerEnter(Collider other)
         {
-            textArea.text = objectif;
+            if (other.CompareTag("Player1") || other.CompareTag("Player2"))
+            {
+                textArea.text = objectif;
+                nbPlayerInPuzzle++;
+                if (nbPlayerInPuzzle == 2)
+                {
+                    puzzleEnterDoorView.RPC("CloseDoorRPC", PhotonTargets.All);
+                }
+            }
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(nbPlayerInPuzzle);
+            } else if (stream.isReading)
+            {
+                nbPlayerInPuzzle = (int) stream.ReceiveNext();
+            }
         }
     }
 }
