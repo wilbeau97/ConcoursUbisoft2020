@@ -11,6 +11,13 @@ public class TelekinesisAbility :  Ability
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
     [SerializeField] private LayerMask mask;
+    [SerializeField] private bool canLiftHeavyObject = false; 
+    // [SerializeField] private bool canRotate = false;
+    // Quand on call increase ability, on va vérifier si canRotate == true, sinon, on laisse canLiftHeavyobject a false
+    // Sinon, si can rotate == true, on met canLiftHeavyObject à true
+    // dans la fonction qui vérifier si on peut intéragir, on rajoute un check, que si canLiftHeavyObject, on va checker si l'objet est 
+    // soit : InteractablePhysicsObject ou InteractableHeavyPhysicsObject (tag à créer)
+    // pour les objets heavy, ne pas oublier de les rendre plus lourd pour donner plus de crédibilité 
     private bool isInteractable = false;
     private bool isPressed;
     private bool alreadyParent = false;
@@ -84,7 +91,7 @@ public class TelekinesisAbility :  Ability
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
             out hit, distance, mask))
         {
-            if (hit.collider.CompareTag("InteractablePhysicsObject"))
+            if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
             {
                 //view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
@@ -173,5 +180,10 @@ public class TelekinesisAbility :  Ability
     public override void IncreaseAbility()
     {
         canRotate = true;
+    }
+
+    public void increaseMaxWeight()
+    {
+        canLiftHeavyObject = true;
     }
 }
