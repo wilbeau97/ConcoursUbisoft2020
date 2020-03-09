@@ -134,7 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastDoor: 0
+  alreadyOpen: 0
   door: {fileID: 1481461620}
+  maxOpeningHeight: 20
+  releaseRigidBody: 1
+  openingSpeed: 1
 --- !u!54 &1481461614
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -746,7 +751,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastDoor: 0
+  alreadyOpen: 0
   door: {fileID: 2235989175477509125}
+  maxOpeningHeight: 20
+  releaseRigidBody: 1
+  openingSpeed: 1
 --- !u!54 &4659818971448260481
 Rigidbody:
   m_ObjectHideFlags: 0

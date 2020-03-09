@@ -14,6 +14,7 @@ namespace Prefab.Puzzle4
             CheckBoolValidate();
             if (listResultBool && endMaze)
             {
+                
                 targetRpcView.RPC("OpenDoorRPC",PhotonTargets.All);
                 endMaze = false;
             }
@@ -23,13 +24,13 @@ namespace Prefab.Puzzle4
         {
             foreach (GameObject gameObject in boolListGameObject)
             {
-                if (!gameObject.activeSelf)
+                if (!gameObject.activeInHierarchy)
                 {
                     listResultBool = false;
                     break;
                 }
+                listResultBool = true;
             }
-            listResultBool = true;
         }
     }
 }
