@@ -20,7 +20,6 @@ public class PlayerHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InteractableHintText.gameObject.SetActive(false);
         tutorialText.gameObject.SetActive(false);
         aim.SetActive(false);
         tutorialConceptArt.SetActive(false);

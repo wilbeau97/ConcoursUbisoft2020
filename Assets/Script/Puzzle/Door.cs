@@ -49,8 +49,11 @@ public class Door : MonoBehaviour
             door.position += new Vector3(0, openingSpeed, 0);
             yield return null;
         }
-        
-        if(releaseRigidBody){_rigidbody.constraints = RigidbodyConstraints.FreezeAll;}
+
+        if (releaseRigidBody)
+        {
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        }
     }
     
     public IEnumerator CloseDoor()
