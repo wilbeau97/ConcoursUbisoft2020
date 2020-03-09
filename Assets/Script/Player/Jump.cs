@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    [SerializeField] private PhysicMaterial physicsMaterial;
-    private float jumpForceY = 7f;
+    [SerializeField]private float jumpForceY = 7f;
     public float height = 1.05f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
@@ -30,14 +29,7 @@ public class Jump : MonoBehaviour
 
         Vector3 jumpForce = Vector3.zero;
 
-        if (hit.collider.CompareTag("Jumpable"))
-        {
-            playerCollider.material = null;
-        }
-        else
-        {
-            playerCollider.material = slideMaterial;
-        }
+       
 
         if (isGrounded)
         {
@@ -47,7 +39,7 @@ public class Jump : MonoBehaviour
             }
             else
             {
-                playerCollider.material = physicsMaterial;
+                playerCollider.material = slideMaterial;
             }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
@@ -76,6 +68,11 @@ public class Jump : MonoBehaviour
     public void IncreaseAbility()
     {
         canDoubleJump = true;
+    }
+
+    public void IncreaseJumpForce()
+    {
+        jumpForceY = 8f;
     }
 
     public void OnCollisionEnter(Collision other)
