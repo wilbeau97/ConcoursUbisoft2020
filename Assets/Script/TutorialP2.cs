@@ -54,6 +54,6 @@ public class TutorialP2 : Tutorial
 
     public void disableHeavyUpdateText()
     {
-        disableHeavyUpdateText();
+        heavyUpgradeText.gameObject.SetActive(false);
     }
 }
