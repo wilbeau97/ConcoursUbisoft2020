@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.UI;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -63,5 +64,7 @@ public class PlayerNetwork : MonoBehaviour
     public void EndedPuzzle()
     {
         GetComponent<Ability>().IncreaseAbility();
+        transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>().RoutineGainLife();
+
     }
 }
