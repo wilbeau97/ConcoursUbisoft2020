@@ -14,6 +14,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     [SerializeField] private GameObject player1Prefab;
     [SerializeField] private GameObject player2Prefab;
     [SerializeField] private MenuManager menuManager;
+    [SerializeField] private Text playerChosenText;
     
     private bool player1Selected = false;
     private bool player2Selected = false;
@@ -28,13 +29,13 @@ public class PlayerChoiceMenu : MonoBehaviour
     {
         if (ready == 2)
         {
-            view.RPC("LoadPatrick", PhotonTargets.All);
+            view.RPC("LoadGame", PhotonTargets.All);
             ready = 0;
         }
     }
 
     [PunRPC]
-    public void LoadPatrick()
+    public void LoadGame()
     {
         Debug.Log("Load");
         PhotonNetwork.LoadLevel(1);
@@ -43,7 +44,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     public void Player1Choosen()
     {
         PlayerManager.LocalPlayerInstance = player1Prefab;
-        Debug.Log(PlayerManager.LocalPlayerInstance.name);
+        playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
         view.RPC("DisableButtonPlayer1", PhotonTargets.All);
         
@@ -52,7 +53,7 @@ public class PlayerChoiceMenu : MonoBehaviour
     public void Player2Choosen()
     {
         PlayerManager.LocalPlayerInstance = player2Prefab;
-        Debug.Log(PlayerManager.LocalPlayerInstance.name);
+        playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
         view.RPC("DisableButtonPlayer2", PhotonTargets.All);
     }
