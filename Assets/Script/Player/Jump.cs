@@ -27,6 +27,7 @@ public class Jump : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if (!view.isMine) return;
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
 
