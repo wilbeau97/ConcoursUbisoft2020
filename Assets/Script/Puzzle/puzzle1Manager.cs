@@ -8,6 +8,7 @@ public class puzzle1Manager : MonoBehaviour
     [SerializeField] private GameObject bridge;
     [SerializeField] private PhotonView doorView;
     [SerializeField] private Transform respawnPoint;
+    [SerializeField] private GameObject plateform;
 
     private Transform playerToRespawn;
     
@@ -23,6 +24,21 @@ public class puzzle1Manager : MonoBehaviour
     {
         StopCoroutine("RotateBridgeToPassRoutine");
         StartCoroutine("RotateBridgeToBlockRoutine");
+    }
+
+    [PunRPC]
+    public void DownPlateform()
+    {
+        StartCoroutine(DownPlateformCoroutine());
+    }
+
+    private IEnumerator DownPlateformCoroutine()
+    {
+        while (plateform.transform.position.y >= -16)
+        {
+            plateform.transform.position -= new Vector3(0,1,0);
+            yield return null;
+        }
     }
 
     public IEnumerator RotateBridgeToPassRoutine()
