@@ -13,6 +13,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject canDeactivateText;
     [SerializeField] private Text tutorialText;
     [SerializeField] private Animator fadeAnimator;
+    [SerializeField] private GameObject explainationText;
     private Text ObjectviveText;
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
@@ -49,8 +50,16 @@ public class PlayerHUD : MonoBehaviour
     {
        tutorialConceptArt.SetActive(false);
        canDeactivateText.SetActive(false);
+       StartCoroutine(ShowExplainationText());
     }
-    
+
+    private IEnumerator ShowExplainationText()
+    {
+        explainationText.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        explainationText.SetActive(false);
+    }
+
     public void ActivateConceptArt()
     {
         tutorialConceptArt.SetActive(true);
