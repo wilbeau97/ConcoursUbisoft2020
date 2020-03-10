@@ -55,6 +55,12 @@ public class PressurePlateManager : MonoBehaviour
     {
         PressurePlateIsPressed(pressurePlateName);
     }
+    
+    [PunRPC]
+    public void PressurePlateIsReleaseRPC(string pressurePlateName)
+    {
+        PressurePlateIsReleased(pressurePlateName);
+    }
     public void PressurePlateIsPressed(string pressurePlateName)
     {
         listOfPlates[pressurePlateName] = true;
