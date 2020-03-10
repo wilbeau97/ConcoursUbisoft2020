@@ -61,8 +61,8 @@ public class MonsterChase : MonoBehaviour
     [PunRPC]
     private void InitPlayer()
     {
-        playerOne = GameObject.Find("Player1Test(Clone)");
-        playerTwo = GameObject.Find("Player2Test(Clone)");
+        playerOne = GameObject.FindGameObjectWithTag("Player1");
+        playerTwo = GameObject.FindGameObjectWithTag("Player2");
     }
     
     // Update is called once per frame
