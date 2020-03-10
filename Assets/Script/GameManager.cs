@@ -25,13 +25,13 @@ public class GameManager : MonoBehaviour, IPunObservable
                 //look for player here
                  PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
                     Quaternion.identity, 0);
-                 notLocalPlayer = "Player2Test(Clone)";
+                 notLocalPlayer = "Player 2(Clone)";
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);
-                notLocalPlayer = "Player1Test(Clone)";
+                notLocalPlayer = "Player 1(Clone)";
             }
         }
         else
