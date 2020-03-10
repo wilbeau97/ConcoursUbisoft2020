@@ -66,7 +66,18 @@ public class PressurePlate : MonoBehaviour
 
     private void Released()
     {
-        pressurePlateManager.PressurePlateIsReleased(pressurePlateName);
+        if (isUserConnected)
+        {
+            if (PressurePlateManagerPhotonView.isMine)
+            {
+                PressurePlateManagerPhotonView.RPC("PressurePlateIsReleaseRPC",
+                    PhotonTargets.All, pressurePlateName);
+            }
+        }
+        else
+        {
+            pressurePlateManager.PressurePlateIsReleased(pressurePlateName);
+        }
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

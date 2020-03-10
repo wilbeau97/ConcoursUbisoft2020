@@ -18,7 +18,10 @@ public class TutorialP1 : Tutorial
     {
         abilityTutorialText.gameObject.SetActive(false);
         jumpUpgradeText.gameObject.SetActive(false);
-        jumpScript.enabled = false;
+        if (gameObject.GetPhotonView().isMine)
+        {
+            jumpScript.enabled = false;
+        }
     }
 
     // Update is called once per frame

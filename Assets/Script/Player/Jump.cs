@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jump : MonoBehaviour
+public class Jump : MonoBehaviour, IPunObservable
 {
     [SerializeField]private float jumpForceY = 7f;
     public float height = 1.05f;
@@ -13,12 +13,15 @@ public class Jump : MonoBehaviour
     private static bool canDoubleJump = true;
     private Collider playerCollider;
     [SerializeField] private PhysicMaterial slideMaterial;
+    private bool matIsOn = true;
+    private PhotonView view;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
+        view = gameObject.GetPhotonView();
     }
 
     // Update is called once per frame
@@ -28,18 +31,24 @@ public class Jump : MonoBehaviour
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
 
         Vector3 jumpForce = Vector3.zero;
-
-       
-
+        
         if (isGrounded)
         {
             if (hit.collider.CompareTag("Jumpable"))
             {
-                playerCollider.material = null;
+                if (matIsOn)
+                {
+                    matIsOn = false;
+                    view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+                }
             }
             else
             {
-                playerCollider.material = slideMaterial;
+                if (!matIsOn)
+                {
+                    matIsOn = true;
+                    view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+                }
             }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
@@ -75,8 +84,35 @@ public class Jump : MonoBehaviour
         jumpForceY = 8f;
     }
 
+    [PunRPC]
+    public void RemoveSlideMaterialRpc()
+    {
+        playerCollider.material = null;
+    }
+    
+    [PunRPC]
+    public void AddSlideMaterialRpc()
+    {
+        
+        playerCollider.material = slideMaterial;
+    }
+
     public void OnCollisionEnter(Collision other)
     {
-        playerCollider.material = slideMaterial;
+        if (!other.collider.CompareTag("Jumpable"))
+        {
+            view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(matIsOn);
+        } else if (stream.isReading)
+        {
+            matIsOn = (bool) stream.ReceiveNext();
+        }
     }
 }
