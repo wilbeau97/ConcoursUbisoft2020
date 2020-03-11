@@ -56,7 +56,7 @@ public class FlashAura : MonoBehaviour, IPunObservable
         while (startedFlashing)
         {
             yield return new WaitForSeconds(Random.Range(0.01f, 0.75f));
-            alpha = Random.Range(0.0f, 0.150f);
+            alpha = Random.Range(0.3f, 0.7f);
         }
     }
     
