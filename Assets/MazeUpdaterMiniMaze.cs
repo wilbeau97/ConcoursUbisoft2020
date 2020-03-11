@@ -8,9 +8,9 @@ public class MazeUpdaterMiniMaze : MonoBehaviour
     public GameObject redCube;
     public GameObject blueCube;
     public GameObject greenCube;
-    private bool red = false;
-    private bool blue = false;
-    private bool green = false;
+    private bool red = true;
+    private bool blue = true;
+    private bool green = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,27 +20,30 @@ public class MazeUpdaterMiniMaze : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (redCube.activeSelf)
+        if (redCube.activeSelf && red)
         {
             foreach (MiniMaze miniMaze in miniMazes)
             {
                 miniMaze.redCube.SetActive(true);
+                red = false;
             }
         }
 
-        if (blueCube.activeSelf)
+        if (blueCube.activeSelf && blue)
         {
             foreach (MiniMaze miniMaze in miniMazes)
             {
                 miniMaze.blueCube.SetActive(true);
+                blue = false;
             }
         }
 
-        if (greenCube.activeSelf)
+        if (greenCube.activeSelf && green)
         {
             foreach (MiniMaze miniMaze in miniMazes)
             {
                 miniMaze.greenCube.SetActive(true);
+                green = false;
             }
         }
     }
