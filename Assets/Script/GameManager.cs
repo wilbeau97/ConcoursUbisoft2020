@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
+    [SerializeField] private ObjectiveLight puzzleAcces3Light;
     private int nbOfPuzzleSuceeed = 0;
     private GameObject player;
     private string notLocalPlayer;
@@ -63,6 +64,11 @@ public class GameManager : MonoBehaviour, IPunObservable
             player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
             player.GetComponentInChildren<PlayerHUD>().FadeOut();
             StartCoroutine(WaitForAnimation());
+        }
+
+        if (nbOfPuzzleSuceeed == 2)
+        {
+            puzzleAcces3Light.ActivateLight();
         }
 
         if (!doorViews[nbOfPuzzleSuceeed].alreadyOpen)

@@ -15,6 +15,14 @@ public class levelUp : MonoBehaviour
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameManager").GetPhotonView();
+        if (playerTagToBeLeveledUp == "Player1")
+        {
+            GetComponent<ParticleSystem>().startColor = new Color(0f, 1f, 0f, .5f);
+        }
+        else
+        {
+            GetComponent<ParticleSystem>().startColor = new Color(0f, 0f, 1f, .5f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
