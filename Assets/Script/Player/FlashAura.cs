@@ -27,7 +27,7 @@ public class FlashAura : MonoBehaviour, IPunObservable
         {
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime > 1.5f && !startedFlashing)
+            if (elapsedTime > 1.75f && !startedFlashing)
             {
                 StartFlashing();
             }
@@ -56,7 +56,7 @@ public class FlashAura : MonoBehaviour, IPunObservable
         while (startedFlashing)
         {
             yield return new WaitForSeconds(Random.Range(0.01f, 0.75f));
-            alpha = Random.Range(0.2f, 0.4f);
+            alpha = Random.Range(0.1f, 0.3f);
         }
     }
     

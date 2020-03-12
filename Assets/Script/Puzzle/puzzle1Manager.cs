@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class puzzle1Manager : MonoBehaviour
+public class puzzle1Manager : PuzzleManager
 {
     [SerializeField] private GameObject bridge;
     [SerializeField] private PhotonView doorView;
@@ -71,7 +71,7 @@ public class puzzle1Manager : MonoBehaviour
         bridge.transform.rotation = to;
     }
     
-    public void OpenDoor()
+    public override void OpenDoor()
     {
         doorView.RPC("OpenDoorRPC", PhotonTargets.All);
     }
