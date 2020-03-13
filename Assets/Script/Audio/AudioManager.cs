@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Script.Audio
 {
@@ -7,6 +8,7 @@ namespace Script.Audio
     {
         public Sound[] soundList;
         public static AudioManager Instance;
+
         // Start is called before the first frame update
         void Start()
         {
