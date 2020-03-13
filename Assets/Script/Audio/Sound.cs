@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 namespace Script.Audio
 {
     [System.Serializable]
-    public class Sound : MonoBehaviour
+    public class Sound
     {
         public AudioClip audioClip;
         [Range(0f, 1f)]
