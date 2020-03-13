@@ -35,7 +35,7 @@ namespace Script.Audio
             }
         }
 
-        private void Stop(string nameSound)
+        public void Stop(string nameSound)
         {
             foreach (Sound sound in soundList)
             {
