@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -11,7 +13,7 @@ public class Door : MonoBehaviour
     [SerializeField] private bool releaseRigidBody = true;
     [SerializeField] private float openingSpeed = 1;
     private float initialPositionY;
-    
+
 
     private Rigidbody _rigidbody;
     // Start is called before the first frame update
@@ -23,14 +25,13 @@ public class Door : MonoBehaviour
         }
 
         initialPositionY = door.position.y;
-
     }
+    
 
     [PunRPC]
     public void OpenDoorRPC()
     {
         StartCoroutine(OpenDoor());
-        alreadyOpen = true;
     }
 
     [PunRPC]
@@ -44,6 +45,11 @@ public class Door : MonoBehaviour
     public IEnumerator OpenDoor()
     {
         StopCoroutine(CloseDoor());
+        if (!alreadyOpen)
+        {
+            AudioManager.Instance.Play("door_opening");
+        }
+        alreadyOpen = true;
         while (door.position.y <= maxOpeningHeight+ initialPositionY)
         {
             door.position += new Vector3(0, openingSpeed, 0);
@@ -54,6 +60,7 @@ public class Door : MonoBehaviour
         {
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
+        AudioManager.Instance.Stop("door_opening");
     }
     
     public IEnumerator CloseDoor()
@@ -68,6 +75,8 @@ public class Door : MonoBehaviour
                 yield return null;
             }
         }
+        
         yield return null;
     }
+    
 }
