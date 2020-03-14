@@ -15,7 +15,7 @@ public class impactSound : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("dirtGround"))
         {
             AudioManager.Instance.Play("dropTerre");
         }
