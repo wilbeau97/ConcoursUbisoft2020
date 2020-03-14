@@ -8,6 +8,7 @@ namespace Script.Audio
     {
         public Sound[] soundList;
         public static AudioManager Instance;
+        public bool enableMainTheme = true;
 
         // Start is called before the first frame update
         void Start()
@@ -25,7 +26,11 @@ namespace Script.Audio
             {
                 sound.SetAudioSource(gameObject.AddComponent<AudioSource>());
             }
-            Play("MainTheme");
+
+            if (enableMainTheme)
+            {
+                Play("MainTheme");
+            }
         }
         public void Play(string nameSound)
         {
