@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Script.Audio;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class Door : MonoBehaviour
     [SerializeField] private bool releaseRigidBody = true;
     [SerializeField] private float openingSpeed = 1;
     private float initialPositionY;
-    
+
 
     private Rigidbody _rigidbody;
     // Start is called before the first frame update
@@ -24,8 +25,8 @@ public class Door : MonoBehaviour
         }
 
         initialPositionY = door.position.y;
-
     }
+    
 
     [PunRPC]
     public void OpenDoorRPC()
