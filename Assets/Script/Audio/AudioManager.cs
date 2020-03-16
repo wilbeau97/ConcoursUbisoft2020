@@ -31,6 +31,7 @@ namespace Script.Audio
             {
                 Play("MainTheme");
             }
+            Play("ambianceWindy");
         }
         public void Play(string nameSound)
         {
