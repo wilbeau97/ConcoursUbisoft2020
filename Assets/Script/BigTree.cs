@@ -5,6 +5,9 @@ using UnityEngine;
 public class BigTree : MonoBehaviour
 {
     private Transform tree;
+
+    private int growSize = 20;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +17,8 @@ public class BigTree : MonoBehaviour
     public void Grow()
     {
         //changer 1000 par valeur quelconque
-        tree.localScale += new Vector3(0, 1000, 0);
-        tree.position += new Vector3(0, 1000 / 2, 0);
+        growSize = 1000;
+        tree.localScale += new Vector3(0, growSize, 0);
+        tree.position += new Vector3(0, growSize / 2, 0);
     }
 }
