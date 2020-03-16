@@ -1,4 +1,5 @@
 ﻿using System;
+using Script.Audio;
 using UnityEngine;
 
 namespace Prefab.Puzzle4
@@ -12,6 +13,8 @@ namespace Prefab.Puzzle4
         private Vector3 _move = Vector3.zero;
 
         // Update is called once per frame
+
+
         void Update()
         {
             Vector3 position = gameObject.transform.localPosition;
