@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Script.Audio;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class impactSound : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class impactSound : MonoBehaviour
         colliderObjet = this.GetComponent<Collider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("dirtGround"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             AudioManager.Instance.Play("dropTerre");
         }
