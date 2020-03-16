@@ -41,6 +41,7 @@ public class puzzle1Manager : PuzzleManager
 
     private IEnumerator DownPlateformCoroutine()
     {
+        AudioManager.Instance.Play("pressurePlateClose", plateform.transform);
         while (plateform.transform.position.y >= -16)
         {
             plateform.transform.position -= new Vector3(0,1,0);
