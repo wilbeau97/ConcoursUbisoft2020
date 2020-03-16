@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,6 +32,10 @@ public class PlayerController : MonoBehaviour
 
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementZ = Input.GetAxisRaw("Vertical");
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            AudioManager.Instance.Play("p2Move");
+        }
 
         Vector3 movementHorizontal = transform.right * movementX;
         Vector3 movementVerticaltal = transform.forward * movementZ;
