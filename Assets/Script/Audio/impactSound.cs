@@ -16,7 +16,7 @@ public class impactSound : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable"))
         {
             // passe le transform de l'objet actuel pour indiquer la position d'où le son doit venir 
             AudioManager.Instance.Play("dropTerre", transform);

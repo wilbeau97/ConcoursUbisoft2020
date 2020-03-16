@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
 
 public class Jump : MonoBehaviour, IPunObservable
@@ -56,6 +57,7 @@ public class Jump : MonoBehaviour, IPunObservable
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
                 rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                AudioManager.Instance.Play("jump", transform);
                 nbJump++;
             }
             else
@@ -70,10 +72,12 @@ public class Jump : MonoBehaviour, IPunObservable
             {
                 jumpForce = new Vector3(0, jumpForceY, 0);
                 rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                AudioManager.Instance.Play("doubleJump", transform);
                 nbJump = 2;
             }
         }
     }
+    
 
     public void IncreaseAbility()
     {
@@ -103,6 +107,11 @@ public class Jump : MonoBehaviour, IPunObservable
         if (!other.collider.CompareTag("Jumpable"))
         {
             view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+            AudioManager.Instance.Play("afterJump", transform);
+        }
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable"))
+        {
+            AudioManager.Instance.Play("afterJump", transform);
         }
     }
 
