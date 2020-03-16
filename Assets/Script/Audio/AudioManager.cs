@@ -40,6 +40,13 @@ namespace Script.Audio
                 sound.Play(nameSound);
             }
         }
+        public void Play(string nameSound, Transform positionOfSound)
+        {
+            foreach (Sound sound in soundList)
+            {
+                sound.Play(nameSound, positionOfSound);
+            }
+        }
 
         public void Stop(string nameSound)
         {

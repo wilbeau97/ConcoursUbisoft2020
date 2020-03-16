@@ -18,7 +18,8 @@ public class impactSound : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            AudioManager.Instance.Play("dropTerre");
+            // passe le transform de l'objet actuel pour indiquer la position d'où le son doit venir 
+            AudioManager.Instance.Play("dropTerre", transform);
         }
     }
 
