@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using ExitGames.Demos.DemoAnimator;
+using Script.Audio;
 using UnityEngine;
 [System.Serializable]
 
@@ -60,6 +61,7 @@ public class PressurePlate : MonoBehaviour
         {
             pressurePlateManager.PressurePlateIsPressed(pressurePlateName);
         }
+        AudioManager.Instance.Play("pressurePlateClose", transform);
             
         
     }
@@ -78,6 +80,7 @@ public class PressurePlate : MonoBehaviour
         {
             pressurePlateManager.PressurePlateIsReleased(pressurePlateName);
         }
+        AudioManager.Instance.Play("pressurePlateOpen", transform);
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
