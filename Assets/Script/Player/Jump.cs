@@ -109,16 +109,15 @@ public class Jump : MonoBehaviour, IPunObservable
         if (!other.collider.CompareTag("Jumpable"))
         {
             view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-            if (isJumpImpactSoundEnabled)
-            {
-                AudioManager.Instance.Play("afterJump", transform);
-            }
         }
         if ((other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable")))
         {
             if (isJumpImpactSoundEnabled)
             {
-                AudioManager.Instance.Play("afterJump", transform);
+                if (other.relativeVelocity.magnitude > 2)
+                {
+                    AudioManager.Instance.Play("afterJump", transform);
+                }
             }
         }
     }

@@ -13,8 +13,8 @@ public class impactSound : MonoBehaviour
     {
         colliderObjet = this.GetComponent<Collider>();
     }
-
-    private void OnCollisionEnter(Collision other)
+    
+    void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable"))
         {
@@ -24,6 +24,4 @@ public class impactSound : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    
 }
