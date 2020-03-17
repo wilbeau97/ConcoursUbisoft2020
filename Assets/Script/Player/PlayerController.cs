@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         float rotationY = Input.GetAxis("Mouse X");
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
         
-        animator.SetFloat("Rotation", rotationY);
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
