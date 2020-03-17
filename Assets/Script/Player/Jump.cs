@@ -7,7 +7,7 @@ public class Jump : MonoBehaviour, IPunObservable
 {
     [SerializeField] private Animator animator;
     [SerializeField]private float jumpForceY = 7f;
-    public float height = 1.05f;
+    public float height = 0.05f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
@@ -16,6 +16,7 @@ public class Jump : MonoBehaviour, IPunObservable
     [SerializeField] private PhysicMaterial slideMaterial;
     private bool matIsOn = true;
     private PhotonView view;
+    private bool isDoubleJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,14 +29,18 @@ public class Jump : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!view.isMine) return;
+        if (!view.isMine && PhotonNetwork.connected) return;
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.red);
 
-        Vector3 jumpForce = Vector3.zero;
-        
         if (isGrounded)
         {
+            if (isDoubleJumping)
+            {
+                animator.SetTrigger("DoubleJumpEnd");
+                isDoubleJumping = false;
+            }
             if (hit.collider.CompareTag("Jumpable"))
             {
                 if (matIsOn && PhotonNetwork.connected)
@@ -53,9 +58,8 @@ public class Jump : MonoBehaviour, IPunObservable
                 }
             }
             //a terre
-            if (Input.GetButtonDown("Jump") && nbJump <= 1)
+            if (Input.GetButtonDown("Jump") && nbJump < 1)
             {
-                animator.SetTrigger("Jump");
                 Jumping();
                 nbJump++;
             }
@@ -67,16 +71,25 @@ public class Jump : MonoBehaviour, IPunObservable
         else
         {
             //dans les air
-            if (nbJump <= 1 && Input.GetButtonDown("Jump") && canDoubleJump)
+            if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
-                Jumping();
-                nbJump = 2;
+                DJumping();
+                isDoubleJumping = true;
+                nbJump = 0;
             }
         }
     }
 
     private void Jumping()
     {
+        animator.SetTrigger("Jump");
+        Vector3 jumpForce;
+        jumpForce = new Vector3(0, jumpForceY, 0);
+        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+    }
+    private void DJumping()
+    {
+        animator.SetTrigger("DoubleJump");
         Vector3 jumpForce;
         jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
