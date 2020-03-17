@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Demos.DemoAnimator;
 using Script.Audio;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class Jump : MonoBehaviour, IPunObservable
     [SerializeField] private PhysicMaterial slideMaterial;
     private bool matIsOn = true;
     private PhotonView view;
+    private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
 
     // Start is called before the first frame update
     void Start()
@@ -107,11 +109,25 @@ public class Jump : MonoBehaviour, IPunObservable
         if (!other.collider.CompareTag("Jumpable"))
         {
             view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-            AudioManager.Instance.Play("afterJump", transform);
+            if (isJumpImpactSoundEnabled)
+            {
+                AudioManager.Instance.Play("afterJump", transform);
+            }
         }
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable"))
+        if ((other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable")))
         {
-            AudioManager.Instance.Play("afterJump", transform);
+            if (isJumpImpactSoundEnabled)
+            {
+                AudioManager.Instance.Play("afterJump", transform);
+            }
+        }
+    }
+
+    public void disableJumpDropSoundForP2()
+    {
+        if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        {
+            isJumpImpactSoundEnabled = false;
         }
     }
 
