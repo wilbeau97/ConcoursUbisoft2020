@@ -31,9 +31,10 @@ public class HideObjects : MonoBehaviour
             }
         }
 
-        hits = Physics.RaycastAll(this.transform.position,
-            (player.position - this.transform.position),
-            Vector3.Distance(this.transform.position, player.position), mask);
+        hits = Physics.RaycastAll(transform.position,
+            (player.position - transform.position),
+            Vector3.Distance(transform.position, player.position), mask);
+        Debug.DrawRay(transform.position, player.position - transform.position);
 
         foreach (RaycastHit hit in hits)
         {

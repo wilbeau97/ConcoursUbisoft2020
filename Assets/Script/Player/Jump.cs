@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour, IPunObservable
 {
+    [SerializeField] private Animator animator;
     [SerializeField]private float jumpForceY = 7f;
     public float height = 1.05f;
     [SerializeField] private bool canJump = true;
@@ -37,7 +38,7 @@ public class Jump : MonoBehaviour, IPunObservable
         {
             if (hit.collider.CompareTag("Jumpable"))
             {
-                if (matIsOn)
+                if (matIsOn && PhotonNetwork.connected)
                 {
                     matIsOn = false;
                     view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
@@ -45,7 +46,7 @@ public class Jump : MonoBehaviour, IPunObservable
             }
             else
             {
-                if (!matIsOn)
+                if (!matIsOn && PhotonNetwork.connected)
                 {
                     matIsOn = true;
                     view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
@@ -54,8 +55,8 @@ public class Jump : MonoBehaviour, IPunObservable
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump <= 1)
             {
-                jumpForce = new Vector3(0, jumpForceY, 0);
-                rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                animator.SetTrigger("Jump");
+                Jumping();
                 nbJump++;
             }
             else
@@ -68,11 +69,17 @@ public class Jump : MonoBehaviour, IPunObservable
             //dans les air
             if (nbJump <= 1 && Input.GetButtonDown("Jump") && canDoubleJump)
             {
-                jumpForce = new Vector3(0, jumpForceY, 0);
-                rb.AddForce(jumpForce, ForceMode.VelocityChange);
+                Jumping();
                 nbJump = 2;
             }
         }
+    }
+
+    private void Jumping()
+    {
+        Vector3 jumpForce;
+        jumpForce = new Vector3(0, jumpForceY, 0);
+        rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
 
     public void IncreaseAbility()
