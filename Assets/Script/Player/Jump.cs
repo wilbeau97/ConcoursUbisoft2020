@@ -29,7 +29,10 @@ public class Jump : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!view.isMine && PhotonNetwork.connected) return;
+        if (PhotonNetwork.connected)
+        {
+            if (!view.isMine) return;
+        }
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
         Debug.DrawRay(transform.position, -Vector3.up, Color.red);
@@ -43,7 +46,7 @@ public class Jump : MonoBehaviour, IPunObservable
             }
             if (hit.collider.CompareTag("Jumpable"))
             {
-                if (matIsOn && PhotonNetwork.connected)
+                if (matIsOn)
                 {
                     matIsOn = false;
                     view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
@@ -51,7 +54,7 @@ public class Jump : MonoBehaviour, IPunObservable
             }
             else
             {
-                if (!matIsOn && PhotonNetwork.connected)
+                if (!matIsOn)
                 {
                     matIsOn = true;
                     view.RPC("AddSlideMaterialRpc", PhotonTargets.All);

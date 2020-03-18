@@ -33,8 +33,12 @@ public class PlayerController : MonoBehaviour
 
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementZ = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("velX", movementX);
-        animator.SetFloat("velY", movementZ);
+        if (animator)
+        {
+            animator.SetFloat("velX", movementX);
+            animator.SetFloat("velY", movementZ);
+        }
+        
 
         Vector3 movementHorizontal = transform.right * movementX;
         Vector3 movementVerticaltal = transform.forward * movementZ;

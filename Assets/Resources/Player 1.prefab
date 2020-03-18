@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fc68664f2292843995c841e073cc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1976991453367543998}
+  animator: {fileID: 3305199244989279312}
 --- !u!114 &2379165824496026226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,10 +398,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.3
+  m_Height: 1.9466407
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.026679635, z: 0}
 --- !u!114 &6149052496995489770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83672314b050fa94f8f4c6a3a146c007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1976991453367543998}
+  animator: {fileID: 3305199244989279312}
   jumpForceY: 7
   height: 1.05
   canJump: 1
@@ -606,10 +606,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8635261133426063873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.444, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1976991453367545672}
+  - {fileID: 4851624685108789546}
   m_Father: {fileID: 2029066202676702769}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -687,13 +687,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a74849631ea1ee14694ead89974681e9, type: 3}
---- !u!4 &1976991453367545672 stripped
+--- !u!4 &4851624685108789546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6357888272007015810, guid: a74849631ea1ee14694ead89974681e9,
     type: 3}
   m_PrefabInstance: {fileID: 1976991453367545000}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1976991453367543998 stripped
+--- !u!95 &3305199244989279312 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3941144948246380792, guid: a74849631ea1ee14694ead89974681e9,
     type: 3}
