@@ -34,15 +34,20 @@ public class Jump : MonoBehaviour, IPunObservable
             if (!view.isMine) return;
         }
         RaycastHit hit;
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
-        Debug.DrawRay(transform.position, -Vector3.up, Color.red);
+        bool isGrounded = Physics.Raycast(transform.position + Vector3.up, -Vector3.up, out hit, height);
+        Debug.DrawRay(transform.position + Vector3.up, -Vector3.up, Color.blue);
 
         if (isGrounded)
         {
             if (isDoubleJumping)
             {
-                animator.SetTrigger("DoubleJumpEnd");
+                animator.SetBool("DoubleJumpEnd", true);
+                animator.SetBool("DoubleJumpEnd", false);
                 isDoubleJumping = false;
+            }
+            else
+            {
+                
             }
             if (hit.collider.CompareTag("Jumpable"))
             {
@@ -73,6 +78,7 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         else
         {
+            
             //dans les air
             if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
@@ -80,19 +86,25 @@ public class Jump : MonoBehaviour, IPunObservable
                 isDoubleJumping = true;
                 nbJump = 0;
             }
+            else
+            {
+                
+            }
         }
     }
 
     private void Jumping()
     {
-        animator.SetTrigger("Jump");
+        animator.SetBool("Jump", true);
+        animator.SetBool("Jump", false);
         Vector3 jumpForce;
         jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
     private void DJumping()
     {
-        animator.SetTrigger("DoubleJump");
+        animator.SetBool("DoubleJump", true);
+        animator.SetBool("DoubleJump", false);
         Vector3 jumpForce;
         jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
