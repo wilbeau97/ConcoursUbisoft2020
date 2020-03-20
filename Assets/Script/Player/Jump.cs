@@ -41,13 +41,8 @@ public class Jump : MonoBehaviour, IPunObservable
         {
             if (isDoubleJumping)
             {
-                animator.SetBool("DoubleJumpEnd", true);
-                animator.SetBool("DoubleJumpEnd", false);
+                animator.SetTrigger("DoubleJumpEnd");
                 isDoubleJumping = false;
-            }
-            else
-            {
-                
             }
             if (hit.collider.CompareTag("Jumpable"))
             {
@@ -78,7 +73,6 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         else
         {
-            
             //dans les air
             if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
@@ -86,25 +80,19 @@ public class Jump : MonoBehaviour, IPunObservable
                 isDoubleJumping = true;
                 nbJump = 0;
             }
-            else
-            {
-                
-            }
         }
     }
 
     private void Jumping()
     {
-        animator.SetBool("Jump", true);
-        animator.SetBool("Jump", false);
+        animator.SetTrigger("Jump");
         Vector3 jumpForce;
         jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
     private void DJumping()
     {
-        animator.SetBool("DoubleJump", true);
-        animator.SetBool("DoubleJump", false);
+        animator.SetTrigger("DoubleJump");
         Vector3 jumpForce;
         jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
