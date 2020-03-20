@@ -7,7 +7,7 @@ public class Jump : MonoBehaviour, IPunObservable
 {
     [SerializeField] private Animator animator;
     [SerializeField]private float jumpForceY = 7f;
-    public float height = 0.05f;
+    public float height = 0.1f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
@@ -34,11 +34,12 @@ public class Jump : MonoBehaviour, IPunObservable
             if (!view.isMine) return;
         }
         RaycastHit hit;
-        bool isGrounded = Physics.Raycast(transform.position + Vector3.up, -Vector3.up, out hit, height);
-        Debug.DrawRay(transform.position + Vector3.up, -Vector3.up, Color.blue);
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
 
         if (isGrounded)
         {
+            Debug.Log(isGrounded);
             if (isDoubleJumping)
             {
                 animator.SetTrigger("DoubleJumpEnd");
@@ -76,6 +77,7 @@ public class Jump : MonoBehaviour, IPunObservable
             //dans les air
             if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
+                Debug.Log(isGrounded);
                 DJumping();
                 isDoubleJumping = true;
                 nbJump = 0;
