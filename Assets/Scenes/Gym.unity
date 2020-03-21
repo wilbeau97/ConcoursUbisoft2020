@@ -4563,7 +4563,7 @@ PrefabInstance:
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
@@ -4974,35 +4974,40 @@ PrefabInstance:
         type: 3}
       propertyPath: soundList.Array.data[12].audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: fc774e4b48a3ddf479516295a12502a3, type: 3}
+      objectReference: {fileID: 8300000, guid: 855da0d522012d64e82796a22dbe307f, type: 3}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[12].volume
-      value: 0.649
+      value: 0.577
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[12].pitch
-      value: 1.518
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[12].SpacialSoundCloseFar
-      value: 0.959
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[12].lowPitchRange
-      value: 1.15
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[12].highPitchRange
-      value: 1.35
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
         type: 3}
       propertyPath: soundList.Array.data[11].randomizePitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701447699207349389, guid: 5af8c57f8d81d6d41aa42ab28bb5673f,
+        type: 3}
+      propertyPath: soundList.Array.data[12].randomizePitch
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
