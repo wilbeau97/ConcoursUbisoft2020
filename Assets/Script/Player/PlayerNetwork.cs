@@ -52,10 +52,10 @@ public class PlayerNetwork : MonoBehaviour
          if (other.gameObject.CompareTag("InteractablePhysicsObject") || other.gameObject.CompareTag("InteractableHeavyPhysicsObject"))
          {
              if (photonView.isMine)
-             {  other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+             {  
                  if (other.gameObject.GetPhotonView().ownerId != PhotonNetwork.player.ID)
                  {
-                   
+                     other.gameObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                  }
              }
          }
