@@ -7,12 +7,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     private float sensitivity = 5f;
     private PlayerMotor motor;
     private CameraController cam;
     private Ability ability;
     private PlayerHUD hud;
     private float speed = 10f;
+    private float speedBack = 5f;
     private bool dontMoveCam = false;
     private FlashAura aura;
 
@@ -32,15 +34,17 @@ public class PlayerController : MonoBehaviour
 
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementZ = Input.GetAxisRaw("Vertical");
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        if (animator)
         {
-            AudioManager.Instance.Play("p2Move");
+            animator.SetFloat("velX", movementX);
+            animator.SetFloat("velY", movementZ);
         }
+        
 
         Vector3 movementHorizontal = transform.right * movementX;
         Vector3 movementVerticaltal = transform.forward * movementZ;
 
-        Vector3 velocity = (movementHorizontal + movementVerticaltal).normalized * speed;
+        Vector3 velocity =  movementZ > 0 ? (movementHorizontal + movementVerticaltal).normalized * speed  : (movementHorizontal + movementVerticaltal).normalized * speedBack;
 
         if (Vector3.Distance(velocity, Vector3.zero) > 0.01f && gameObject.GetPhotonView().isMine)
         {
@@ -50,10 +54,10 @@ public class PlayerController : MonoBehaviour
 
         float rotationY = Input.GetAxis("Mouse X");
         float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
+        
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
 
-        Vector3 jumpForce;
         if (Input.GetAxis("TelekinesisRotate") != 0)
         {
             dontMoveCam = true;

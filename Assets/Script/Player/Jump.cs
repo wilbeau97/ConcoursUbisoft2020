@@ -7,8 +7,9 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour, IPunObservable
 {
+    [SerializeField] private Animator animator;
     [SerializeField]private float jumpForceY = 7f;
-    public float height = 1.05f;
+    public float height = 0.1f;
     [SerializeField] private bool canJump = true;
     private int nbJump = 0;
     private Rigidbody rb;
@@ -18,6 +19,7 @@ public class Jump : MonoBehaviour, IPunObservable
     private bool matIsOn = true;
     private PhotonView view;
     private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
+    private bool isDoubleJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +32,21 @@ public class Jump : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!view.isMine) return;
+        if (PhotonNetwork.connected)
+        {
+            if (!view.isMine) return;
+        }
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
 
-        Vector3 jumpForce = Vector3.zero;
-        
         if (isGrounded)
         {
+            if (isDoubleJumping)
+            {
+                animator.SetTrigger("DoubleJumpEnd");
+                isDoubleJumping = false;
+            }
             if (hit.collider.CompareTag("Jumpable"))
             {
                 if (matIsOn)
@@ -55,11 +64,10 @@ public class Jump : MonoBehaviour, IPunObservable
                 }
             }
             //a terre
-            if (Input.GetButtonDown("Jump") && nbJump <= 1)
+            if (Input.GetButtonDown("Jump") && nbJump < 1)
             {
-                jumpForce = new Vector3(0, jumpForceY, 0);
-                rb.AddForce(jumpForce, ForceMode.VelocityChange);
                 AudioManager.Instance.Play("jump", transform);
+                Jumping();
                 nbJump++;
             }
             else
@@ -70,16 +78,31 @@ public class Jump : MonoBehaviour, IPunObservable
         else
         {
             //dans les air
-            if (nbJump <= 1 && Input.GetButtonDown("Jump") && canDoubleJump)
+            if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
-                jumpForce = new Vector3(0, jumpForceY, 0);
-                rb.AddForce(jumpForce, ForceMode.VelocityChange);
-                AudioManager.Instance.Play("doubleJump", transform);
-                nbJump = 2;
+               
+                DJumping();
+                isDoubleJumping = true;
+                nbJump = 0;
             }
         }
     }
     
+
+    private void Jumping()
+    {
+        animator.SetTrigger("Jump");
+        Vector3 jumpForce;
+        jumpForce = new Vector3(0, jumpForceY, 0);
+        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+    }
+    private void DJumping()
+    {
+        animator.SetTrigger("DoubleJump");
+        Vector3 jumpForce;
+        jumpForce = new Vector3(0, jumpForceY, 0);
+        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+    }
 
     public void IncreaseAbility()
     {
