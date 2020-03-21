@@ -93,7 +93,6 @@ public class TelekinesisAbility :  Ability
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
             {
-                //view = GetComponent<PhotonView>();
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
                 
@@ -105,6 +104,13 @@ public class TelekinesisAbility :  Ability
                 }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
+            }
+            else
+            {
+                if (!canLiftHeavyObject)
+                {
+                    GetComponentInChildren<PlayerHUD>().ActiveCantUseAbility();
+                }
             }
         }
     }

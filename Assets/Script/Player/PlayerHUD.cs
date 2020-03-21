@@ -14,9 +14,12 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Text tutorialText;
     [SerializeField] private Animator fadeAnimator;
     [SerializeField] private GameObject explainationText;
+    [SerializeField] private GameObject cantUseAbility;
+    [SerializeField] private string cantUseAbilityString;
     private Text ObjectviveText;
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
+    private bool isCantAbilityTextActivated = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class PlayerHUD : MonoBehaviour
         aim.SetActive(false);
         tutorialConceptArt.SetActive(false);
         canDeactivateText.SetActive(false);
+        cantUseAbility.GetComponent<Text>().text = cantUseAbilityString;
+        cantUseAbility.SetActive(false);
     }
 
     private void Update()
@@ -118,5 +123,20 @@ public class PlayerHUD : MonoBehaviour
     {
         fadeAnimator.SetTrigger("FadeOut");
         
+    }
+
+    public void ActiveCantUseAbility()
+    {
+        if(isCantAbilityTextActivated) return;
+        StartCoroutine(ActiveCantUseAbilityCoroutine());
+    }
+
+    public IEnumerator ActiveCantUseAbilityCoroutine()
+    {
+        isCantAbilityTextActivated = true;
+        cantUseAbility.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        cantUseAbility.SetActive(false);
+        isCantAbilityTextActivated = false;
     }
 }

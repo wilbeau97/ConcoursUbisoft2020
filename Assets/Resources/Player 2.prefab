@@ -37,9 +37,9 @@ Transform:
   m_GameObject: {fileID: 4094253302079792955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8, y: 1, z: -90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 7205028897624869582}
+  - {fileID: 7205028897624869560}
   - {fileID: 7448351869168134777}
   - {fileID: 5941270036636850625}
   - {fileID: 5300517269419424289}
@@ -226,7 +226,7 @@ MonoBehaviour:
   - {fileID: 5168576474725836400}
   - {fileID: 6517010804799981114}
   - {fileID: 8723281023201200824}
-  playerUI: {fileID: 7205028897624869785}
+  playerUI: {fileID: 7205028897624869770}
 --- !u!136 &8326920161354019473
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -272,8 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telekinesisScript: {fileID: 5178209016381729230}
-  abilityTutorialText: {fileID: 7205028897624869507}
-  heavyUpgradeText: {fileID: 7205028897624869513}
+  abilityTutorialText: {fileID: 7205028897624869489}
+  heavyUpgradeText: {fileID: 7205028897624869476}
 --- !u!114 &5476557453278675902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,6 +858,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -86
       objectReference: {fileID: 0}
+    - target: {fileID: 4126081877937116999, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: cantUseAbilityString
+      value: Vous ne pouvez pas encore lever de gros objets
+      objectReference: {fileID: 0}
     - target: {fileID: 4985605184562645691, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1016,7 +1021,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5831582451457154933, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
---- !u!114 &7205028897624869513 stripped
+--- !u!114 &7205028897624869476 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5381822764060010033, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -1028,7 +1033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7205028897624869507 stripped
+--- !u!114 &7205028897624869489 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -1040,13 +1045,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &7205028897624869582 stripped
+--- !u!224 &7205028897624869560 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
   m_PrefabInstance: {fileID: 7205028897624869879}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7205028897624869785 stripped
+--- !u!1 &7205028897624869770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
