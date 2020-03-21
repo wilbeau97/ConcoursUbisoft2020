@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
 
 public class InteractiveButton : MonoBehaviour
@@ -20,6 +21,7 @@ public class InteractiveButton : MonoBehaviour
     private void Interact()
     {
         if (!canInteract) return;
+        AudioManager.Instance.Play("lever");
         puzzleManagerView.OpenDoor();
     }
 

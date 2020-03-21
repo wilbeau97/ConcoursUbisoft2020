@@ -31,12 +31,20 @@ namespace Script.Audio
             {
                 Play("MainTheme");
             }
+            Play("ambianceWindy");
         }
         public void Play(string nameSound)
         {
             foreach (Sound sound in soundList)
             {
                 sound.Play(nameSound);
+            }
+        }
+        public void Play(string nameSound, Transform positionOfSound)
+        {
+            foreach (Sound sound in soundList)
+            {
+                sound.Play(nameSound, positionOfSound);
             }
         }
 

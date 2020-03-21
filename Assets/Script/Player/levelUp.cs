@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
 
 public class levelUp : MonoBehaviour
@@ -29,8 +30,10 @@ public class levelUp : MonoBehaviour
     {
         if ((other.CompareTag(playerTagToBeLeveledUp) && !alreadyTrigger))
         {
+            
             if (playerTagToBeLeveledUp == "Player1")
             {
+                AudioManager.Instance.Play("lvlup", transform);
                 other.GetComponent<Jump>().IncreaseJumpForce();
                 other.GetComponent<TutorialP1>().ActivatejumpUgradeForceText();
                 alreadyTrigger = true;

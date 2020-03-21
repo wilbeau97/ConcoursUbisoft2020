@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
 
 public class puzzle1Manager : PuzzleManager
@@ -10,8 +11,14 @@ public class puzzle1Manager : PuzzleManager
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private GameObject plateform;
 
+    private AudioSource sonDupont;
     private Transform playerToRespawn;
-    
+
+    private void Start()
+    {
+        sonDupont = GetComponent<AudioSource>();
+    }
+
     [PunRPC]
     public void RotateBridgeToPass()
     {
@@ -34,6 +41,7 @@ public class puzzle1Manager : PuzzleManager
 
     private IEnumerator DownPlateformCoroutine()
     {
+        AudioManager.Instance.Play("pressurePlateClose", plateform.transform);
         while (plateform.transform.position.y >= -16)
         {
             plateform.transform.position -= new Vector3(0,1,0);
@@ -45,7 +53,7 @@ public class puzzle1Manager : PuzzleManager
     {
         Quaternion from = bridge.transform.rotation;
         Quaternion to = Quaternion.Euler( 0,0,0);
-    
+        sonDupont.Play();
         float elapsed = 0.0f;
         while( elapsed < 4f )
         {
@@ -54,6 +62,7 @@ public class puzzle1Manager : PuzzleManager
             yield return null;
         }
         bridge.transform.rotation = to;
+        sonDupont.Stop();
     }
     
     public IEnumerator RotateBridgeToBlockRoutine()

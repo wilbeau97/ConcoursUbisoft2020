@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 339202565}
   - component: {fileID: 339202564}
   - component: {fileID: 339202563}
+  - component: {fileID: 7285117110081793937}
   m_Layer: 9
   m_Name: CubeForJumping (1)
   m_TagString: InteractablePhysicsObject
@@ -259,6 +260,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
+--- !u!114 &7285117110081793937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339202561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b62224e74dd564b9a52f3a10dd3251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848293958462208976
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +535,7 @@ GameObject:
   - component: {fileID: 1848293959125082654}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -829,7 +842,7 @@ GameObject:
   - component: {fileID: 1848293959947279854}
   m_Layer: 0
   m_Name: Plane (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1014,7 +1027,7 @@ GameObject:
   - component: {fileID: 1848293960148201043}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1106,7 +1119,7 @@ GameObject:
   - component: {fileID: 1848293960263362483}
   m_Layer: 0
   m_Name: Plane (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1342,6 +1355,7 @@ GameObject:
   - component: {fileID: 5354810834256329209}
   - component: {fileID: 3392595557337355197}
   - component: {fileID: 1104331514027893387}
+  - component: {fileID: 5585512147701298005}
   m_Layer: 9
   m_Name: cubeActivantStair2 (2)
   m_TagString: InteractableHeavyPhysicsObject
@@ -1583,6 +1597,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
+--- !u!114 &5585512147701298005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656970540138980789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b62224e74dd564b9a52f3a10dd3251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4138373263474810905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,6 +1627,7 @@ GameObject:
   - component: {fileID: 5685006581367781802}
   - component: {fileID: 7332538196970392470}
   - component: {fileID: 7169712587748173872}
+  - component: {fileID: 7768852012704417876}
   m_Layer: 9
   m_Name: cubeActivantStair2 (2)
   m_TagString: InteractableHeavyPhysicsObject
@@ -1842,6 +1869,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
+--- !u!114 &7768852012704417876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138373263474810905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b62224e74dd564b9a52f3a10dd3251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4550674443279312553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,6 +1899,7 @@ GameObject:
   - component: {fileID: 6352798607626860485}
   - component: {fileID: 4396727689545329168}
   - component: {fileID: 8656120655012559041}
+  - component: {fileID: 578233102116444750}
   m_Layer: 9
   m_Name: cubeActivantStair2 (2)
   m_TagString: InteractableHeavyPhysicsObject
@@ -2101,6 +2141,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
+--- !u!114 &578233102116444750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550674443279312553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b62224e74dd564b9a52f3a10dd3251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5210678024043172247
 GameObject:
   m_ObjectHideFlags: 0

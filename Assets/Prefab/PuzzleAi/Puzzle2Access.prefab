@@ -347,6 +347,7 @@ MonoBehaviour:
   isUserConnected: 0
   doorView: {fileID: 5356524604527010086}
   AllPlateMustStayActivated: 1
+  gameManagerView: {fileID: 0}
 --- !u!114 &5356524603579969467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +422,7 @@ MonoBehaviour:
   isUserConnected: 0
   doorView: {fileID: 5356524603736039837}
   AllPlateMustStayActivated: 1
+  gameManagerView: {fileID: 0}
 --- !u!114 &5356524603727852240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastDoor: 0
+  alreadyOpen: 0
   door: {fileID: 5356524603736039835}
   maxOpeningHeight: 0.71
   releaseRigidBody: 0
@@ -915,6 +919,7 @@ GameObject:
   - component: {fileID: 5356524604040564386}
   - component: {fileID: 5356524604040564385}
   - component: {fileID: 5356524604040564384}
+  - component: {fileID: 1299553056093246186}
   m_Layer: 9
   m_Name: cubeActivantStair2
   m_TagString: InteractablePhysicsObject
@@ -1156,6 +1161,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
+--- !u!114 &1299553056093246186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5356524604040564398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b62224e74dd564b9a52f3a10dd3251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5356524604066235327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastDoor: 0
+  alreadyOpen: 0
   door: {fileID: 5356524604066235317}
   maxOpeningHeight: 0.29
   releaseRigidBody: 0
@@ -1340,6 +1359,7 @@ MonoBehaviour:
   isUserConnected: 0
   doorView: {fileID: 5356524604066235312}
   AllPlateMustStayActivated: 0
+  gameManagerView: {fileID: 0}
 --- !u!114 &5356524604293480782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d726bc65a79f2c346a1bd0b499e52852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastDoor: 0
+  alreadyOpen: 0
   door: {fileID: 5356524604527010084}
   maxOpeningHeight: 1.09
   releaseRigidBody: 0
