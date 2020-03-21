@@ -22,14 +22,21 @@ public class MenuManager : MonoBehaviour
             player1Button.Select();
         }
 
+        public void Exit()
+        {
+            Application.Quit();
+        }
+
         public void ActivatedButtonPlayer1()
         {
-            player1Button.Select();
+            if(!gameObject.GetPhotonView().isMine)
+                player1Button.Select();
         }
         
         public void ActivatedButtonPlayer2()
         {
-            player2Button.Select();
+            if(!gameObject.GetPhotonView().isMine)
+                player2Button.Select();
         }
     }
 

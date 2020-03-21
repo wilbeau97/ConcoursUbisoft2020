@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 4779575550106303407}
   - component: {fileID: 790030281287058713}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,7 +517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6952956257486279143
 RectTransform:
   m_ObjectHideFlags: 0
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -705,10 +705,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Maintenant que votre m\xE9daillon est bris\xE9, vous avez \xE9t\xE9 envoy\xE9
-    dans des mondes parall\xE8les, compl\xE8tez ensemble, avec votre accolyte visible
-    seulement lorsqu'il ne bouge pas, tous les puzzles pour reformer votre m\xE9daillon
-    et vous retrouver."
+  m_Text: "Pour vous retrouver, terminer les puzzles pour reconstruire votre m\xE9daillon,
+    utilisez vos abilit\xE9 en \xE9quipe pour r\xE9ussir."
 --- !u!1 &7403912482495806393
 GameObject:
   m_ObjectHideFlags: 0
