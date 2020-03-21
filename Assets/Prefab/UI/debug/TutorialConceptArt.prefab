@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5946953337483427413}
   - component: {fileID: 8342359677192040644}
   - component: {fileID: 5549945666785169998}
-  - component: {fileID: 846718377386545577}
   m_Layer: 5
   m_Name: TutorialConceptArt
   m_TagString: Untagged
@@ -59,34 +58,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 79802a7301d04714ca82c5d92dc233f1, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
---- !u!114 &846718377386545577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664673139784990686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b870c8d59ef284ea6d288f22e0a893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractableHintText: {fileID: 0}
-  aim: {fileID: 0}
-  tuto: {fileID: 0}
-  tutorialConceptArt: {fileID: 0}
-  canDeactivateText: {fileID: 0}
-  tutorialText: {fileID: 0}
-  fadeAnimator: {fileID: 0}
