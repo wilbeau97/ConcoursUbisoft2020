@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Demos.DemoAnimator;
+using Script.Audio;
 using UnityEngine;
 
 public class Jump : MonoBehaviour, IPunObservable
@@ -16,6 +18,7 @@ public class Jump : MonoBehaviour, IPunObservable
     [SerializeField] private PhysicMaterial slideMaterial;
     private bool matIsOn = true;
     private PhotonView view;
+    private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
     private bool isDoubleJumping = false;
 
     // Start is called before the first frame update
@@ -39,7 +42,6 @@ public class Jump : MonoBehaviour, IPunObservable
 
         if (isGrounded)
         {
-            Debug.Log(isGrounded);
             if (isDoubleJumping)
             {
                 animator.SetTrigger("DoubleJumpEnd");
@@ -64,6 +66,7 @@ public class Jump : MonoBehaviour, IPunObservable
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump < 1)
             {
+                AudioManager.Instance.Play("jump", transform);
                 Jumping();
                 nbJump++;
             }
@@ -77,13 +80,14 @@ public class Jump : MonoBehaviour, IPunObservable
             //dans les air
             if (nbJump >= 1 && Input.GetButtonDown("Jump"))
             {
-                Debug.Log(isGrounded);
+               
                 DJumping();
                 isDoubleJumping = true;
                 nbJump = 0;
             }
         }
     }
+    
 
     private void Jumping()
     {
@@ -128,6 +132,24 @@ public class Jump : MonoBehaviour, IPunObservable
         if (!other.collider.CompareTag("Jumpable"))
         {
             view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+        }
+        if ((other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable")))
+        {
+            if (isJumpImpactSoundEnabled)
+            {
+                if (other.relativeVelocity.magnitude > 2)
+                {
+                    AudioManager.Instance.Play("afterJump", transform);
+                }
+            }
+        }
+    }
+
+    public void disableJumpDropSoundForP2()
+    {
+        if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        {
+            isJumpImpactSoundEnabled = false;
         }
     }
 

@@ -79,12 +79,18 @@ public class GameManager : MonoBehaviour, IPunObservable
         }
     }
     
+    // responsable de la transition après la fin du tuto j
     private IEnumerator WaitForAnimation()
     {
         yield return new WaitForSeconds(1f);
         player.GetComponent<TeleporteInGame>().TpInGame();
         player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
         GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().DesactivateGraphicsOtherPlayer();
+        if (GameObject.Find(notLocalPlayer).GetComponent<Jump>() != null)
+        {
+            GameObject.Find(notLocalPlayer).GetComponent<Jump>().disableJumpDropSoundForP2();
+        }
+        
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 
