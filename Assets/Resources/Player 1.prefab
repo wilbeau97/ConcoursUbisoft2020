@@ -1346,6 +1346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6357888272007015810}
+  - component: {fileID: 3941144948246380792}
   - component: {fileID: 5959080382768100797}
   - component: {fileID: 2917705489741021747}
   - component: {fileID: 6196979493268171191}
@@ -1358,7 +1359,6 @@ GameObject:
   - component: {fileID: 6676473692184544355}
   - component: {fileID: 1284274178928132416}
   - component: {fileID: 7485591638616253224}
-  - component: {fileID: 3941144948246380792}
   - component: {fileID: 3985388918117164208}
   m_Layer: 0
   m_Name: Player 1
@@ -1378,7 +1378,7 @@ Transform:
   m_LocalPosition: {x: -11.9, y: 1, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2740185518173708524}
+  - {fileID: 5078587950382805069}
   - {fileID: 6706250587123751878}
   - {fileID: 6899817391168556804}
   - {fileID: 2655875606657254519}
@@ -1388,6 +1388,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3941144948246380792
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953524524195995537}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 59442154a0162654095b36938aea3c2d, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4ca7f9b17c25cd649b6f3651a6ddc7e5, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &5959080382768100797
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1608,10 +1627,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpScript: {fileID: 7485591638616253224}
-  abilityTutorialText: {fileID: 9105330469088512359}
+  abilityTutorialText: {fileID: 5078587950382805104}
   jumpUpgradeText: {fileID: 2382802368509637610, guid: c579af53274ab0c46b67df664aee8394,
     type: 3}
-  jumpUgradeForceText: {fileID: 4615328468552350003}
+  jumpUgradeForceText: {fileID: 5078587950382805072}
 --- !u!114 &1284274178928132416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1640,28 +1659,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3941144948246380792}
   jumpForceY: 7
-  height: 0.01
+  height: 0.1
   canJump: 1
   slideMaterial: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
---- !u!95 &3941144948246380792
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953524524195995537}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 59442154a0162654095b36938aea3c2d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4ca7f9b17c25cd649b6f3651a6ddc7e5, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3985388918117164208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1991,7 +1991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
---- !u!114 &9105330469088512359 stripped
+--- !u!114 &5078587950382805104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -2003,7 +2003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4615328468552350003 stripped
+--- !u!114 &5078587950382805072 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 465616920686233656, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -2015,7 +2015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2740185518173708524 stripped
+--- !u!224 &5078587950382805069 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}

@@ -2898,7 +2898,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1308911137}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: abc62bf6c5413be4e85b14f60fe87253, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 5a07595c2ea098e43aab91ca6b9e39cf, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1308911139
 Terrain:
@@ -2970,7 +2970,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341131067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.4, y: 2.92, z: -114.3}
+  m_LocalPosition: {x: -121.4, y: 2.92, z: 40.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4246,7 +4246,7 @@ TerrainCollider:
   m_GameObject: {fileID: 2010728511}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: abc62bf6c5413be4e85b14f60fe87253, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 5a07595c2ea098e43aab91ca6b9e39cf, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &2010728513
 Terrain:
@@ -5111,6 +5111,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 745065543, guid: a2609f0c2ba7671488407bb7b7872029, type: 3}
+      propertyPath: activatedByTag.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 745065543, guid: a2609f0c2ba7671488407bb7b7872029, type: 3}
+      propertyPath: activatedByTag.Array.data[1]
+      value: Player1
+      objectReference: {fileID: 0}
     - target: {fileID: 745065544, guid: a2609f0c2ba7671488407bb7b7872029, type: 3}
       propertyPath: ObservedComponents.Array.data[0]
       value: 
