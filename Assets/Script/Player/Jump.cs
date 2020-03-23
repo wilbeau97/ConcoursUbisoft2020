@@ -42,6 +42,7 @@ public class Jump : MonoBehaviour, IPunObservable
 
         if (isGrounded)
         {
+            Debug.Log(hit.collider.name);
             if (isDoubleJumping)
             {
                 animator.SetTrigger("DoubleJumpEnd");

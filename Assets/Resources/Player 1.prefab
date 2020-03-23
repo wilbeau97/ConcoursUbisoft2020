@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 4265614770902687911}
   - component: {fileID: 6944879339064868811}
   - component: {fileID: 3703309763992536847}
+  - component: {fileID: 3559176936532922612}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -257,6 +258,61 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 1536
+--- !u!114 &3559176936532922612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879445008102139077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcd06815c47d30489f70df42db56a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frustum:
+    settings:
+      enableVolumes: 1
+      enableVolumesTextureMask: 1
+      enableVolumesNoiseMask: 1
+      enableDirectionalLights: 1
+      enableDirectionalLightsShadows: 1
+      enableSpotLights: 1
+      enableSpotLightsShadows: 1
+      enablePointLights: 1
+      enablePointLightsShadows: 1
+      enableLightsCookies: 1
+      enableOcclusionCulling: 1
+      occlusionCullingAccuracy: 2
+      enableTemporalReprojection: 1
+      temporalReprojectionFactor: 0.9
+      resolution: {x: 160, y: 88, z: 128}
+      farClipPlaneDistance: 100
+      density: 0.025
+      anisotropy: 0.8
+      color: {r: 0.18387818, g: 0.25, b: 0.17329878, a: 1}
+      colorStrength: 0.45
+    _computeMaximumDepthComputeShader: {fileID: 7200000, guid: a5d52c8a306e8b746ab60b306575aa3e,
+      type: 3}
+    _processOcclusionMapShader: {fileID: 4800000, guid: b9b5b0990ea6cfa4d96c89a9c1cec3e9,
+      type: 3}
+    _computeDataComputeShader: {fileID: 7200000, guid: 971d5d94be5bebc44aa6d832c17f5e62,
+      type: 3}
+    _computeAccumulationComputeShader: {fileID: 7200000, guid: 41ac7d79af1f9614ebe54df4f30ac3e0,
+      type: 3}
+  applyAsPostProcess: 1
+  computeMaximumDepthComputeShader: {fileID: 7200000, guid: a5d52c8a306e8b746ab60b306575aa3e,
+    type: 3}
+  processOcclusionMapShader: {fileID: 4800000, guid: b9b5b0990ea6cfa4d96c89a9c1cec3e9,
+    type: 3}
+  computeDataComputeShader: {fileID: 7200000, guid: 971d5d94be5bebc44aa6d832c17f5e62,
+    type: 3}
+  computeAccumulationComputeShader: {fileID: 7200000, guid: 41ac7d79af1f9614ebe54df4f30ac3e0,
+    type: 3}
+  postProcessShader: {fileID: 4800000, guid: 50255fa344dbd814c910fdafc5692b09, type: 3}
+  blueNoiseTexturesArray: {fileID: 18700000, guid: 518b8337a0340444aa49dd0780efa9c2,
+    type: 2}
+  _hasBeenAssigned: 1
 --- !u!1 &2112972624303515698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1582,7 @@ Transform:
   m_LocalPosition: {x: -11.9, y: 1, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5078587950382805056}
+  - {fileID: 2740185518173708524}
   - {fileID: 6706250587123751878}
   - {fileID: 6899817391168556804}
   - {fileID: 2655875606657254519}
@@ -1776,10 +1832,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpScript: {fileID: 7485591638616253224}
-  abilityTutorialText: {fileID: 5078587950382805113}
+  abilityTutorialText: {fileID: 0}
   jumpUpgradeText: {fileID: 2382802368509637610, guid: c579af53274ab0c46b67df664aee8394,
     type: 3}
-  jumpUgradeForceText: {fileID: 5078587950382805072}
+  jumpUgradeForceText: {fileID: 9105330469088512359}
 --- !u!114 &1284274178928132416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2145,25 +2201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
---- !u!224 &2740185518173708524 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
-    type: 3}
-  m_PrefabInstance: {fileID: 5078587950382805259}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4615328468552350003 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 465616920686233656, guid: 3ceb0eeeebf0945479561aac5609ea18,
-    type: 3}
-  m_PrefabInstance: {fileID: 5078587950382805259}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5078587950382805072 stripped
+--- !u!114 &9105330469088512359 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -2175,7 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &5078587950382805056 stripped
+--- !u!224 &2740185518173708524 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}

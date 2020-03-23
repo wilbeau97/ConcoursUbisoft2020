@@ -27,6 +27,7 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
 
     private void Update()
     {
+        Debug.Log(ready);
         if (ready == 2)
         {
             view.RPC("LoadGame", PhotonTargets.All);
