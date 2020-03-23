@@ -5,7 +5,7 @@ using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerChoiceMenu : MonoBehaviour
+public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
 {
     [SerializeField] private PhotonView view;
     [SerializeField] private Button player1Button;
@@ -46,7 +46,8 @@ public class PlayerChoiceMenu : MonoBehaviour
         PlayerManager.LocalPlayerInstance = player1Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
-        view.RPC("DisableButtonPlayer1", PhotonTargets.All);
+        //view.RPC("DisableButtonPlayer1", PhotonTargets.All);
+        DisableButtonPlayer1();
         
     }
     
@@ -55,10 +56,10 @@ public class PlayerChoiceMenu : MonoBehaviour
         PlayerManager.LocalPlayerInstance = player2Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
-        view.RPC("DisableButtonPlayer2", PhotonTargets.All);
+        //view.RPC("DisableButtonPlayer2", PhotonTargets.All);
+        DisableButtonPlayer2();
     }
     
-    [PunRPC]
     private void IsReady()
     {
         if (player1Selected && player2Selected)
@@ -74,7 +75,9 @@ public class PlayerChoiceMenu : MonoBehaviour
         player1Selected = true;
         player1Button.interactable = false;
         menuManager.ActivatedButtonPlayer2();
-        IsReady();
+        //IsReady();
+        readyButton.interactable = true;
+        readyButton.Select();
     }
     
     [PunRPC]
@@ -83,15 +86,17 @@ public class PlayerChoiceMenu : MonoBehaviour
         player2Selected = true;
         player2Button.interactable = false;
         menuManager.ActivatedButtonPlayer1();
-        IsReady();
+        //IsReady();
+        readyButton.interactable = true;
+        readyButton.Select();
     }
 
     public void Ready()
     {
-        if (view.ownerId != PhotonNetwork.player.ID)
-        {
-            view.TransferOwnership(PhotonNetwork.player.ID);
-        }
+        // if (view.ownerId != PhotonNetwork.player.ID)
+        // {
+            // view.TransferOwnership(PhotonNetwork.player.ID);
+        // }
         readyButton.interactable = false;
         ready += 1;
     }
@@ -100,13 +105,13 @@ public class PlayerChoiceMenu : MonoBehaviour
     {
         if (stream.isWriting)
         {
-            stream.SendNext(player1Selected);
-            stream.SendNext(player2Selected);
+            // stream.SendNext(player1Selected);
+            // stream.SendNext(player2Selected);
             stream.SendNext(ready);
         } else if (stream.isReading)
         {
-            player1Selected = (bool) stream.ReceiveNext();
-            player2Selected = (bool) stream.ReceiveNext();
+            // player1Selected = (bool) stream.ReceiveNext();
+            // player2Selected = (bool) stream.ReceiveNext();
             ready = (int) stream.ReceiveNext();
         }
     }
