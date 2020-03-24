@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private Transform spawnPointP1;
     [SerializeField] private Transform spawnPointP2;
     [SerializeField] private Transform spawnPointNotconnected;
+    [SerializeField] private GameObject mainCameraForAura;
 
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
@@ -40,6 +41,11 @@ public class GameManager : MonoBehaviour, IPunObservable
         {
             Instantiate(playerPrefab, spawnPointNotconnected.position, Quaternion.identity);
         }
+    }
+
+    private void Start()
+    {
+        mainCameraForAura.SetActive(false);
     }
 
     public virtual void OnJoinedLobby()
