@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour, IPunObservable
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
-                RenderSettings.fog = true;
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);
                 notLocalPlayer = "Player 1(Clone)";
