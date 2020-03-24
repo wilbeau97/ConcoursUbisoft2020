@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AuraAPI;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private Transform spawnPointP2;
     [SerializeField] private Transform spawnPointNotconnected;
     [SerializeField] private GameObject mainCameraForAura;
-
+    [SerializeField] private AuraVolume fog;
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
     [SerializeField] private ObjectiveLight puzzleAcces3Light;
@@ -58,9 +59,33 @@ public class GameManager : MonoBehaviour, IPunObservable
     [PunRPC]
     public void EndedPuzzle()
     {
+        //animation de camera
+        //faire descendre le brouillard
+        DecreaseFog();
         tree.Grow();
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
+    }
+
+    private void DecreaseFog()
+    {
+        switch(nbOfPuzzleSuceeed)
+        {
+            case 1:
+                fog.volumeShape.fading.heightPlaneFade = 0.075f;
+                break;
+            case 2:
+                fog.volumeShape.fading.heightPlaneFade = 0.05f;
+                break;
+            case 3:
+                fog.volumeShape.fading.heightPlaneFade = 0.025f;
+                break;
+            case 4:
+                fog.density.injectionParameters.enable = false;
+                GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)").GetComponentInChildren<Aura>().frustum.settings.density = 0.008f;
+                break;
+                    
+        }
     }
 
     private void OpenNextDoor()
