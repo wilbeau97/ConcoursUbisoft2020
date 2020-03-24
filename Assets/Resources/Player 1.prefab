@@ -1627,7 +1627,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &2917705489741021747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,8 +1805,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 2.01, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 0.5, y: 2.020164, z: 0.5}
+  m_Center: {x: 0, y: 0.99491805, z: 0}
 --- !u!114 &-8468275204834668530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3941144948246380792}
   jumpForceY: 7
-  height: 0.01
+  height: 0.02
   canJump: 1
   slideMaterial: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
 --- !u!114 &3985388918117164208
