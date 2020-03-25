@@ -106,10 +106,4 @@ public class PlayerController : MonoBehaviour
             cam.ReplaceCam();
         }
     }
-
-    public void playStepSound()
-    {
-        //AudioManager.Instance.Play("bootGrass1", transform);
-        SoundsManager.instance.RandomizeSfx(); // joue les sons de pas aléatoirement 
-    }
 }
