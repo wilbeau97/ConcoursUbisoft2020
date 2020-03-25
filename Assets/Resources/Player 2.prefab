@@ -238,9 +238,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.9811707
+  m_Height: 1.7600946
   m_Direction: 1
-  m_Center: {x: 0, y: -0.012252808, z: 0}
+  m_Center: {x: 0, y: 0.0982852, z: 0}
 --- !u!114 &5178209016381729230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4763896581403549104}
   m_LocalRotation: {x: 0.1556227, y: 0.0000717692, z: 0.0006868167, w: 0.98781633}
-  m_LocalPosition: {x: 0, y: 2.2080078, z: -5.77}
+  m_LocalPosition: {x: 0, y: 2.2080078, z: -3.5899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6929963065936329599}
@@ -437,10 +437,10 @@ MonoBehaviour:
       enableTemporalReprojection: 1
       temporalReprojectionFactor: 0.9
       resolution: {x: 160, y: 88, z: 128}
-      farClipPlaneDistance: 50
+      farClipPlaneDistance: 100
       density: 0.025
       anisotropy: 0.8
-      color: {r: 0.144502, g: 0.14213112, b: 0.25, a: 1}
+      color: {r: 0.18387818, g: 0.25, b: 0.17329878, a: 1}
       colorStrength: 0.45
     _computeMaximumDepthComputeShader: {fileID: 7200000, guid: a5d52c8a306e8b746ab60b306575aa3e,
       type: 3}
@@ -710,7 +710,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8083894756068080234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.39, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 6929963065936329599}
