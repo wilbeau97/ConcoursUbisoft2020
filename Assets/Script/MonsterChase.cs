@@ -24,9 +24,8 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     
     [SerializeField] private float chargeSpeed = 10.0f;
 
-    [SerializeField] private Transform[] positionToYeet;
-    
     [SerializeField] private float walkSpeed = 5.0f;
+    [SerializeField] private Transform[] positionToYeet;
     
     private float elapsedTime = 0;
     private GameObject playerOne;
@@ -47,9 +46,12 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     private bool collidedPlayer = false;
 
+    public Vector3 RespawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
+        RespawnPoint = transform.position;
         mesh = GetComponent<MeshRenderer>();
         view = gameObject.GetPhotonView();
         InitPlayer();
@@ -212,7 +214,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     {
         if (other.gameObject.CompareTag("Player1") && enemyColor == EnemiesColors.Bleu)
         {
-            Vector3 direction = positionToYeet[0].position - transform.position;
+            Vector3 direction = GetClosestPointToVoid() - transform.position;
             Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
@@ -220,14 +222,31 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         }
         else if (other.gameObject.CompareTag("Player2") && enemyColor == EnemiesColors.Vert)
         {
-            Vector3 direction = positionToYeet[0].position - transform.position;
+            Vector3 direction = GetClosestPointToVoid() - transform.position;
             Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;
         }
     }
-    
+
+    private Vector3 GetClosestPointToVoid()
+    {
+        float closestPoint = Mathf.Infinity;
+        Vector3 closestPosition = Vector3.zero;
+        foreach (Transform pointTransform in positionToYeet)
+        {
+            float distance = Vector3.Distance(transform.position, pointTransform.position);
+            if (distance < closestPoint)
+            {
+                closestPosition = pointTransform.position;
+                closestPoint = distance;
+            }
+        }
+
+        return closestPosition;
+    }
+
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

@@ -20,6 +20,9 @@ public class PuzzleManagerIA : PuzzleManager
             other.gameObject.GetComponentInChildren<PlayerHUD>().FadeOut();
             StartCoroutine("WaitForAnimation");
             playerToRespawn = other.transform;
+        } else if (other.CompareTag("Enemy"))
+        {
+            other.transform.position = other.GetComponent<MonsterChase>().RespawnPoint;
         }
     }
 
