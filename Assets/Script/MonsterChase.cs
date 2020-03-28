@@ -30,7 +30,6 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     private float elapsedTime = 0;
     private GameObject playerOne;
     private GameObject playerTwo;
-    private PhotonView view;
     private MeshRenderer mesh;
 
     private bool player1InRange = false;
@@ -47,6 +46,8 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     private bool collidedPlayer = false;
 
     public Vector3 RespawnPoint;
+    private PhotonView view;
+    private float yeetForce = 500;
 
     // Start is called before the first frame update
     void Start()
@@ -58,8 +59,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
-
-    [PunRPC]
+    
     private void InitPlayer()
     {
         playerOne = GameObject.FindGameObjectWithTag("Player1");
@@ -91,6 +91,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     {
         if (chargePlayer && !collidedPlayer)
         {
+            ChangeOwner();
             if (enemyColor == EnemiesColors.Bleu)
             {
                 transform.position = Vector3.MoveTowards(transform.position, playerOne.transform.position, chargeSpeed * Time.deltaTime);
@@ -130,7 +131,6 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         }
     }
     
-    [PunRPC]
     private void CheckForChargeOpportunity()
     {
         if (enemyColor == EnemiesColors.Bleu)
@@ -215,7 +215,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         if (other.gameObject.CompareTag("Player1") && enemyColor == EnemiesColors.Bleu)
         {
             Vector3 direction = GetClosestPointToVoid() - transform.position;
-            Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
+            Vector3 force = direction * yeetForce;
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;
@@ -223,7 +223,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         else if (other.gameObject.CompareTag("Player2") && enemyColor == EnemiesColors.Vert)
         {
             Vector3 direction = GetClosestPointToVoid() - transform.position;
-            Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
+            Vector3 force = direction * yeetForce;
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;
@@ -247,14 +247,27 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         return closestPosition;
     }
 
+    private void ChangeOwner()
+    {
+        
+        if (view.ownerId != PhotonNetwork.player.ID)
+        {
+            view.TransferOwnership(PhotonNetwork.player.ID);
+        }
+    }
+
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
+            stream.SendNext(player1InRange);
+            stream.SendNext(player2InRange);
             stream.SendNext(chargePlayer);
             stream.SendNext(collidedPlayer);
         } else if (stream.isReading)
         {
+            player1InRange = (bool) stream.ReceiveNext();
+            player2InRange = (bool) stream.ReceiveNext();
             chargePlayer = (bool) stream.ReceiveNext();
             collidedPlayer = (bool) stream.ReceiveNext();
         }
