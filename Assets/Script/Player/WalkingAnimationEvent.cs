@@ -74,6 +74,6 @@ public class WalkingAnimationEvent : MonoBehaviour
     public void playStepSound()
     {
         SoundsManager.instance.RandomizeSfx(); // joue les sons de pas aléatoirement 
-        SpawnFootPrint(footprintToSpawn);
+        //SpawnFootPrint(footprintToSpawn);
     }
 }

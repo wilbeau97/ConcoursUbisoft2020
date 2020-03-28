@@ -1625,6 +1625,7 @@ GameObject:
   - component: {fileID: 2917705489741021747}
   - component: {fileID: 7485591638616253224}
   - component: {fileID: 3985388918117164208}
+  - component: {fileID: 2695843127895524068}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player1
@@ -1643,7 +1644,7 @@ Transform:
   m_LocalPosition: {x: -11.9, y: 1, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2740185518173708524}
+  - {fileID: 5078587950382805098}
   - {fileID: 6706250587123751878}
   - {fileID: 6899817391168556804}
   - {fileID: 2655875606657254519}
@@ -1741,6 +1742,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8189564292894321098}
   - {fileID: 3985388918117164208}
+  - {fileID: 2695843127895524068}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1901,7 +1903,7 @@ MonoBehaviour:
   abilityTutorialText: {fileID: 0}
   jumpUpgradeText: {fileID: 2382802368509637610, guid: c579af53274ab0c46b67df664aee8394,
     type: 3}
-  jumpUgradeForceText: {fileID: 9105330469088512359}
+  jumpUgradeForceText: {fileID: 5078587950382805137}
 --- !u!114 &1284274178928132416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1988,6 +1990,20 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &2695843127895524068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953524524195995537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
 --- !u!1 &8021050838621201096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,13 +2296,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
---- !u!224 &2740185518173708524 stripped
+--- !u!224 &5078587950382805098 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
   m_PrefabInstance: {fileID: 5078587950382805259}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9105330469088512359 stripped
+--- !u!114 &5078587950382805137 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class MonsterChase : MonoBehaviour
+public class MonsterChase : MonoBehaviour, IPunObservable
 {
     public enum EnemiesColors
     {
@@ -24,10 +24,9 @@ public class MonsterChase : MonoBehaviour
     
     [SerializeField] private float chargeSpeed = 10.0f;
 
+    [SerializeField] private Transform[] positionToYeet;
+    
     [SerializeField] private float walkSpeed = 5.0f;
-
-    [SerializeField] private PhotonView player1View;
-    [SerializeField] private PhotonView player2View;
     
     private float elapsedTime = 0;
     private GameObject playerOne;
@@ -53,7 +52,7 @@ public class MonsterChase : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
         view = gameObject.GetPhotonView();
-        view.RPC("InitPlayer", PhotonTargets.All);
+        InitPlayer();
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
     }
@@ -82,7 +81,7 @@ public class MonsterChase : MonoBehaviour
         // Fonction qui compare les distances des 2 joueurs par rapport au monstre
         if ((player1InRange || player2InRange) && !collidedPlayer)
         {
-            view.RPC("CheckForChargeOpportunity", PhotonTargets.All);
+            CheckForChargeOpportunity();
         }
     }
 
@@ -166,9 +165,7 @@ public class MonsterChase : MonoBehaviour
 
     private bool CheckForLineOfSight(GameObject pPlayer)
     {
-        
         RaycastHit hit;
-        Debug.DrawRay(transform.position,(pPlayer.transform.position - transform.position));
         if (Physics.Raycast(transform.position, (pPlayer.transform.position - transform.position),
             out hit, Vector3.Distance(pPlayer.transform.position, transform.position) * 100))
         {
@@ -215,16 +212,16 @@ public class MonsterChase : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player1") && enemyColor == EnemiesColors.Bleu)
         {
-            Vector3 direction = other.transform.position - transform.position;
-            Vector3 force = new Vector3(direction.x * 500, 1000, direction.z * 500);
+            Vector3 direction = positionToYeet[0].position - transform.position;
+            Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;
         }
         else if (other.gameObject.CompareTag("Player2") && enemyColor == EnemiesColors.Vert)
         {
-            Vector3 direction = other.transform.position - transform.position;
-            Vector3 force = new Vector3(direction.x * 500, 1000, direction.z * 500);
+            Vector3 direction = positionToYeet[0].position - transform.position;
+            Vector3 force = new Vector3(direction.x * 50, 1000, direction.z * 50);
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
             chargePlayer = false;
             collidedPlayer = true;

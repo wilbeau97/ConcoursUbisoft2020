@@ -117,11 +117,18 @@ MonoBehaviour:
   pathWaypoints: []
   waitTimeOnWaypoint: 2
   chargeSpeed: 20
+  positionToYeet:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   walkSpeed: 5
-  player1View: {fileID: 4794919114368116214, guid: 700d9f331ea3b304f8791201e67ce5c1,
-    type: 3}
-  player2View: {fileID: 4179223895448871358, guid: 0e61c9f1d7119a841a9ccdd023158d58,
-    type: 3}
 --- !u!135 &7008658591518489534
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -172,7 +179,9 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 7008658591518489529}
+  - {fileID: 3746214197701104386}
+  - {fileID: 7008658591518489535}
+  - {fileID: 7795005108210862142}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
