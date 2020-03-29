@@ -40,7 +40,7 @@ Transform:
   m_LocalPosition: {x: 1.8, y: 1, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 252407718186736144}
+  - {fileID: 7205028897624869549}
   - {fileID: 7448351869168134777}
   - {fileID: 5941270036636850625}
   - {fileID: 5300517269419424289}
@@ -228,7 +228,7 @@ MonoBehaviour:
   - {fileID: 5168576474725836400}
   - {fileID: 6517010804799981114}
   - {fileID: 8723281023201200824}
-  playerUI: {fileID: 4278582091082197782}
+  playerUI: {fileID: 7205028897624869750}
 --- !u!114 &5126836671531736847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,8 +288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telekinesisScript: {fileID: 5178209016381729230}
-  abilityTutorialText: {fileID: 6618886960833393563}
-  heavyUpgradeText: {fileID: 2976163373662776774}
+  abilityTutorialText: {fileID: 7205028897624869500}
+  heavyUpgradeText: {fileID: 7205028897624869470}
 --- !u!114 &5476557453278675902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 1930309692703064514}
   m_Layer: 1
   m_Name: Aura
-  m_TagString: Player1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1093,7 +1093,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5831582451457154933, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb0eeeebf0945479561aac5609ea18, type: 3}
---- !u!114 &6618886960833393563 stripped
+--- !u!114 &7205028897624869500 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4046032385704900716, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
@@ -1105,19 +1105,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &252407718186736144 stripped
+--- !u!224 &7205028897624869549 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6952956257486279143, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
   m_PrefabInstance: {fileID: 7205028897624869879}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4278582091082197782 stripped
+--- !u!1 &7205028897624869750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6385528290560942305, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
   m_PrefabInstance: {fileID: 7205028897624869879}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2976163373662776774 stripped
+--- !u!114 &7205028897624869470 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5381822764060010033, guid: 3ceb0eeeebf0945479561aac5609ea18,
     type: 3}
