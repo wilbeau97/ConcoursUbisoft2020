@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4179223895448871358}
   - component: {fileID: 150200333447539144}
   - component: {fileID: 1857251339476201991}
+  - component: {fileID: 5126836671531736847}
   - component: {fileID: 8326920161354019473}
   - component: {fileID: 5178209016381729230}
   - component: {fileID: 6662277367124601484}
@@ -125,6 +126,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 150200333447539144}
+  - {fileID: 5126836671531736847}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -227,6 +229,20 @@ MonoBehaviour:
   - {fileID: 6517010804799981114}
   - {fileID: 8723281023201200824}
   playerUI: {fileID: 4278582091082197782}
+--- !u!114 &5126836671531736847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094253302079792955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
 --- !u!136 &8326920161354019473
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1063,6 +1079,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189128551622154440, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8388494300580453829, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}

@@ -47,7 +47,8 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     public Vector3 RespawnPoint;
     private PhotonView view;
-    private float yeetForce = 500;
+    private float yeetForce = 150;
+    private bool canCharge = true;
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +82,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         }
         
         // Fonction qui compare les distances des 2 joueurs par rapport au monstre
-        if ((player1InRange || player2InRange) && !collidedPlayer)
+        if ((player1InRange || player2InRange) /*&& !collidedPlayer*/)
         {
             CheckForChargeOpportunity();
         }
@@ -89,7 +90,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     private void FixedUpdate()
     {
-        if (chargePlayer && !collidedPlayer)
+        if (chargePlayer && canCharge/*!collidedPlayer*/)
         {
             ChangeOwner();
             if (enemyColor == EnemiesColors.Bleu)
@@ -212,35 +213,53 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player1") && enemyColor == EnemiesColors.Bleu)
+        if (other.gameObject.CompareTag("Player1") && enemyColor == EnemiesColors.Bleu && canCharge)
         {
-            Vector3 direction = GetClosestPointToVoid() - transform.position;
+            Vector3 closestPoint = CalculateClosestPointToVoid(other.gameObject.transform.position);
+            Vector3 direction = closestPoint - transform.position;
             Vector3 force = direction * yeetForce;
+            
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
+            
             chargePlayer = false;
             collidedPlayer = true;
+            StartCoroutine(CannotBeCharge());
         }
         else if (other.gameObject.CompareTag("Player2") && enemyColor == EnemiesColors.Vert)
         {
-            Vector3 direction = GetClosestPointToVoid() - transform.position;
+            Vector3 closestPoint = CalculateClosestPointToVoid(other.gameObject.transform.position);
+            Vector3 direction = closestPoint - transform.position;
             Vector3 force = direction * yeetForce;
+            
             other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, transform.position);
+            
             chargePlayer = false;
             collidedPlayer = true;
+            StartCoroutine(CannotBeCharge());
         }
     }
 
-    private Vector3 GetClosestPointToVoid()
+    private IEnumerator CannotBeCharge()
+    {
+        canCharge = false;
+        yield return new WaitForSeconds(5f);
+        canCharge = true;
+    }
+
+    private Vector3 CalculateClosestPointToVoid(Vector3 playerPosition)
     {
         float closestPoint = Mathf.Infinity;
         Vector3 closestPosition = Vector3.zero;
         foreach (Transform pointTransform in positionToYeet)
         {
             float distance = Vector3.Distance(transform.position, pointTransform.position);
-            if (distance < closestPoint)
+            if (distance >= Vector3.Distance(playerPosition, pointTransform.position))
             {
-                closestPosition = pointTransform.position;
-                closestPoint = distance;
+                if (distance < closestPoint)
+                {
+                    closestPosition = pointTransform.position;
+                    closestPoint = distance;
+                }
             }
         }
 

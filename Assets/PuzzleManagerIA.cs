@@ -18,10 +18,11 @@ public class PuzzleManagerIA : PuzzleManager
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             other.gameObject.GetComponentInChildren<PlayerHUD>().FadeOut();
-            StartCoroutine("WaitForAnimation");
             playerToRespawn = other.transform;
+            StartCoroutine("WaitForAnimation");
         } else if (other.CompareTag("Enemy"))
         {
+            other.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.transform.position = other.GetComponent<MonsterChase>().RespawnPoint;
         }
     }
@@ -29,7 +30,9 @@ public class PuzzleManagerIA : PuzzleManager
     private IEnumerator WaitForAnimation()
     {
         yield return new WaitForSeconds(1f);
-        playerToRespawn.position = respawnPoint.position;
         playerToRespawn.gameObject.GetComponentInChildren<PlayerHUD>().FadeIn();
+        playerToRespawn.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        yield return new WaitForSeconds(0.5f);
+        playerToRespawn.position = respawnPoint.position;
     }
 }
