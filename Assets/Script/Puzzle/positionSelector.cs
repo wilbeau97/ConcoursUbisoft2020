@@ -89,7 +89,7 @@ public class PositionSelector : MonoBehaviour
         
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (localPlayerName == "Player 1(Clone)")
+            if (localPlayerName == "Player 1(Clone)") // c'est le player 1 qui vient choisir et envoyé la bonne position de la plateforme
             {
                 if (stream.isWriting)
                 {
