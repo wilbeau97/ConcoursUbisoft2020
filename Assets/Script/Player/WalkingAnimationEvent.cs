@@ -14,26 +14,21 @@ public class WalkingAnimationEvent : MonoBehaviour
     [SerializeField] private GameObject rightFootPrint;
     [SerializeField] private GameObject leftFootPrint;
 
-    private FootPrint[] footPrintLeftInit = new FootPrint[10];
-    private FootPrint[] footPrintRightInit = new FootPrint[10];
+    private FootPrint[] footPrintLeftInit = new FootPrint[8];
+    private FootPrint[] footPrintRightInit = new FootPrint[8];
     private FootPrintEnum footprintToSpawn = FootPrintEnum.LEFT;
 
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < footPrintLeftInit.Length; i++)
         {
             footPrintLeftInit[i] = Instantiate(leftFootPrint).GetComponent<FootPrint>();
         }
         
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < footPrintRightInit.Length; i++)
         {
             footPrintRightInit[i] = Instantiate(rightFootPrint).GetComponent<FootPrint>();
         }
-    }
-
-    private void Update()
-    {
-        Debug.Log(transform.eulerAngles.y);
     }
 
     private void SpawnFootPrint(FootPrintEnum footPrintEnum)
@@ -57,22 +52,26 @@ public class WalkingAnimationEvent : MonoBehaviour
 
     public FootPrint GetRightFootPrint()
     {
-        int randomIndex = Random.Range(0, footPrintRightInit.Length - 1);
-        FootPrint footPrint = footPrintRightInit[randomIndex];
-        if (footPrint.isSpawn)
+        FootPrint footPrint = footPrintRightInit[0];
+        foreach (FootPrint fp in footPrintRightInit)
         {
-            footPrint = GetRightFootPrint();
+            if (!fp.isSpawn)
+            {
+                footPrint = fp;
+            }
         }
         return footPrint;
     }
     
     public FootPrint GetLeftFootPrint()
     {
-        int randomIndex = Random.Range(0, footPrintLeftInit.Length - 1);
-        FootPrint footPrint = footPrintLeftInit[randomIndex];
-        if (footPrint.isSpawn)
+        FootPrint footPrint = footPrintLeftInit[0];
+        foreach (FootPrint fp in footPrintLeftInit)
         {
-            footPrint = GetLeftFootPrint();
+            if (!fp.isSpawn)
+            {
+                footPrint = fp;
+            }
         }
         return footPrint;
     }

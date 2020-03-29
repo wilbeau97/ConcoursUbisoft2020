@@ -21,7 +21,7 @@ public class FootPrint : MonoBehaviour
 
     private IEnumerator Disapear()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
         isSpawn = false;
     }
