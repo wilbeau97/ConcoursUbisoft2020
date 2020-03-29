@@ -14,6 +14,7 @@ public class PositionSelector : MonoBehaviour
         public Transform[] possiblePositions1StPlaytrough;
         // liste des positions possible de cet objet pour les autres playthrough avec tous les skills
         public Transform[] possiblePositions2NdPlaytrough;
+        private string localPlayerName;
     
         void Start()
         {
@@ -76,5 +77,22 @@ public class PositionSelector : MonoBehaviour
         {
             return selectedPosition;
         }
+
+        public void SetLocalPlayerName(string pLocalPlayerName)
+        {
+            localPlayerName = pLocalPlayerName;
+        }
+        
+        // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        // {
+        //     if (stream.isWriting)
+        //     {
+        //         stream.SendNext(matIsOn);
+        //     } else if (stream.isReading)
+        //     {
+        //         matIsOn = (bool) stream.ReceiveNext();
+        //     }
+        // }
+        
     }
 

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     private int nbOfPuzzleSuceeed = 0;
     private GameObject player;
     private string notLocalPlayer;
+    private string localPlayer;
     private void Awake()
     {
         if (PhotonNetwork.connected)
@@ -29,12 +30,14 @@ public class GameManager : MonoBehaviour, IPunObservable
                  PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
                     Quaternion.identity, 0);
                  notLocalPlayer = "Player 2(Clone)";
+                 localPlayer = "Player 1(Clone)";
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);
                 notLocalPlayer = "Player 1(Clone)";
+                localPlayer = "Player 2(Clone)";
             }
         }
         else
@@ -124,6 +127,10 @@ public class GameManager : MonoBehaviour, IPunObservable
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
     }
 
+    public string GetLocalPlayerName()
+    {
+        return localPlayer;
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
