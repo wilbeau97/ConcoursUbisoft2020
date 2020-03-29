@@ -31,6 +31,11 @@ public class WalkingAnimationEvent : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Debug.Log(transform.eulerAngles.y);
+    }
+
     private void SpawnFootPrint(FootPrintEnum footPrintEnum)
     {
         FootPrint footPrint;
@@ -46,6 +51,7 @@ public class WalkingAnimationEvent : MonoBehaviour
         }
         
         footPrint.gameObject.transform.position = transform.position;
+        footPrint.gameObject.transform.rotation = Quaternion.Euler(90, transform.eulerAngles.y, 0);
         footPrint.Spawn();
     }
 
@@ -74,6 +80,6 @@ public class WalkingAnimationEvent : MonoBehaviour
     public void playStepSound()
     {
         SoundsManager.instance.RandomizeSfx(); // joue les sons de pas aléatoirement 
-        //SpawnFootPrint(footprintToSpawn);
+        SpawnFootPrint(footprintToSpawn);
     }
 }
