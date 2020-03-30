@@ -14,18 +14,20 @@ public class WalkingAnimationEvent : MonoBehaviour
     [SerializeField] private GameObject rightFootPrint;
     [SerializeField] private GameObject leftFootPrint;
 
-    private FootPrint[] footPrintLeftInit = new FootPrint[10];
-    private FootPrint[] footPrintRightInit = new FootPrint[10];
+    private FootPrint[] footPrintLeftInit = new FootPrint[5];
+    private FootPrint[] footPrintRightInit = new FootPrint[5];
     private FootPrintEnum footprintToSpawn = FootPrintEnum.LEFT;
+    private int rightIndex = 0;
+    private int leftIndex = 0;
 
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < footPrintLeftInit.Length; i++)
         {
             footPrintLeftInit[i] = Instantiate(leftFootPrint).GetComponent<FootPrint>();
         }
         
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < footPrintRightInit.Length; i++)
         {
             footPrintRightInit[i] = Instantiate(rightFootPrint).GetComponent<FootPrint>();
         }
@@ -46,34 +48,34 @@ public class WalkingAnimationEvent : MonoBehaviour
         }
         
         footPrint.gameObject.transform.position = transform.position;
+        footPrint.gameObject.transform.rotation = Quaternion.Euler(90, transform.rotation.y, 0);
         footPrint.Spawn();
     }
 
     public FootPrint GetRightFootPrint()
     {
-        int randomIndex = Random.Range(0, footPrintRightInit.Length - 1);
-        FootPrint footPrint = footPrintRightInit[randomIndex];
-        if (footPrint.isSpawn)
-        {
-            footPrint = GetRightFootPrint();
-        }
+       
+        FootPrint footPrint = footPrintRightInit[rightIndex];
+        
+        rightIndex++;
+        rightIndex %= footPrintRightInit.Length;
+        
         return footPrint;
     }
     
     public FootPrint GetLeftFootPrint()
     {
-        int randomIndex = Random.Range(0, footPrintLeftInit.Length - 1);
-        FootPrint footPrint = footPrintLeftInit[randomIndex];
-        if (footPrint.isSpawn)
-        {
-            footPrint = GetLeftFootPrint();
-        }
+        FootPrint footPrint = footPrintLeftInit[leftIndex];
+        
+        leftIndex++;
+        leftIndex %= footPrintLeftInit.Length;
+        
         return footPrint;
     }
 
     public void playStepSound()
     {
         SoundsManager.instance.RandomizeSfx(); // joue les sons de pas aléatoirement 
-        //SpawnFootPrint(footprintToSpawn);
+        SpawnFootPrint(footprintToSpawn);
     }
 }
