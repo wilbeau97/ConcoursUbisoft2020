@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 public enum FootPrintEnum
 {
@@ -48,7 +44,7 @@ public class WalkingAnimationEvent : MonoBehaviour
         }
         
         footPrint.gameObject.transform.position = transform.position;
-        footPrint.gameObject.transform.rotation = Quaternion.Euler(90, transform.rotation.y, 0);
+        footPrint.gameObject.transform.rotation = Quaternion.Euler(90, transform.eulerAngles.y, 0);
         footPrint.Spawn();
     }
 
