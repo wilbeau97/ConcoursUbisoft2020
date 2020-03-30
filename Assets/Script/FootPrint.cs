@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class FootPrint : MonoBehaviour
 {
-    public bool isSpawn;
 
     private void Start()
     {
@@ -14,15 +13,13 @@ public class FootPrint : MonoBehaviour
 
     public void Spawn()
     {
-        isSpawn = true;
         gameObject.SetActive(true);
         StartCoroutine(Disapear());
     }
 
     private IEnumerator Disapear()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
-        isSpawn = false;
     }
 }

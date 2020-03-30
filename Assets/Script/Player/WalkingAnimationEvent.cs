@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum FootPrintEnum
 {
@@ -10,8 +11,8 @@ public class WalkingAnimationEvent : MonoBehaviour
     [SerializeField] private GameObject rightFootPrint;
     [SerializeField] private GameObject leftFootPrint;
 
-    private FootPrint[] footPrintLeftInit = new FootPrint[5];
-    private FootPrint[] footPrintRightInit = new FootPrint[5];
+    private FootPrint[] footPrintLeftInit = new FootPrint[6];
+    private FootPrint[] footPrintRightInit = new FootPrint[6];
     private FootPrintEnum footprintToSpawn = FootPrintEnum.LEFT;
     private int rightIndex = 0;
     private int leftIndex = 0;
@@ -69,8 +70,16 @@ public class WalkingAnimationEvent : MonoBehaviour
         return footPrint;
     }
 
-    public void playStepSound()
+    public void playStepSound(AnimationEvent evt)
     {
+        if (evt.animatorClipInfo.clip.name == "RunLeft" || evt.animatorClipInfo.clip.name == "RunRight")
+        {
+            if (Math.Abs(evt.animatorClipInfo.weight - 1f) > 0.05)
+            {
+                return;
+            }
+        }
+        
         SoundsManager.instance.RandomizeSfx(); // joue les sons de pas aléatoirement 
         SpawnFootPrint(footprintToSpawn);
     }
