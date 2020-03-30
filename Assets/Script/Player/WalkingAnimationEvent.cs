@@ -74,7 +74,7 @@ public class WalkingAnimationEvent : MonoBehaviour
     {
         if (evt.animatorClipInfo.clip.name == "RunLeft" || evt.animatorClipInfo.clip.name == "RunRight")
         {
-            if (Math.Abs(evt.animatorClipInfo.weight - 1f) > 0.05)
+            if (Math.Abs(evt.animatorClipInfo.weight - 1f) > 0.01)
             {
                 return;
             }
