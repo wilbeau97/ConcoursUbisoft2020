@@ -14,9 +14,11 @@ public class WalkingAnimationEvent : MonoBehaviour
     [SerializeField] private GameObject rightFootPrint;
     [SerializeField] private GameObject leftFootPrint;
 
-    private FootPrint[] footPrintLeftInit = new FootPrint[8];
-    private FootPrint[] footPrintRightInit = new FootPrint[8];
+    private FootPrint[] footPrintLeftInit = new FootPrint[4];
+    private FootPrint[] footPrintRightInit = new FootPrint[4];
     private FootPrintEnum footprintToSpawn = FootPrintEnum.LEFT;
+    private int rightIndex = 0;
+    private int leftIndex = 0;
 
     private void Start()
     {
@@ -33,10 +35,10 @@ public class WalkingAnimationEvent : MonoBehaviour
 
     private void SpawnFootPrint(FootPrintEnum footPrintEnum)
     {
-        FootPrint footPrint;
+        FootPrint footPrint = footPrintLeftInit[0];
         if (footPrintEnum == FootPrintEnum.LEFT)
         {
-            footPrint =  GetLeftFootPrint();
+             footPrint =  GetLeftFootPrint();
             footprintToSpawn = FootPrintEnum.RIGHT;
         }
         else
@@ -52,27 +54,19 @@ public class WalkingAnimationEvent : MonoBehaviour
 
     public FootPrint GetRightFootPrint()
     {
-        FootPrint footPrint = footPrintRightInit[0];
-        foreach (FootPrint fp in footPrintRightInit)
-        {
-            if (!fp.isSpawn)
-            {
-                footPrint = fp;
-            }
-        }
+        FootPrint footPrint = footPrintRightInit[rightIndex];
+        rightIndex++;
+        rightIndex %= footPrintRightInit.Length;
+
         return footPrint;
     }
     
     public FootPrint GetLeftFootPrint()
     {
-        FootPrint footPrint = footPrintLeftInit[0];
-        foreach (FootPrint fp in footPrintLeftInit)
-        {
-            if (!fp.isSpawn)
-            {
-                footPrint = fp;
-            }
-        }
+        FootPrint footPrint = footPrintLeftInit[leftIndex];
+        leftIndex++;
+        leftIndex %= footPrintLeftInit.Length;
+        
         return footPrint;
     }
 
