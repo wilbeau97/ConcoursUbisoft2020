@@ -16,9 +16,8 @@ public class BigTree : MonoBehaviour
 
     public void Grow()
     {
-        //changer 1000 par valeur quelconque
-        growSize = 1000;
-        tree.localScale += new Vector3(0, growSize, 0);
-        tree.position += new Vector3(0, growSize / 2, 0);
+        // growSize = 10;
+        // tree.position += new Vector3(0, growSize / 2, 0);
+        // tree.localScale += new Vector3(growSize, growSize, growSize);
     }
 }
