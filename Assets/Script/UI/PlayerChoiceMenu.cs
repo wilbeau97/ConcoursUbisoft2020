@@ -15,7 +15,8 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
     [SerializeField] private GameObject player2Prefab;
     [SerializeField] private MenuManager menuManager;
     [SerializeField] private Text playerChosenText;
-    
+
+    // private bool hasLoaded = false;
     private bool player1Selected = false;
     private bool player2Selected = false;
     private int ready = 0;
@@ -43,13 +44,13 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         {
             //essayer en local
             view.RPC("LoadGame", PhotonTargets.All);
-            ready = 0;
         }
     }
 
     [PunRPC]
     public void LoadGame()
     {
+        ready = 0;
         Debug.Log("Loading level");
         PhotonNetwork.LoadLevel(1);
     }
@@ -60,9 +61,6 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
         DisableButtonPlayer1();
-        Debug.Log("player1Selected =  " + player1Selected); 
-        Debug.Log("player2Selected =  " + player2Selected); 
-        
     }
     
     public void Player2Choosen()
@@ -71,8 +69,6 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
         DisableButtonPlayer2();
-        Debug.Log("player1Selected =  " + player1Selected);
-        Debug.Log("player2Selected =  " + player2Selected);
     }
 
     [PunRPC] 
@@ -100,9 +96,6 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         readyButton.interactable = false;
         setReady();
         view.RPC("setReady", PhotonTargets.Others);
-        Debug.Log("player1Selected (readyFunc) =  " + player1Selected);
-        Debug.Log("player2Selected (readyFunc) =  " + player2Selected);
-        Debug.Log(" nb of ready = " + ready);
     }
 
     [PunRPC]
