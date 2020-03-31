@@ -51,14 +51,6 @@ public class GameManager : MonoBehaviour, IPunObservable
         mainCameraForAura.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
-        }
-    }
-
     public virtual void OnJoinedLobby()
     {
         Debug.Log("Join lobby");
@@ -74,8 +66,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         DecreaseFog();
         if(nbOfPuzzleSuceeed != 0)
             tree.Grow();
-        //PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
-        GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerNetwork>().EndedPuzzle();
+        PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
     }
 
