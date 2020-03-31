@@ -51,6 +51,14 @@ public class GameManager : MonoBehaviour, IPunObservable
         mainCameraForAura.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.Others);
+        }
+    }
+
     public virtual void OnJoinedLobby()
     {
         Debug.Log("Join lobby");
@@ -63,10 +71,11 @@ public class GameManager : MonoBehaviour, IPunObservable
     public void EndedPuzzle()
     {
         //animation de camera
-        //faire descendre le brouillard
         DecreaseFog();
-        tree.Grow();
-        PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
+        if(nbOfPuzzleSuceeed != 0)
+            tree.Grow();
+        //PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
+        GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
     }
 

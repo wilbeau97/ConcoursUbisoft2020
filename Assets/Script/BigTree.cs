@@ -1,23 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class BigTree : MonoBehaviour
 {
-    private Transform tree;
-
+    private Animator animator;
     private int growSize = 20;
+    private int nbTime = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        tree = GetComponent<Transform>();
+        animator = GetComponent<Animator>();
     }
 
     public void Grow()
     {
-        // growSize = 10;
-        // tree.position += new Vector3(0, growSize / 2, 0);
-        // tree.localScale += new Vector3(growSize, growSize, growSize);
+        animator.SetTrigger("Grow" + nbTime);
+        nbTime++;
     }
 }
