@@ -65,9 +65,9 @@ public class GameManager : MonoBehaviour, IPunObservable
     public void EndedPuzzle()
     {
         //animation de camera
-        //faire descendre le brouillard
         DecreaseFog();
-        tree.Grow();
+        if(nbOfPuzzleSuceeed != 0)
+            tree.Grow();
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
     }
