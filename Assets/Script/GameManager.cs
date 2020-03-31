@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.Others);
+            gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
         }
     }
 
