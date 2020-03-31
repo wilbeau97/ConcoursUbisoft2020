@@ -50,7 +50,7 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
     [PunRPC]
     public void LoadGame()
     {
-        Debug.Log("Load");
+        Debug.Log("Loading level");
         PhotonNetwork.LoadLevel(1);
     }
 
@@ -60,6 +60,8 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
         DisableButtonPlayer1();
+        Debug.Log("player1Selected =  " + player1Selected); 
+        Debug.Log("player2Selected =  " + player2Selected); 
         
     }
     
@@ -69,6 +71,8 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
         DisableButtonPlayer2();
+        Debug.Log("player1Selected =  " + player1Selected);
+        Debug.Log("player2Selected =  " + player2Selected);
     }
 
     [PunRPC] 
@@ -94,6 +98,16 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
     public void Ready()
     {
         readyButton.interactable = false;
+        setReady();
+        view.RPC("setReady", PhotonTargets.Others);
+        Debug.Log("player1Selected (readyFunc) =  " + player1Selected);
+        Debug.Log("player2Selected (readyFunc) =  " + player2Selected);
+        Debug.Log(" nb of ready = " + ready);
+    }
+
+    [PunRPC]
+    public void setReady()
+    {
         ready += 1;
     }
     
@@ -103,12 +117,12 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         {
              stream.SendNext(player1Selected);
              stream.SendNext(player2Selected);
-            stream.SendNext(ready);
+            // stream.SendNext(ready);
         } else if (stream.isReading)
         {
              player1Selected = (bool) stream.ReceiveNext();
              player2Selected = (bool) stream.ReceiveNext();
-            ready = (int) stream.ReceiveNext();
+            // ready = (int) stream.ReceiveNext();
         }
     }
 }
