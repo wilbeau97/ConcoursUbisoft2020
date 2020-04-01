@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class MovePlatform : MonoBehaviour
 {
-    // Inspiré/basé sur : https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html
+    // Basé sur la docu de lerp : https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html
     // Transforms to act as start and end markers for the journey.
     public Transform startMarker;
     public Transform endMarker;
     // Movement speed in units per second.
     public float speed = 1.0F;
-    // Time when the movement started.
+    // Le temps au début du mouvement
     private float startTime;
-    // Total distance between the markers.
+    // La distance entre les markers 
     private float journeyLength;
+    // indique le mouvement en cours et empêche les exécutions inutiles de coroutine
     private bool isGoingForward = false;
     private bool isGoingBackward = false;
 
@@ -22,7 +23,7 @@ public class MovePlatform : MonoBehaviour
     {
         // Keep a note of the time the movement started.
         startTime = Time.time;
-        //Calculate the journey length.
+        //Calculate the journey length. Important : utilisation de Vector3.distance pour comparer des floats
         journeyLength = Vector3.Distance(transform.position, endMarker.position);
         isGoingBackward = false;
         isGoingForward = true;

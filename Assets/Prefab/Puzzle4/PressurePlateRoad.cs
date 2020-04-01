@@ -21,9 +21,7 @@ namespace Prefab.Puzzle4
 
         private void Pressed()
         {
-            //targetObjectView.RPC(nameRPCMethode, PhotonTargets.All);
-            
-            if (!PhotonNetwork.connected)
+            if (!PhotonNetwork.connected) // si on est offline
             {
                 targetObjectView.GetComponent<MovePlatform>().MovePlatformForward();
             }
@@ -35,7 +33,7 @@ namespace Prefab.Puzzle4
 
         private void Depressed()
         {
-            if (!PhotonNetwork.connected)
+            if (!PhotonNetwork.connected) // si on est offline 
             {
                 targetObjectView.GetComponent<MovePlatform>().MovePlatformBackward();
             }
