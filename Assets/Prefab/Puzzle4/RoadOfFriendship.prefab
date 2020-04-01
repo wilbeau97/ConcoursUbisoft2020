@@ -489,7 +489,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 1222028964679216670}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &5983053760082352454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +544,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 717609471477429087}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!1 &2347496185120211666
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +576,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4996725846672683310}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2602129787763211136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7249775893767523994}
+  m_Layer: 0
+  m_Name: platform1Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7249775893767523994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2602129787763211136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.94, y: 0, z: 7.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7043948926586639253}
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2637499325895459763
 GameObject:
@@ -11236,7 +11268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 1348179173689697282}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &1597074810029270082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11290,7 +11323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 4580726955875407765}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!1 &5633415292830989824
 GameObject:
   m_ObjectHideFlags: 0
@@ -11539,7 +11573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 5827437544616744784}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &1611538841864571954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12619,7 +12654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 570703862209522725}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &2548322953798063069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12673,7 +12709,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 291421654631570427}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &8652790262163471143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12687,7 +12724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 1276718806303505745}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!1 &6864542440134212193
 GameObject:
   m_ObjectHideFlags: 0
@@ -12930,6 +12968,8 @@ Transform:
   - {fileID: 3637540426176184532}
   - {fileID: 104091348948496599}
   - {fileID: 3114288879598198222}
+  - {fileID: 7249775893767523994}
+  - {fileID: 2600202279132000949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13888,7 +13928,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 2631541213858165466}
-  nameRpcMethode: SetActive
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &2631541213858165466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14051,7 +14092,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObjectView: {fileID: 8719168531225969755}
-  nameRpcMethode: StateChange
+  pressedRpcMethode: 
+  depressedRPCMethode: 
 --- !u!114 &3010501228032705506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14124,6 +14166,36 @@ Transform:
   - {fileID: 6057879335253863294}
   m_Father: {fileID: 7043948926586639253}
   m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9052831673612910440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2600202279132000949}
+  m_Layer: 0
+  m_Name: platform1end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2600202279132000949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9052831673612910440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.94, y: 13.27, z: 7.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7043948926586639253}
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &656097300
 PrefabInstance:
