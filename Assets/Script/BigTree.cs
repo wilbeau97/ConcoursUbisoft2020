@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class BigTree : MonoBehaviour
 {
+    [SerializeField] private Material daySkybox;
+    [SerializeField] private Material nightSkybox;
     private Animator animator;
     private int growSize = 20;
     private int nbTime = 0;
@@ -13,6 +15,7 @@ public class BigTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RenderSettings.skybox = nightSkybox;
         animator = GetComponent<Animator>();
     }
 
@@ -25,5 +28,6 @@ public class BigTree : MonoBehaviour
     public void ChangeSkybox()
     {
         Debug.Log("Test");
+        RenderSettings.skybox = daySkybox;
     }
 }

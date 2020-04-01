@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AuraAPI;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour, IPunObservable
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
     [SerializeField] private ObjectiveLight puzzleAcces3Light;
+
+    private PlayableDirector playable;
     private int nbOfPuzzleSuceeed = 0;
     private GameObject player;
     private string notLocalPlayer;
@@ -50,7 +53,17 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void Start()
     {
-        mainCameraForAura.SetActive(false);
+        playable = GetComponent<PlayableDirector>();
+        mainCameraForAura.GetComponent<Camera>().enabled = false;
+        mainCameraForAura.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
+        }
     }
 
     public virtual void OnJoinedLobby()
@@ -107,13 +120,26 @@ public class GameManager : MonoBehaviour, IPunObservable
             puzzleAcces3Light.ActivateLight();
         }
 
-        if (!doorViews[nbOfPuzzleSuceeed].alreadyOpen)
+        if (nbOfPuzzleSuceeed == 4)
+        {
+            EndCinematic();
+            nbOfPuzzleSuceeed++;
+        }
+        else if (!doorViews[nbOfPuzzleSuceeed].alreadyOpen)
         {
             doorViews[nbOfPuzzleSuceeed].OpenDoorRPC();
             nbOfPuzzleSuceeed += 1;
         }
     }
-    
+
+    private void EndCinematic()
+    {
+        mainCameraForAura.SetActive(true);
+        PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().DisableCam();
+        mainCameraForAura.GetComponent<Camera>().enabled = true;
+        playable.Play();
+    }
+
     // responsable de la transition après la fin du tuto j
     private IEnumerator WaitForAnimation()
     {
