@@ -5,8 +5,10 @@ namespace Prefab.Puzzle4
     public class PressurePlateRoad : MonoBehaviour
     {
         [SerializeField] private PhotonView targetObjectView;
-        [SerializeField] private string nameRpcMethode;
-
+        [SerializeField] private string pressedRpcMethode;
+        [SerializeField] private string depressedRPCMethode;
+        
+        
         public void OnTriggerEnter(Collider other)
         {
             Pressed();
@@ -14,13 +16,34 @@ namespace Prefab.Puzzle4
     
         public void OnTriggerExit(Collider other)
         {
-            Pressed();
+            Depressed();
         }
 
         private void Pressed()
         {
             //targetObjectView.RPC(nameRPCMethode, PhotonTargets.All);
-            targetObjectView.gameObject.SendMessage(nameRpcMethode);
+            
+            if (!PhotonNetwork.connected)
+            {
+                targetObjectView.GetComponent<MovePlatform>().MovePlatformForward();
+            }
+            else
+            {
+                targetObjectView.gameObject.SendMessage(pressedRpcMethode);
+            }
+        }
+
+        private void Depressed()
+        {
+            if (!PhotonNetwork.connected)
+            {
+                targetObjectView.GetComponent<MovePlatform>().MovePlatformBackward();
+            }
+            else
+            {
+                targetObjectView.gameObject.SendMessage(depressedRPCMethode);
+            }
+            
         }
     }
 }
