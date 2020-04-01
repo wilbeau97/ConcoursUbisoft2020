@@ -21,4 +21,9 @@ public class BigTree : MonoBehaviour
         animator.SetTrigger("Grow" + nbTime);
         nbTime++;
     }
+
+    public void ChangeSkybox()
+    {
+        Debug.Log("Test");
+    }
 }
