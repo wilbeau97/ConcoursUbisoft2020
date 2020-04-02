@@ -17,7 +17,7 @@ public class PlayerNetwork : MonoBehaviour
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        
+        playerCamera.GetComponent<Camera>().enabled = true;
         Initialize();
     }
 
@@ -66,5 +66,10 @@ public class PlayerNetwork : MonoBehaviour
         GetComponent<Ability>().IncreaseAbility();
         transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>().RoutineGainLife();
 
+    }
+
+    public void DisableCam()
+    {
+        playerCamera.GetComponent<Camera>().enabled = false;
     }
 }
