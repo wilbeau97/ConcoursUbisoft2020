@@ -5,6 +5,7 @@ using AuraAPI;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IPunObservable
 {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour, IPunObservable
     private GameObject player;
     private string notLocalPlayer;
     private string localPlayer;
+    private bool isCinematicPlaying = false;
+
     private void Awake()
     {
         if (PhotonNetwork.connected)
@@ -63,6 +66,14 @@ public class GameManager : MonoBehaviour, IPunObservable
         if (Input.GetKeyDown(KeyCode.G))
         {
             gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
+            //EndCinematic();
+        }
+
+        if (isCinematicPlaying && playable.state != PlayState.Playing)
+        {
+            isCinematicPlaying = false;
+            //SceneManager.LoadScene(1);
+            PhotonNetwork.LoadLevel(1);
         }
     }
 
@@ -134,8 +145,10 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void EndCinematic()
     {
+        isCinematicPlaying = true;
         mainCameraForAura.SetActive(true);
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().DisableCam();
+        //GameObject.FindWithTag("Player1").GetComponent<PlayerNetwork>().DisableCam();
         mainCameraForAura.GetComponent<Camera>().enabled = true;
         playable.Play();
     }
