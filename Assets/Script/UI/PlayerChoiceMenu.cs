@@ -5,7 +5,7 @@ using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
+public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
 {
     [SerializeField] private PhotonView view;
     [SerializeField] private Button player1Button;
@@ -46,6 +46,25 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
             view.RPC("LoadGame", PhotonTargets.All);
         }
     }
+    public void OnJoinedRoom()
+    {
+        InitCustomPropreties();
+    }
+
+    private void InitCustomPropreties()
+    {
+        var p1ChosenProp = "p1chosen";
+        var p2ChosenProp = "p2chosen";
+        // Si le p1 ou le p2 n'a pas été initialisé, on le fait à false
+        if (PhotonNetwork.room.CustomProperties[p1ChosenProp] == null)
+        {
+            PhotonNetwork.room.CustomProperties.Add(p1ChosenProp, false);    
+        }
+        if (PhotonNetwork.room.CustomProperties[p2ChosenProp] == null)
+        {
+            PhotonNetwork.room.CustomProperties.Add(p2ChosenProp, false);    
+        } 
+    }
 
     [PunRPC]
     public void LoadGame()
@@ -60,7 +79,9 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         PlayerManager.LocalPlayerInstance = player1Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
-        DisableButtonPlayer1();
+        PhotonNetwork.room.CustomProperties["p1chosen"] = true;
+        view.RPC("updateChoices", PhotonTargets.All);
+        view.RPC("DisableButtonPlayer1", PhotonTargets.All);
     }
     
     public void Player2Choosen()
@@ -68,13 +89,52 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         PlayerManager.LocalPlayerInstance = player2Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
-        DisableButtonPlayer2();
+        PhotonNetwork.room.CustomProperties["p2chosen"] = true;
+        // en fonction des choix dans le serveur, on vient mettre à jour les choix
+        view.RPC("updateChoices", PhotonTargets.All);
+        view.RPC("DisableButtonPlayer2", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    private void updateChoices()
+    {
+        player1Selected = GetP1ChoiceState();
+        Debug.Log("Update : Player 1 : " + player1Selected);
+        player2Selected = GetP2ChoiceState();
+        Debug.Log("Update : Player 2 : " + player2Selected);
+    }
+
+    private bool GetP1ChoiceState()
+    {
+        var p1ChosenProp = "p1chosen";
+        if (PhotonNetwork.room != null)
+        {
+            var result = PhotonNetwork.room.CustomProperties[p1ChosenProp];
+            if (result is bool b)
+            {
+                return b;
+            } 
+        }
+        return false;
+    }
+
+    private bool GetP2ChoiceState()
+    {
+        var p2ChosenProp = "p2chosen";
+        if (PhotonNetwork.room != null)
+        {
+            var result = PhotonNetwork.room.CustomProperties[p2ChosenProp];
+            if (result is bool b)
+            {
+                return b;
+            } 
+        }
+        return false;
     }
 
     [PunRPC] 
     public void DisableButtonPlayer1()
     {
-        player1Selected = true;
         player1Button.interactable = false;
         menuManager.ActivatedButtonPlayer2();
         readyButton.interactable = true;
@@ -84,7 +144,6 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
     [PunRPC]
     public void DisableButtonPlayer2()
     {
-        player2Selected = true;
         player2Button.interactable = false;
         menuManager.ActivatedButtonPlayer1();
         readyButton.interactable = true;
@@ -110,12 +169,10 @@ public class PlayerChoiceMenu : MonoBehaviour, IPunObservable
         {
              stream.SendNext(player1Selected);
              stream.SendNext(player2Selected);
-            // stream.SendNext(ready);
         } else if (stream.isReading)
         {
              player1Selected = (bool) stream.ReceiveNext();
              player2Selected = (bool) stream.ReceiveNext();
-            // ready = (int) stream.ReceiveNext();
         }
     }
 }
