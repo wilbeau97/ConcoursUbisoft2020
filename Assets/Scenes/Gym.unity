@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 2
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 7416536dbe0334cfd888dd1beb75a9fb, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82348398}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
   m_Name: 
@@ -1367,6 +1367,7 @@ GameObject:
   - component: {fileID: 364727053}
   - component: {fileID: 364727052}
   - component: {fileID: 364727054}
+  - component: {fileID: 364727055}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1456,7 +1457,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364727051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
@@ -1491,6 +1492,9 @@ MonoBehaviour:
     type: 3}
 --- !u!84 &389541870
 RenderTexture:
+--- !u!95 &364727055
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1781,6 +1785,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7844890924490199601, guid: 3e7aa4c26186da941acbdbf190928fba,
+        type: 3}
+      propertyPath: nightSkybox
+      value: 
+      objectReference: {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
+    - target: {fileID: 7844890924490199601, guid: 3e7aa4c26186da941acbdbf190928fba,
+        type: 3}
+      propertyPath: daySkybox
+      value: 
+      objectReference: {fileID: 2100000, guid: 7416536dbe0334cfd888dd1beb75a9fb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e7aa4c26186da941acbdbf190928fba, type: 3}
 --- !u!114 &489278895 stripped
@@ -1795,6 +1809,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f280af17a315c4cb02e9f2729e2385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &489278896 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 919042495654371481, guid: 3e7aa4c26186da941acbdbf190928fba,
+    type: 3}
+  m_PrefabInstance: {fileID: 489278894}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &508380886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3420,6 +3440,7 @@ GameObject:
   - component: {fileID: 802147339}
   - component: {fileID: 802147337}
   - component: {fileID: 802147338}
+  - component: {fileID: 802147340}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -3494,6 +3515,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &802147340
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802147336}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 96499812460ecd74d9776374512399cc, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 9090670288941992938, guid: 4402429a41a1a744ca7dfcdee8ce8fa4, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8091432195760635843, guid: 96499812460ecd74d9776374512399cc, type: 2}
+    value: {fileID: 978534294}
+  - key: {fileID: 7951243026616829334, guid: 96499812460ecd74d9776374512399cc, type: 2}
+    value: {fileID: 489278896}
+  - key: {fileID: -7107580660537836056, guid: 96499812460ecd74d9776374512399cc, type: 2}
+    value: {fileID: 978534299}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &802707381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4470,6 +4516,7 @@ GameObject:
   - component: {fileID: 978534297}
   - component: {fileID: 978534296}
   - component: {fileID: 978534295}
+  - component: {fileID: 978534299}
   m_Layer: 0
   m_Name: MainCameraForAura
   m_TagString: Untagged
@@ -4484,7 +4531,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978534294}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdcd06815c47d30489f70df42db56a48, type: 3}
   m_Name: 
@@ -4539,7 +4586,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978534294}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &978534297
 Camera:
   m_ObjectHideFlags: 0
@@ -4590,13 +4637,32 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978534294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.868713, y: 27.3, z: -32.1}
+  m_LocalRotation: {x: 0.052096, y: -0.92945373, z: -0.14431487, w: -0.3355221}
+  m_LocalPosition: {x: -85.19844, y: 7, z: 126.4984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &978534299
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978534294}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &981353610
 GameObject:
   m_ObjectHideFlags: 0
