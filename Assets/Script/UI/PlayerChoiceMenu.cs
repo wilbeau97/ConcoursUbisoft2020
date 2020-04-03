@@ -99,9 +99,7 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
     private void updateChoices()
     {
         player1Selected = GetP1ChoiceState();
-        Debug.Log("Update : Player 1 : " + player1Selected);
         player2Selected = GetP2ChoiceState();
-        Debug.Log("Update : Player 2 : " + player2Selected);
     }
 
     private bool GetP1ChoiceState()
