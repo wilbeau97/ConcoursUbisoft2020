@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Script.Audio;
 using UnityEngine;
 
@@ -21,7 +22,8 @@ namespace Prefab.Puzzle4
             _move += moveOfObjectX.CalculateMove(state, position.x);
             _move += moveOfObjectY.CalculateMove(state, position.y);
             _move += moveOfObjectZ.CalculateMove(state, position.z);
-            gameObject.transform.Translate(_move);
+            // gameObject.transform.Translate(_move);
+            StartCoroutine(MovePlateform());
             _move = Vector3.zero;
         }
 
@@ -29,6 +31,15 @@ namespace Prefab.Puzzle4
         public void StateChange()
         {
             state = !state;
+        }
+
+        public IEnumerator MovePlateform()
+        {
+            while (gameObject.transform.position != _move)
+            {
+                gameObject.transform.Translate(_move);
+                yield return null;
+            }
         }
 
         public void OnCollisionEnter(Collision other)
