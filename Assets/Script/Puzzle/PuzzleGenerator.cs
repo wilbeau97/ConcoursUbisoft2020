@@ -9,6 +9,7 @@
         // on start : // for loop sur les objet et call "randomSelect"
         void Start()
         {
+            GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
             foreach (var positionSelector in movableObjectList)
             {
                 positionSelector.SetLocalPlayerName(GameManager.GetLocalPlayerName());
