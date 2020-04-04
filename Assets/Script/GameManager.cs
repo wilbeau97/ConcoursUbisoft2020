@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private BigTree tree;
     [SerializeField] private Door[] doorViews;
     [SerializeField] private ObjectiveLight puzzleAcces3Light;
+    [SerializeField] private WorldBuilder builder;
 
     private PlayableDirector playable;
     private int nbOfPuzzleSuceeed = 0;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour, IPunObservable
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
+                builder.InstantiateWorld();
                 Debug.Log("Online : player2 Instantiated");
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);

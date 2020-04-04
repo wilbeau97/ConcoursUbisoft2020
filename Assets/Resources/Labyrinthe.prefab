@@ -7025,6 +7025,7 @@ GameObject:
   - component: {fileID: 4006433229477314629}
   - component: {fileID: 4006433229477314628}
   - component: {fileID: 8231982251128694924}
+  - component: {fileID: -1265212099967626838}
   m_Layer: 0
   m_Name: Labyrinthe
   m_TagString: Ground
@@ -7319,6 +7320,32 @@ MonoBehaviour:
   redCube: {fileID: 6308433462919147780}
   blueCube: {fileID: 4376338349130757698}
   greenCube: {fileID: 6241508842997114865}
+--- !u!114 &-1265212099967626838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006433229477314631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &4006433229931088585
 GameObject:
   m_ObjectHideFlags: 0
