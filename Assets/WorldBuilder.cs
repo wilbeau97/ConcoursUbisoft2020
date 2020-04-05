@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class WorldBuilder : MonoBehaviour
+public class WorldBuilder : MonoBehaviour, IPunObservable
 {
     [SerializeField] private GameObject[] exitDoorPrefabs;
     [SerializeField] private GameObject[] enterDoorPrefabs;
@@ -13,12 +11,17 @@ public class WorldBuilder : MonoBehaviour
     [SerializeField] private GameObject puzzleMazePrefab;
 
     private Door[] doorObjectInstantiate = new Door[4];
-
+    private bool isBuild = false;
 
     public void InstantiateWorld()
     {
-        InstantiateDoor();
-        InstantiatePuzzlePrefab();
+        Debug.Log(isBuild);
+        if (!isBuild)
+        {
+            InstantiateDoor();
+            InstantiatePuzzlePrefab();
+            isBuild = true;
+        }
     }
 
     private void InstantiatePuzzlePrefab()
@@ -46,6 +49,24 @@ public class WorldBuilder : MonoBehaviour
 
     public Door[] GetDoors()
     {
-        return doorObjectInstantiate;
+        Door[] test = new Door[4];
+        int i = 0;
+        foreach (GameObject goDoor in enterDoorPrefabs)
+        {
+            test[i] = GameObject.Find(goDoor.name + "(Clone)").GetComponent<Door>();
+            i++;
+        }
+        return test;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(isBuild);
+        } else if (stream.isReading)
+        {
+            isBuild = (bool) stream.ReceiveNext();
+        }
     }
 }

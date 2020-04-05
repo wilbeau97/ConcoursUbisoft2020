@@ -105,4 +105,9 @@ public class PressurePlateManager : MonoBehaviour
         }
     }
     
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
+    
 }

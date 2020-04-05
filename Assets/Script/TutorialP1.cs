@@ -16,11 +16,14 @@ public class TutorialP1 : Tutorial
     // Start is called before the first frame update
     void Start()
     {
-        abilityTutorialText.gameObject.SetActive(false);
+        if (abilityTutorialText != null)
+        {
+            abilityTutorialText.gameObject.SetActive(false);
+        }
         jumpUpgradeText.gameObject.SetActive(false);
         if (gameObject.GetPhotonView().isMine)
         {
-            jumpScript.enabled = false;
+            jumpScript.enabled = false;    
         }
     }
 
@@ -35,16 +38,22 @@ public class TutorialP1 : Tutorial
 
     public override void ActivateTutorial()
     {
-        abilityTutorialText.gameObject.SetActive(true);
-        jumpScript.enabled = true;
-        canDeactivate = true;
-        abilityTutorialText.text =
-            "Appuyez sur A pour sauté";
+        if (abilityTutorialText != null)
+        {
+            jumpScript.enabled = true;
+            canDeactivate = true;
+            abilityTutorialText.text =
+                "Appuyez sur A pour sauté";
+            abilityTutorialText.gameObject.SetActive(true);
+        }
     }
     
     public override void DesactivateTutorial()
     {
-        abilityTutorialText.gameObject.SetActive(false);
+        if (abilityTutorialText != null)
+        {
+            abilityTutorialText.gameObject.SetActive(false);
+        }
         this.enabled = false;
     }
     

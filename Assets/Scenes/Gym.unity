@@ -7841,6 +7841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1891692722}
+  - component: {fileID: 1891692723}
   - component: {fileID: 1891692721}
   m_Layer: 0
   m_Name: WorldBuilder
@@ -7894,6 +7895,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1891692723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891692720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 1891692721}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 2
+  instantiationId: 2
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1897733909 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 739322628, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
@@ -9255,6 +9283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: instantiationId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843958355235075384, guid: 3b68eb6415729cc42973078215a0a6f0,
+        type: 3}
+      propertyPath: synchronization
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3843958355235075385, guid: 3b68eb6415729cc42973078215a0a6f0,
         type: 3}
