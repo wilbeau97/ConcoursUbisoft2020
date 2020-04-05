@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Script.UI
 {
-    public class UiScript : MonoBehaviour
+    public class UiScript : Photon.MonoBehaviour
     {
         public Image lifeImage;
         public Image energyImage;
@@ -90,6 +90,11 @@ namespace Script.UI
             {
                 UpdateEnergy();
             }
+        }
+        
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+
         }
     }
 }

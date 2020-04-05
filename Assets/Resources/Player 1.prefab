@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpScript: {fileID: 7485591638616253224}
-  abilityTutorialText: {fileID: 0}
+  abilityTutorialText: {fileID: 9105330469088512359}
   jumpUpgradeText: {fileID: 2382802368509637610, guid: c579af53274ab0c46b67df664aee8394,
     type: 3}
   jumpUgradeForceText: {fileID: 9105330469088512359}
@@ -2142,6 +2142,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449289962193018509, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449289962193018509, guid: 3ceb0eeeebf0945479561aac5609ea18,
+        type: 3}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1878529165701093709, guid: 3ceb0eeeebf0945479561aac5609ea18,
         type: 3}

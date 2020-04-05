@@ -7,7 +7,7 @@ using Script.Audio;
 using UnityEngine;
 [System.Serializable]
 
-public class PressurePlate : MonoBehaviour
+public class PressurePlate : Photon.MonoBehaviour
 {
     [SerializeField] private string playerWriting = "all";
     [SerializeField ]private bool isUserConnected= false;
@@ -104,4 +104,5 @@ public class PressurePlate : MonoBehaviour
         }
 
     }
+    
 }
