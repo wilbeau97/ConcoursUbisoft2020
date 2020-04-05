@@ -38,7 +38,6 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
-        Debug.Log("Is grounded = " + isGrounded);
         Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
 
         if (isGrounded)

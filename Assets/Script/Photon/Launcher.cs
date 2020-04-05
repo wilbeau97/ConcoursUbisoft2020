@@ -35,5 +35,8 @@ public class Launcher: Photon.MonoBehaviour
         startMenu.SetActive(true); 
     }
     
-    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
 }

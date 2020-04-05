@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlateLab : MonoBehaviour
+public class PressurePlateLab : Photon.MonoBehaviour
 {
     private bool isPressed;
     private PhotonView gameManagerView;
@@ -37,5 +37,10 @@ public class PressurePlateLab : MonoBehaviour
     private void Pressed()
     {
         gameManagerView.RPC(punRPCMethodeName, PhotonTargets.All);
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
     }
 }

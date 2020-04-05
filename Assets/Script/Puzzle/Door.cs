@@ -78,5 +78,9 @@ public class Door : Photon.MonoBehaviour
         
         yield return null;
     }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
     
 }
