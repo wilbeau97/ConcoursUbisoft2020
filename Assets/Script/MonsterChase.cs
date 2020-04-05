@@ -47,7 +47,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     public Vector3 RespawnPoint;
     private PhotonView view;
-    private float yeetForce = 150;
+    private float yeetForce = 100;
     private bool canCharge = true;
 
     // Start is called before the first frame update

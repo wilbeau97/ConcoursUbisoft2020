@@ -42,12 +42,13 @@ public class GameManager : MonoBehaviour, IPunObservable
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
-                builder.InstantiateWorld();
                 Debug.Log("Online : player2 Instantiated");
                 PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP2.position,
                     Quaternion.identity, 0);
                 notLocalPlayer = "Player 1(Clone)";
                 localPlayer = "Player 2(Clone)";
+                builder.InstantiateWorld();
+                doorViews = builder.GetDoors();
             }
         }
         else

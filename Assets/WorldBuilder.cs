@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class WorldBuilder : MonoBehaviour
 {
-    [SerializeField] private GameObject[] doorPrefabs;
+    [SerializeField] private GameObject[] exitDoorPrefabs;
+    [SerializeField] private GameObject[] enterDoorPrefabs;
     [SerializeField] private GameObject puzzle1Prefab;
     [SerializeField] private GameObject puzzleIAPrefab;
     [SerializeField] private Transform positionPuzzleIA;
     [SerializeField] private GameObject puzzleROFPrefab;
     [SerializeField] private GameObject puzzleMazePrefab;
-    
-    // Start is called before the first frame update
-    void Awake()
-    {
-       // InstantiateWorld();
-    }
+
+    private Door[] doorObjectInstantiate = new Door[4];
+
 
     public void InstantiateWorld()
     {
-        InitiateDoor();
+        InstantiateDoor();
         InstantiatePuzzlePrefab();
     }
 
@@ -31,12 +29,23 @@ public class WorldBuilder : MonoBehaviour
        PhotonNetwork.Instantiate(puzzleMazePrefab.name, puzzleMazePrefab.transform.position, puzzleMazePrefab.transform.rotation, 0);
     }
 
-    private void InitiateDoor()
+    private void InstantiateDoor()
     {
-        foreach (GameObject door in doorPrefabs)
+        foreach (GameObject door in exitDoorPrefabs)
         {
             PhotonNetwork.Instantiate(door.name, door.transform.position, door.transform.rotation, 0);
         }
-        
+
+        int i = 0;
+        foreach (GameObject door in enterDoorPrefabs)
+        {
+            doorObjectInstantiate[i] = PhotonNetwork.Instantiate(door.name, door.transform.position, door.transform.rotation, 0).GetComponent<Door>();
+            i++;
+        }
+    }
+
+    public Door[] GetDoors()
+    {
+        return doorObjectInstantiate;
     }
 }
