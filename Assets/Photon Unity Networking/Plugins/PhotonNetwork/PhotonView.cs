@@ -542,7 +542,7 @@ public class PhotonView : Photon.MonoBehaviour
                 if (foundMethod == false)
                 {
                     Debug.LogError("The observed monobehaviour ( Component name : " + component.name + " , gameobjectname : " + gameObject.name + ") of this PhotonView does not implement OnPhotonSerializeView()!");
-                    // gameObject.name = gameObject.name + " bug "; (pratique pour trouver l'objet méchant)
+                    // gameObject.name = gameObject.name + " bug "; // (pratique pour trouver l'objet méchant)
                         method = null;
                 }
 
