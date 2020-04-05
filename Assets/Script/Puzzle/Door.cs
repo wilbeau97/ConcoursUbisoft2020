@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Script.Audio;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Photon.MonoBehaviour
 {
     public bool isLastDoor;
     public bool alreadyOpen;

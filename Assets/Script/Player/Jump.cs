@@ -22,7 +22,7 @@ public class Jump : MonoBehaviour, IPunObservable
     private bool isDoubleJumping = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
@@ -38,6 +38,7 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
+        Debug.Log("Is grounded = " + isGrounded);
         Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
 
         if (isGrounded)
@@ -123,7 +124,6 @@ public class Jump : MonoBehaviour, IPunObservable
     [PunRPC]
     public void AddSlideMaterialRpc()
     {
-        
         playerCollider.material = slideMaterial;
     }
 
