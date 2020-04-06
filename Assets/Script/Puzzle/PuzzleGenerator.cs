@@ -4,7 +4,7 @@
     public class PuzzleGenerator : MonoBehaviour
     {
         public PositionSelector[] movableObjectList;
-        public GameManager GameManager;
+        private GameManager GameManager;
         // Start is called before the first frame update
         // on start : // for loop sur les objet et call "randomSelect"
         void Start()
@@ -12,10 +12,9 @@
             GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
             foreach (var positionSelector in movableObjectList)
             {
-                positionSelector.SetLocalPlayerName(GameManager.GetLocalPlayerName());
-                // TODO : si player1, randomSelect parce qu'en ce moment, c'est juste que la valeur est overwrite
-                positionSelector.RandomSelectPosition(); // sinon rien (dans position select, on va envoyer en réseau la valeur de l'index)
-                
+                positionSelector.SetLocalPlayerName(GameManager.GetLocalPlayerName()); // on vient fetch le playername pour savoir qui va MAJ les positions
+                positionSelector.RandomSelectPosition(); // On vient random select une position de la liste des positions possible
+                positionSelector.updatePositions(); // Si p1 -> va envoyer a p2 la position de la plateforme
             }
         }
         // recoit un call que c'Est une autre playthrough
