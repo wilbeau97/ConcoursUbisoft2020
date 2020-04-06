@@ -9,7 +9,13 @@ namespace Script
         [SerializeField] private GameObject mazeCubeBlue;
         [SerializeField] private GameObject mazeCubeGreen;
         [SerializeField] private bool endMaze = true;
-        public PhotonView targetRpcView;
+        [SerializeField] private GameObject endDoorPrefab;
+        private PhotonView targetRpcView;
+
+        private void Start()
+        {
+            targetRpcView = GameObject.Find(endDoorPrefab.name + "(Clone)").GetPhotonView();
+        }
 
         public void FixedUpdate()
         {

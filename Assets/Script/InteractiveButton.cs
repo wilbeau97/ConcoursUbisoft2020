@@ -7,7 +7,7 @@ using UnityEngine;
 public class InteractiveButton : MonoBehaviour
 { 
     [SerializeField] private PuzzleManager puzzleManagerView;
-    private bool canInteract = false;
+    private bool canInteract = true;
 
     // Update is called once per frame
     void Update()

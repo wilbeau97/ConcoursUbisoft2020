@@ -16,8 +16,6 @@ public class PressurePlate : Photon.MonoBehaviour
     [SerializeField] private string _activatedByTag; // utilisé pour déterminer ce qui va l'activer
     [SerializeField] private PressurePlateManager pressurePlateManager;
     [SerializeField] private PhotonView PressurePlateManagerPhotonView;
-    [SerializeField] private PhotonView gameManagerView;
-
     private void Start()
     {
         pressurePlateName = this.name;

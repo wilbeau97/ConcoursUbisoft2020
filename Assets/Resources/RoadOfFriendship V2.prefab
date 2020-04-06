@@ -1,19 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &1570550526
-MeshCollider:
+--- !u!114 &306259600997111377
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8056641804464828198}
-  m_Material: {fileID: 13400000, guid: 45b6842f9e3a50c40bc5615d8d16b3e3, type: 2}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 2790218921603395591}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 3286902598908967251, guid: 4d588b8e8e129c945936c4dea563fda0, type: 3}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1001 &5150424077307913110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50,7 +63,18 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzleEnterDoorView
       value: 
-      objectReference: {fileID: 6776958714201310670}
+      objectReference: {fileID: 0}
+    - target: {fileID: 52166014768923281, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: objectif
+      value: Atteingnez la plateforme finale pour ouvrir la porte.
+      objectReference: {fileID: 0}
+    - target: {fileID: 52166014768923281, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: enterPuzzleDoor
+      value: 
+      objectReference: {fileID: 3700066899971118746, guid: df70b26b21967e948871cc1961503570,
+        type: 3}
     - target: {fileID: 155848093093821951, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_ReceiveShadows
@@ -326,6 +350,18 @@ PrefabInstance:
       propertyPath: gameManagerView
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3196565725148891897, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: doorView
+      value: 
+      objectReference: {fileID: 4127322912718795833, guid: 595d4c41d72bfd14895e962a670b2194,
+        type: 3}
+    - target: {fileID: 3196565725148891897, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: doorPrefab
+      value: 
+      objectReference: {fileID: 4127322912718795839, guid: 595d4c41d72bfd14895e962a670b2194,
+        type: 3}
     - target: {fileID: 3237446710317068086, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: gameManagerView
@@ -466,6 +502,11 @@ PrefabInstance:
       propertyPath: instantiationId
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 5827437544616744784, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: synchronization
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5905427597007875663, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_ReceiveShadows
@@ -521,6 +562,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 35.106087
       objectReference: {fileID: 0}
+    - target: {fileID: 6390077276089863520, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6616929999977651358, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_TagString
@@ -539,7 +585,7 @@ PrefabInstance:
     - target: {fileID: 7043948926586639249, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_Name
-      value: RoadOfFriendship Variant
+      value: RoadOfFriendship V2
       objectReference: {fileID: 0}
     - target: {fileID: 7043948926586639249, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
@@ -736,21 +782,9 @@ PrefabInstance:
     - {fileID: 1797243422401682882, guid: c29c2d82db2e9cc448df82111af8cbdb, type: 3}
     - {fileID: 1481461614, guid: c29c2d82db2e9cc448df82111af8cbdb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c29c2d82db2e9cc448df82111af8cbdb, type: 3}
---- !u!1 &8056641804464828198 stripped
+--- !u!1 &2790218921603395591 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2933825089809845424, guid: c29c2d82db2e9cc448df82111af8cbdb,
+  m_CorrespondingSourceObject: {fileID: 7043948926586639249, guid: c29c2d82db2e9cc448df82111af8cbdb,
     type: 3}
   m_PrefabInstance: {fileID: 5150424077307913110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6776958714201310670 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1834481697727161944, guid: c29c2d82db2e9cc448df82111af8cbdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 5150424077307913110}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8056641804464828198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
