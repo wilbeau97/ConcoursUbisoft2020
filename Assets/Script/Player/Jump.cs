@@ -98,7 +98,7 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         animator.SetTrigger("DoubleJump");
         Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY* 1.5f, 0);
+        jumpForce = new Vector3(0, jumpForceY, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
 
