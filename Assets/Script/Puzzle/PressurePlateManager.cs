@@ -9,17 +9,20 @@ public class PressurePlateManager : MonoBehaviour
 {
     
     [SerializeField] private bool isUserConnected= false;
-    [SerializeField] private PhotonView doorView;
+    [SerializeField] private GameObject doorPrefab;
     [SerializeField] private bool AllPlateMustStayActivated = true;
     private GameManager gameManagerView;
     private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();
     private bool _doorActivated = false;
+    private PhotonView doorView;
     private Door door;
 
     private void Start()
     {
         gameManagerView = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        door = doorView.GetComponent<Door>();
+        GameObject doorObject = GameObject.Find(doorPrefab.name + "(Clone)");
+        door = doorObject.GetComponent<Door>();
+        doorView = GameObject.Find(doorPrefab.name + "(Clone)").GetPhotonView();
         if (PhotonNetwork.connected)
         {
             isUserConnected = true;
