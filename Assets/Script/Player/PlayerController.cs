@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         hud = GetComponentInChildren<PlayerHUD>();
         aura = GetComponentInChildren<FlashAura>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {

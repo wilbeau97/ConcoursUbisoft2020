@@ -38,8 +38,12 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         RaycastHit hit;
         bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
-        Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
-
+        // Debug.Log("is grounded : " + isGrounded);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Jump button down ground ou pas, nb de jump" + nbJump + ", Is grounded : " + isGrounded);
+        }
         if (isGrounded)
         {
             if (isDoubleJumping)
@@ -70,24 +74,18 @@ public class Jump : MonoBehaviour, IPunObservable
                 Jumping();
                 nbJump++;
             }
-            else
-            {
-                nbJump = 0;
-            }
         }
-        else
+        // Debug.Log("Est dans les air, nb de jump = " + nbJump);
+        //dans les air
+        if (nbJump >= 1 && Input.GetButtonDown("Jump") && !isGrounded)
         {
-            //dans les air
-            if (nbJump >= 1 && Input.GetButtonDown("Jump"))
-            {
-               
-                DJumping();
-                isDoubleJumping = true;
-                nbJump = 0;
-            }
+            Debug.Log("is Double jumping");
+            DJumping();
+            isDoubleJumping = true;
+            nbJump = 0;
         }
+
     }
-    
 
     private void Jumping()
     {
@@ -100,7 +98,7 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         animator.SetTrigger("DoubleJump");
         Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY, 0);
+        jumpForce = new Vector3(0, jumpForceY* 1.5f, 0);
         rb.AddForce(jumpForce, ForceMode.VelocityChange);
     }
 
@@ -139,6 +137,7 @@ public class Jump : MonoBehaviour, IPunObservable
                 if (other.relativeVelocity.magnitude > 2)
                 {
                     AudioManager.Instance.Play("afterJump", transform);
+                    nbJump = 0;
                 }
             }
         }
