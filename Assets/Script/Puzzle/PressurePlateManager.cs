@@ -23,6 +23,12 @@ public class PressurePlateManager : MonoBehaviour
         GameObject doorObject = GameObject.Find(doorPrefab.name + "(Clone)");
         door = doorObject.GetComponent<Door>();
         doorView = GameObject.Find(doorPrefab.name + "(Clone)").GetPhotonView();
+        
+        if (doorView == null)
+        {
+            GameObject.Find(doorPrefab.name).GetPhotonView();
+        }
+        
         if (PhotonNetwork.connected)
         {
             isUserConnected = true;
