@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class MenuManager : MonoBehaviour
         [SerializeField] private Button startButton;
         [SerializeField] private Button player2Button;
         [SerializeField] private InputField roomNameCreate;
-        [SerializeField] private InputField roomNameJoin;
+        [SerializeField] private Dropdown roomNameJoin;
         [SerializeField] private Launcher launcher;
         
         // Start is called before the first frame update
@@ -49,6 +50,18 @@ public class MenuManager : MonoBehaviour
         public void TypeRoomNameToJoin()
         {
             typeRoomToJoinPanel.SetActive(true);
+            roomNameJoin.options.Clear();
+            
+            RoomInfo[] rooms = PhotonNetwork.GetRoomList();
+            List<string> roomNames = new List<string>();
+            
+            for (int i = 0; i < rooms.Length; i++)
+            {
+                if(rooms[i].PlayerCount < 2)
+                    roomNames.Add(rooms[i].Name);
+            }
+            
+            roomNameJoin.AddOptions(roomNames);
         }
 
         public void TypeRoomNameToCreate()
@@ -68,10 +81,10 @@ public class MenuManager : MonoBehaviour
 
             for (int i = 0; i < rooms.Length; i++)
             {
-                if (rooms[i].Name == roomNameJoin.text)
+                if (rooms[i].Name == roomNameJoin.options[roomNameJoin.value].text)
                 {
                     Debug.Log("This room exists !");
-                    launcher.roomName = roomNameJoin.text;
+                    launcher.roomName = roomNameJoin.options[roomNameJoin.value].text;
                     launcher.Connect();
                     startMenu.SetActive(false);
                     roomMenu.SetActive(true);
