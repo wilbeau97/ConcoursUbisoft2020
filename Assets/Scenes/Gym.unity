@@ -10201,6 +10201,11 @@ PrefabInstance:
       propertyPath: gameManagerView
       value: 
       objectReference: {fileID: 802147338}
+    - target: {fileID: 8611164439400298841, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+        type: 3}
+      propertyPath: doorPrefab
+      value: 
+      objectReference: {fileID: 8611164440489147896}
     - target: {fileID: 8611164439400298847, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
         type: 3}
       propertyPath: viewIdField
@@ -10715,6 +10720,12 @@ MonoBehaviour:
 --- !u!1 &8611164440489147895 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8611164440961652619, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+    type: 3}
+  m_PrefabInstance: {fileID: 8611164440489147890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8611164440489147896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8611164440085057625, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
     type: 3}
   m_PrefabInstance: {fileID: 8611164440489147890}
   m_PrefabAsset: {fileID: 0}
