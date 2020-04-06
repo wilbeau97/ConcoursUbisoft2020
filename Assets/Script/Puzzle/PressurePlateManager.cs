@@ -21,13 +21,16 @@ public class PressurePlateManager : MonoBehaviour
     {
         gameManagerView = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         GameObject doorObject = GameObject.Find(doorPrefab.name + "(Clone)");
-        door = doorObject.GetComponent<Door>();
-        doorView = GameObject.Find(doorPrefab.name + "(Clone)").GetPhotonView();
-        
-        if (doorView == null)
+
+        if (doorObject == null)
         {
-            GameObject.Find(doorPrefab.name).GetPhotonView();
+            doorObject = GameObject.Find(doorPrefab.name);
         }
+        
+        door = doorObject.GetComponent<Door>();
+        doorView = doorObject.GetPhotonView();
+        
+        
         
         if (PhotonNetwork.connected)
         {
