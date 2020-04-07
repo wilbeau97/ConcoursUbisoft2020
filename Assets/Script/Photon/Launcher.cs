@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Launcher: Photon.MonoBehaviour
 {
@@ -9,29 +12,37 @@ public class Launcher: Photon.MonoBehaviour
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject idleMenu;
     private string _gameVersion = "1";
+    public string roomName = "";
+    [SerializeField] private Text roomNameText;
+    public List<string> roomNames  = new List<string>();
 
     void Start()
     {
+        PhotonNetwork.ConnectUsingSettings(_gameVersion);
         idleMenu.SetActive(true);
-        Connect();
+        startMenu.SetActive(true);
     }
     
     public void Connect()
     {
-        PhotonNetwork.ConnectUsingSettings(_gameVersion);
+        roomNameText.text = roomName;
+        RoomOptions room = new RoomOptions();
+        room.maxPlayers = 2;
+        PhotonNetwork.JoinOrCreateRoom(roomName, room, TypedLobby.Default);
     }
 
     public virtual void OnJoinedLobby()
     {
-        Debug.Log("Joining lobby");
-        RoomOptions room = new RoomOptions();
-        room.maxPlayers = 2;
-        PhotonNetwork.JoinOrCreateRoom("fukkkk", room, TypedLobby.Default);
+        Debug.Log("Joined lobby");
     }
 
     public virtual void OnJoinedRoom()
     {
-        Debug.Log(PhotonNetwork.room.Name + " Room joined");
-        startMenu.SetActive(true); 
+        Debug.Log(PhotonNetwork.room.Name + " room joined");
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        
     }
 }

@@ -93,9 +93,8 @@ public class TelekinesisAbility :  Ability
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
             {
-                //view = GetComponent<PhotonView>();
-                view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 playerNetwork.ChangeOwner(hit.collider);
+                view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), playerCollider);
                 

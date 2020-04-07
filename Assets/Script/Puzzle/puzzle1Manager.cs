@@ -7,15 +7,17 @@ using UnityEngine;
 public class puzzle1Manager : PuzzleManager
 {
     [SerializeField] private GameObject bridge;
-    [SerializeField] private PhotonView doorView;
+    [SerializeField] private GameObject exitDoorPrefab;
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private GameObject plateform;
 
+    private PhotonView doorView;
     private AudioSource sonDupont;
     private Transform playerToRespawn;
 
     private void Start()
     {
+        doorView = GameObject.Find(exitDoorPrefab.name + "(Clone)").GetPhotonView();
         sonDupont = GetComponent<AudioSource>();
     }
 

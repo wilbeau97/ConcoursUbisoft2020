@@ -119,4 +119,9 @@ public class PlayerHUD : MonoBehaviour
         fadeAnimator.SetTrigger("FadeOut");
         
     }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
 }

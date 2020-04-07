@@ -47,8 +47,9 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     public Vector3 RespawnPoint;
     private PhotonView view;
-    private float yeetForce = 150;
+    private float yeetForce = 100;
     private bool canCharge = true;
+    private bool isInitPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +71,11 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if (!isInitPlayer && (playerOne == null || playerTwo == null))
+        {
+            InitPlayer();
+            isInitPlayer = true;
+        }
         // Si le joueur est dans le range du trigger, on regarde si on le voit ou si un objet est dans le champ de vision
         if (player1InRange)
         {

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using AuraAPI;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IPunObservable
 {
@@ -16,8 +13,8 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private GameObject mainCameraForAura;
     [SerializeField] private AuraVolume fog;
     [SerializeField] private BigTree tree;
-    [SerializeField] private Door[] doorViews;
     [SerializeField] private ObjectiveLight puzzleAcces3Light;
+    [SerializeField] private WorldBuilder builder;
 
     private PlayableDirector playable;
     private int nbOfPuzzleSuceeed = 0;
@@ -25,6 +22,8 @@ public class GameManager : MonoBehaviour, IPunObservable
     private string notLocalPlayer;
     private string localPlayer;
     private bool isCinematicPlaying = false;
+    private bool isWorldBuild = false;
+    private Door[] doorViews = new Door[4];
 
     private void Awake()
     {
@@ -34,10 +33,9 @@ public class GameManager : MonoBehaviour, IPunObservable
             {
                 //look for player here
                 Debug.Log("Online : player1 Instantiated"); 
-                PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position,
-                    Quaternion.identity, 0);
-                 notLocalPlayer = "Player 2(Clone)";
-                 localPlayer = "Player 1(Clone)";
+                PhotonNetwork.Instantiate(PlayerManager.LocalPlayerInstance.name, spawnPointP1.position, Quaternion.identity, 0);
+                notLocalPlayer = "Player 2(Clone)";
+                localPlayer = "Player 1(Clone)";
             }
             else if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
@@ -46,7 +44,9 @@ public class GameManager : MonoBehaviour, IPunObservable
                     Quaternion.identity, 0);
                 notLocalPlayer = "Player 1(Clone)";
                 localPlayer = "Player 2(Clone)";
+                builder.InstantiateWorld();
             }
+            
         }
         else
         {
@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour, IPunObservable
     [PunRPC]
     public void EndedPuzzle()
     {
+        if (doorViews[0] == null)
+        {
+            doorViews = builder.GetDoors();
+        }
         //animation de camera
         DecreaseFog();
         if(nbOfPuzzleSuceeed != 0)
@@ -148,12 +152,11 @@ public class GameManager : MonoBehaviour, IPunObservable
         isCinematicPlaying = true;
         mainCameraForAura.SetActive(true);
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().DisableCam();
-        //GameObject.FindWithTag("Player1").GetComponent<PlayerNetwork>().DisableCam();
         mainCameraForAura.GetComponent<Camera>().enabled = true;
         playable.Play();
     }
 
-    // responsable de la transition après la fin du tuto j
+    // responsable de la transition après la fin du tuto
     private IEnumerator WaitForAnimation()
     {
         yield return new WaitForSeconds(1f);
@@ -174,6 +177,12 @@ public class GameManager : MonoBehaviour, IPunObservable
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
+        if (stream.isWriting)
+        {
+            stream.SendNext(isWorldBuild);
+        } else if (stream.isReading)
+        {
+            isWorldBuild = (bool) stream.ReceiveNext();
+        }
     }
 }

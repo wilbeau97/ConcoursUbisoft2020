@@ -11,13 +11,17 @@ namespace Prefab.MazeEnterArea
         private int nbPlayerInPuzzle = 0;
         private bool player1IsIn = false;
         private bool player2IsIn = false;
-        [SerializeField] private PhotonView puzzleEnterDoorView;
+        private PhotonView puzzleEnterDoorView;
+        [SerializeField] private GameObject enterPuzzleDoor;
 
         public void Start()
         {
             nbPlayerInPuzzle = 0;
             GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
             GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
+            
+            puzzleEnterDoorView =  GameObject.Find(enterPuzzleDoor.name + "(Clone)").GetPhotonView();
+            
             if (player1 != null)
             {
                 Text[] texts = player1.GetComponentsInChildren<Text>();

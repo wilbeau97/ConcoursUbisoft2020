@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class PositionSelector : MonoBehaviour
+public class PositionSelector : Photon.MonoBehaviour
     {
         public PuzzleGenerator assignedPuzzleGenerator;
         private bool is1StPlaytrough = true;
@@ -23,6 +23,7 @@ public class PositionSelector : MonoBehaviour
 
         public void RandomSelectPosition()
         {
+            // TODO seulement faire ça si c'est p1 car le choix de p2 sera effacé dans tous les cas
             if (is1StPlaytrough) // si c'est la première playthrough
             {
                 if (possiblePositions1StPlaytrough.Length != 0) // si aucune position, on garde la position actuelle
@@ -43,9 +44,20 @@ public class PositionSelector : MonoBehaviour
             }
         }
         
-        // fonction qui va permettre de seter le choix de position 
+        // Vient mettre à jour la position du Player2(le p1 est le responsable du choix de position)
+        public void updatePositions()
+        {
+            if (localPlayerName == "Player 1(Clone)")
+            {
+                // Indique au P2 de mettre à jour sa position avec celle que le P1 à sélectionné 
+                photonView.RPC("setObjectPosition", PhotonTargets.Others, selectedPosition);
+            }
+        }
+        // fonction qui permet de seter le choix de position fait par l'autre joueur 
+        [PunRPC]
         public void setObjectPosition(int arrayPosition)
         {
+            Debug.Log("Setting position");
             if (is1StPlaytrough)
             {
                 if (possiblePositions1StPlaytrough.Length != 0 &&
@@ -93,6 +105,7 @@ public class PositionSelector : MonoBehaviour
             {
                 if (stream.isWriting)
                 {
+                    Debug.Log("Envoi de la position à l'autre client");
                     stream.SendNext(selectedPosition);
                 } else if (stream.isReading)
                 {
@@ -101,6 +114,7 @@ public class PositionSelector : MonoBehaviour
             }
             else if (stream.isReading)
             {
+                Debug.Log("Is reading new position");
                 selectedPosition = (int) stream.ReceiveNext();
             }
             

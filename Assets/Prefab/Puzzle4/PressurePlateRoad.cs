@@ -2,7 +2,7 @@
 
 namespace Prefab.Puzzle4
 {
-    public class PressurePlateRoad : MonoBehaviour
+    public class PressurePlateRoad : Photon.MonoBehaviour
     {
         [SerializeField] private PhotonView targetObjectView;
         [SerializeField] private string pressedRpcMethode;
@@ -43,5 +43,13 @@ namespace Prefab.Puzzle4
             }
             
         }
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+
+        }
     }
+    
+    
+    
+    
 }
