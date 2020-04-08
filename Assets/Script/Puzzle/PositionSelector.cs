@@ -28,7 +28,7 @@ public class PositionSelector : Photon.MonoBehaviour
             {
                 if (possiblePositions1StPlaytrough.Length != 0) // si aucune position, on garde la position actuelle
                 {
-                    Random.InitState(DateTime.Now.Millisecond); // pour s'assurer que ça plus random (et peut-être lorsqu'on aura un system de seed)
+                    Random.InitState(20); // pour s'assurer que ça plus random (et peut-être lorsqu'on aura un system de seed)
                     int index = Random.Range(0, possiblePositions1StPlaytrough.Length);
                     selectedPosition = index;
                     gameObjectPosition.transform.position = possiblePositions1StPlaytrough[index].transform.position;
