@@ -21,6 +21,7 @@ public class Jump : MonoBehaviour, IPunObservable
     private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
     private bool isDoubleJumping = false;
 
+    private bool isGrounded = true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,7 +29,7 @@ public class Jump : MonoBehaviour, IPunObservable
         playerCollider = GetComponent<Collider>();
         view = gameObject.GetPhotonView();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -36,36 +37,13 @@ public class Jump : MonoBehaviour, IPunObservable
         {
             if (!view.isMine) return;
         }
-        RaycastHit hit;
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
-        // Debug.Log("is grounded : " + isGrounded);
-        Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
-        if (Input.GetButtonDown("Jump"))
-        {
-            Debug.Log("Jump button down ground ou pas, nb de jump" + nbJump + ", Is grounded : " + isGrounded);
-        }
+        
         if (isGrounded)
         {
             if (isDoubleJumping)
             {
                 animator.SetTrigger("DoubleJumpEnd");
                 isDoubleJumping = false;
-            }
-            if (hit.collider.CompareTag("Jumpable"))
-            {
-                if (matIsOn)
-                {
-                    matIsOn = false;
-                    view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
-                }
-            }
-            else
-            {
-                if (!matIsOn)
-                {
-                    matIsOn = true;
-                    view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-                }
             }
             //a terre
             if (Input.GetButtonDown("Jump") && nbJump < 1)
@@ -75,7 +53,7 @@ public class Jump : MonoBehaviour, IPunObservable
                 nbJump++;
             }
         }
-        // Debug.Log("Est dans les air, nb de jump = " + nbJump);
+  
         //dans les air
         if (nbJump >= 1 && Input.GetButtonDown("Jump") && !isGrounded)
         {
@@ -84,7 +62,31 @@ public class Jump : MonoBehaviour, IPunObservable
             isDoubleJumping = true;
             nbJump = 0;
         }
+    }
 
+    private void FixedUpdate()
+    {
+        // here goes physics 
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit);
+        Debug.DrawRay(transform.position, Vector3.down, Color.magenta);
+        if (hit.collider.CompareTag("Jumpable"))
+        {
+            if (matIsOn)
+            {
+                matIsOn = false;
+                view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+            }
+        }
+        else
+        {
+            if (!matIsOn)
+            {
+                matIsOn = true;
+                view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+            }
+        }
+        
     }
 
     private void Jumping()
@@ -137,7 +139,7 @@ public class Jump : MonoBehaviour, IPunObservable
                 if (other.relativeVelocity.magnitude > 2)
                 {
                     AudioManager.Instance.Play("afterJump", transform);
-                    nbJump = 0;
+                    //nbJump = 0;
                 }
             }
         }
