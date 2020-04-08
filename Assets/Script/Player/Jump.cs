@@ -20,14 +20,16 @@ public class Jump : MonoBehaviour, IPunObservable
     private PhotonView view;
     private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
     private bool isDoubleJumping = false;
-
     private bool isGrounded = true;
+
+
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
         view = gameObject.GetPhotonView();
+
     }
     
     // Update is called once per frame
@@ -37,7 +39,49 @@ public class Jump : MonoBehaviour, IPunObservable
         {
             if (!view.isMine) return;
         }
+        if(Input.GetButtonDown("Jump")) { checkInput();}
+    }
+
+    private void FixedUpdate()
+    {
+        // here goes physics 
+        isGrounded = Physics.Raycast(transform.position, -Vector3.up, out var hit, height);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
+        if (isGrounded)
+        {
+            if (hit.collider.CompareTag("Jumpable"))
+            {
+                if (matIsOn)
+                {
+                    matIsOn = false;
+                    view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+                }
+            }
+            else
+            {
+                if (!matIsOn)
+                {
+                    matIsOn = true;
+                    view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+                }
+            } 
+        }
+   
         
+    }
+
+    void checkInput()
+    {
+        if (!isGrounded)
+        {
+            if (nbJump >= 1)
+            {
+                Debug.Log("is Double jumping");
+                DJumping();
+                isDoubleJumping = true;
+                nbJump = 0;
+            }
+        }
         if (isGrounded)
         {
             if (isDoubleJumping)
@@ -46,47 +90,14 @@ public class Jump : MonoBehaviour, IPunObservable
                 isDoubleJumping = false;
             }
             //a terre
-            if (Input.GetButtonDown("Jump") && nbJump < 1)
+            if (nbJump < 1)
             {
+                Debug.Log("is jumping");
                 AudioManager.Instance.Play("jump", transform);
                 Jumping();
                 nbJump++;
             }
-        }
-  
-        //dans les air
-        if (nbJump >= 1 && Input.GetButtonDown("Jump") && !isGrounded)
-        {
-            Debug.Log("is Double jumping");
-            DJumping();
-            isDoubleJumping = true;
-            nbJump = 0;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        // here goes physics 
-        RaycastHit hit;
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit);
-        Debug.DrawRay(transform.position, Vector3.down, Color.magenta);
-        if (hit.collider.CompareTag("Jumpable"))
-        {
-            if (matIsOn)
-            {
-                matIsOn = false;
-                view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
-            }
-        }
-        else
-        {
-            if (!matIsOn)
-            {
-                matIsOn = true;
-                view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-            }
-        }
-        
+        } 
     }
 
     private void Jumping()
@@ -118,12 +129,15 @@ public class Jump : MonoBehaviour, IPunObservable
     public void RemoveSlideMaterialRpc()
     {
         playerCollider.material = null;
+        // Debug.Log(" Removed material ");
     }
     
     [PunRPC]
     public void AddSlideMaterialRpc()
     {
         playerCollider.material = slideMaterial;
+        // Debug.Log(" Added material ");
+
     }
 
     public void OnCollisionEnter(Collision other)
@@ -139,7 +153,8 @@ public class Jump : MonoBehaviour, IPunObservable
                 if (other.relativeVelocity.magnitude > 2)
                 {
                     AudioManager.Instance.Play("afterJump", transform);
-                    //nbJump = 0;
+                    
+                    nbJump = 0; // TODO A DEPLACER 
                 }
             }
         }
