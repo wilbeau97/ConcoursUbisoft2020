@@ -92,8 +92,8 @@ public class puzzle1Manager : PuzzleManager
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             other.gameObject.GetComponentInChildren<PlayerHUD>().FadeOut();
-            StartCoroutine("WaitForAnimation");
             playerToRespawn = other.transform;
+            StartCoroutine("WaitForAnimation");
         }
     }
 
