@@ -23,10 +23,16 @@ public class PressurePlateDoorPuzzle : MonoBehaviour
     {
         if (other.CompareTag("Player1") || other.CompareTag("InteractablePhysicsObject"))
         {
-            doorToOpen.RPC("OpenDoorRPC", PhotonTargets.All);
-            //doorToOpen.gameObject.GetComponent<Door>().OpenDoorRPC();
-            //partOfPuzzleManager.gameObject.GetComponent<PartOfDoorPuzzleManager>().DeactivateAllPressurePlate();
-            partOfPuzzleManager.RPC("DeactivateAllPressurePlate", PhotonTargets.All);
+            if (PhotonNetwork.connected)
+            {
+                doorToOpen.RPC("OpenDoorRPC", PhotonTargets.All);
+                partOfPuzzleManager.RPC("DeactivateAllPressurePlate", PhotonTargets.All);
+            }
+            else
+            {
+                doorToOpen.gameObject.GetComponent<Door>().OpenDoorRPC();
+                partOfPuzzleManager.gameObject.GetComponent<PartOfDoorPuzzleManager>().DeactivateAllPressurePlate();
+            }
         }
     }
 }
