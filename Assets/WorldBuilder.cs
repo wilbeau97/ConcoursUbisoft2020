@@ -1,35 +1,40 @@
-﻿using UnityEngine;
+﻿using System;
+using ExitGames.Demos.DemoAnimator;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using Random = UnityEngine.Random;
 
 public class WorldBuilder : MonoBehaviour, IPunObservable
 {
     [SerializeField] private GameObject[] exitDoorPrefabs;
     [SerializeField] private GameObject[] enterDoorPrefabs;
-    [SerializeField] private GameObject puzzle1Prefab;
-    [SerializeField] private GameObject puzzleIAPrefab;
-    [SerializeField] private Transform positionPuzzleIA;
-    [SerializeField] private GameObject puzzleROFPrefab;
-    [SerializeField] private GameObject puzzleMazePrefab;
+    [SerializeField] private GameObject[] puzzle1Prefab;
+    [SerializeField] private GameObject[] puzzleIAPrefab;
+    [SerializeField] private GameObject[] puzzleROFPrefab;
+    [SerializeField] private GameObject[] puzzleMazePrefab;
 
     private Door[] doorObjectInstantiate = new Door[4];
     private bool isBuild = false;
+    private int seed;
 
     public void InstantiateWorld()
-    {
-        Debug.Log(isBuild);
-        if (!isBuild)
-        {
-            InstantiateDoor();
-            InstantiatePuzzlePrefab();
-            isBuild = true;
-        }
+    { 
+        seed = Random.Range(0, Int32.MaxValue);
+        gameObject.GetPhotonView().RPC("SetSeed", PhotonTargets.OthersBuffered, seed); 
+        InstantiateDoor();
+        InstantiatePuzzlePrefab();
     }
 
     private void InstantiatePuzzlePrefab()
-    {
-       PhotonNetwork.Instantiate(puzzle1Prefab.name, puzzle1Prefab.transform.position, puzzle1Prefab.transform.rotation, 0);
-       PhotonNetwork.Instantiate(puzzleIAPrefab.name, positionPuzzleIA.transform.position, positionPuzzleIA.transform.rotation, 0);
-       PhotonNetwork.Instantiate(puzzleROFPrefab.name, puzzleROFPrefab.transform.position, puzzleROFPrefab.transform.rotation, 0);
-       PhotonNetwork.Instantiate(puzzleMazePrefab.name, puzzleMazePrefab.transform.position, puzzleMazePrefab.transform.rotation, 0);
+    { 
+        int index = Random.Range(0, puzzle1Prefab.Length);
+       PhotonNetwork.Instantiate(puzzle1Prefab[index].name, puzzle1Prefab[index].transform.position, puzzle1Prefab[index].transform.rotation, 0);
+       index = Random.Range(0, puzzleIAPrefab.Length);
+       PhotonNetwork.Instantiate(puzzleIAPrefab[index].name, puzzleIAPrefab[index].transform.position, puzzleIAPrefab[index].transform.rotation, 0);
+       index = Random.Range(0, puzzleROFPrefab.Length);
+       PhotonNetwork.Instantiate(puzzleROFPrefab[index].name, puzzleROFPrefab[index].transform.position, puzzleROFPrefab[index].transform.rotation, 0);
+       index = Random.Range(0, puzzleMazePrefab.Length);
+       PhotonNetwork.Instantiate(puzzleMazePrefab[index].name, puzzleMazePrefab[index].transform.position, puzzleMazePrefab[index].transform.rotation, 0);
     }
 
     private void InstantiateDoor()
@@ -58,6 +63,14 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
         }
         return test;
     }
+
+    [PunRPC]
+    public void SetSeed(int _seed)
+    {
+        seed = _seed;
+        Debug.Log(PlayerManager.LocalPlayerInstance.name +  "set is seed to: " + seed);
+    }
+    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
