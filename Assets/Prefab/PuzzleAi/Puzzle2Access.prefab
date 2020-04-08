@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 5356524602863281710}
   m_Layer: 0
   m_Name: platePlayer2Puzzle2Access
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,6 @@ MonoBehaviour:
   _activatedByTag: InteractablePhysicsObject
   pressurePlateManager: {fileID: 5356524603727852241}
   PressurePlateManagerPhotonView: {fileID: 5356524603727852240}
-  gameManagerView: {fileID: 0}
 --- !u!1 &5356524603288405963
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +222,7 @@ GameObject:
   - component: {fileID: 5356524603435124100}
   m_Layer: 0
   m_Name: CliffPuzzle2 (2)
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,9 +345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUserConnected: 0
-  doorView: {fileID: 5356524604527010086}
+  doorPrefab: {fileID: 0}
   AllPlateMustStayActivated: 1
-  gameManagerView: {fileID: 0}
 --- !u!114 &5356524603579969467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,9 +419,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUserConnected: 0
-  doorView: {fileID: 5356524603736039837}
+  doorPrefab: {fileID: 0}
   AllPlateMustStayActivated: 1
-  gameManagerView: {fileID: 0}
 --- !u!114 &5356524603727852240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +464,7 @@ GameObject:
   - component: {fileID: 5356524603731534486}
   m_Layer: 0
   m_Name: platePlayer1Puzzle2Access
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -589,7 +586,6 @@ MonoBehaviour:
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 5356524604293480783}
   PressurePlateManagerPhotonView: {fileID: 5356524604293480782}
-  gameManagerView: {fileID: 0}
 --- !u!1 &5356524603736039834
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +602,7 @@ GameObject:
   - component: {fileID: 5356524603736039836}
   m_Layer: 0
   m_Name: stair2
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,7 +775,7 @@ GameObject:
   - component: {fileID: 5356524603910381263}
   m_Layer: 0
   m_Name: platePlayer1Puzzle2AccessStair3
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -901,7 +897,6 @@ MonoBehaviour:
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 5356524603579969468}
   PressurePlateManagerPhotonView: {fileID: 5356524603579969467}
-  gameManagerView: {fileID: 0}
 --- !u!1 &5356524604040564398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1185,7 @@ GameObject:
   - component: {fileID: 5356524604066235313}
   m_Layer: 0
   m_Name: stair1
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1358,9 +1353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUserConnected: 0
-  doorView: {fileID: 5356524604066235312}
+  doorPrefab: {fileID: 0}
   AllPlateMustStayActivated: 0
-  gameManagerView: {fileID: 0}
 --- !u!114 &5356524604293480782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,7 +1398,7 @@ GameObject:
   - component: {fileID: 5356524604527010085}
   m_Layer: 0
   m_Name: stair3
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1541,7 +1535,7 @@ GameObject:
   - component: {fileID: 5356524604626116499}
   m_Layer: 0
   m_Name: CliffPuzzle2
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1666,7 +1660,7 @@ GameObject:
   - component: {fileID: 5356524604809516119}
   m_Layer: 0
   m_Name: CliffPuzzle2 (1)
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1876,8 +1870,8 @@ Transform:
   m_LocalPosition: {x: -578.83, y: 450.6376, z: -38.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1076835667645633912}
-  - {fileID: 8281968262437678728}
+  - {fileID: 165896637734105375}
+  - {fileID: 7946625013385323571}
   - {fileID: 2100510373584015086}
   m_Father: {fileID: 5356524602798183816}
   m_RootOrder: 6
@@ -1951,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82ac1313e5fc3434f970144aef68ff23, type: 3}
---- !u!4 &1076835667645633912 stripped
+--- !u!4 &165896637734105375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 917839636845274319, guid: 82ac1313e5fc3434f970144aef68ff23,
     type: 3}
@@ -2026,7 +2020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77a315f4190e964ca44b5081a6d135d, type: 3}
---- !u!4 &8281968262437678728 stripped
+--- !u!4 &7946625013385323571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2064727917454739990, guid: c77a315f4190e964ca44b5081a6d135d,
     type: 3}

@@ -43,14 +43,19 @@ public class Jump : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump") && _viewIsMine) { checkInput();}
+        if (_viewIsMine)
+        {
+            if(Input.GetButtonDown("Jump")) { checkInput();}
+            if(!isGrounded){CheckRaycast();}    
+        }
+        
         Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
-        if(!isGrounded){CheckRaycast();}
+        
     }
 
     private void FixedUpdate()
     {
-        if (isDoubleJumping && isGrounded)
+        if (isDoubleJumping && isGrounded && _viewIsMine)
         {
             animator.SetTrigger("DoubleJumpEnd");
             isDoubleJumping = false;
@@ -181,12 +186,13 @@ public class Jump : MonoBehaviour, IPunObservable
         if (isTouchingGround)
         {
             isGrounded = true;
+            nbJump = 0; // TODO A DEPLACER 
             if (isJumpImpactSoundEnabled)
             {
                 if (other.relativeVelocity.magnitude > 2)
                 {
                     AudioManager.Instance.Play("afterJump", transform);
-                    nbJump = 0; // TODO A DEPLACER 
+                    
                 }
             }
         }
