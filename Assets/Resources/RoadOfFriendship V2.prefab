@@ -59,6 +59,11 @@ PrefabInstance:
       propertyPath: gameManagerView
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 46798876829735843, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: doorPrefab
+      value: 
+      objectReference: {fileID: 1655519594274671354}
     - target: {fileID: 52166014768923281, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: puzzleEnterDoorView
@@ -785,6 +790,12 @@ PrefabInstance:
 --- !u!1 &2790218921603395591 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7043948926586639249, guid: c29c2d82db2e9cc448df82111af8cbdb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5150424077307913110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1655519594274671354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5872813922825693548, guid: c29c2d82db2e9cc448df82111af8cbdb,
     type: 3}
   m_PrefabInstance: {fileID: 5150424077307913110}
   m_PrefabAsset: {fileID: 0}
