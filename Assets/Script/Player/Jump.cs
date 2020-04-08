@@ -64,7 +64,12 @@ public class Jump : MonoBehaviour, IPunObservable
                     matIsOn = true;
                     view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
                 }
-            } 
+            }
+            if (isDoubleJumping)
+            {
+                animator.SetTrigger("DoubleJumpEnd");
+                isDoubleJumping = false;
+            }
         }
    
         
@@ -84,11 +89,7 @@ public class Jump : MonoBehaviour, IPunObservable
         }
         if (isGrounded)
         {
-            if (isDoubleJumping)
-            {
-                animator.SetTrigger("DoubleJumpEnd");
-                isDoubleJumping = false;
-            }
+
             //a terre
             if (nbJump < 1)
             {
