@@ -42,6 +42,7 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
     [PunRPC]
     private void Respawn()
     {
+        Debug.Log("FadeOut" + PlayerManager.LocalPlayerInstance.name);
         localPlayer.GetComponentInChildren<PlayerHUD>().FadeOut();
         StartCoroutine("WaitForAnimation");
     }
@@ -51,14 +52,7 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
         if (isNotRespawn && (other.CompareTag("Player1") || other.CompareTag("Player2")))
         {
             isNotRespawn = false;
-            if (PhotonNetwork.connected)
-            {
-                view.RPC("Respawn", PhotonTargets.All);
-            }
-            else
-            {
-                Respawn();
-            }
+            Respawn();
         }
     }
 
@@ -70,6 +64,7 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
         }
         yield return new WaitForSeconds(1f);
         localPlayer.transform.position = respawnPoint.position;
+        Debug.Log("FadeIn");
         localPlayer.GetComponentInChildren<PlayerHUD>().FadeIn();
         isNotRespawn = true;
     }
