@@ -21,7 +21,7 @@ public class PressurePlateDoorPuzzle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player1") || other.CompareTag("InteractablePhysicsObject"))
+        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             if (PhotonNetwork.connected)
             {

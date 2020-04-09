@@ -23,7 +23,7 @@ public class TutorialP1 : Tutorial
         jumpUpgradeText.gameObject.SetActive(false);
         if (gameObject.GetPhotonView().isMine)
         {
-            jumpScript.enabled = false;    
+            //jumpScript.enabled = false;    
         }
     }
 

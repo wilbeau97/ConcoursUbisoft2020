@@ -18,7 +18,7 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
     private int seed;
 
     public void InstantiateWorld()
-    { 
+    {
         seed = Random.Range(0, Int32.MaxValue);
         gameObject.GetPhotonView().RPC("SetSeed", PhotonTargets.OthersBuffered, seed); 
         InstantiateDoor();

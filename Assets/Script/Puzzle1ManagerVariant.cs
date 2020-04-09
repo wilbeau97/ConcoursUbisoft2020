@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 
-public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
+public class Puzzle1ManagerVariant : MonoBehaviour
 {
     [SerializeField] private PartOfDoorPuzzleManager[] partOfDoorPuzzleManagers;
     [SerializeField] private Transform respawnPointP1;
     [SerializeField] private Transform respawnPointP2;
 
     private GameObject localPlayer;
-    private bool isNotRespawn = true;
-    private PhotonView view;
     private Transform respawnPoint;
     
     // Start is called before the first frame update
     void Start()
     {
-        view = gameObject.GetPhotonView();
         localPlayer = GameObject.FindWithTag(PlayerManager.LocalPlayerInstance.tag);
         
         if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
@@ -38,7 +35,6 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
             localPlayer = GameObject.FindWithTag(PlayerManager.LocalPlayerInstance.tag);
         }
     }
-
     [PunRPC]
     private void Respawn()
     {
@@ -49,34 +45,21 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
     
     private void OnTriggerEnter(Collider other)
     {
-        if (isNotRespawn && (other.CompareTag("Player1") || other.CompareTag("Player2")))
+        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
-            isNotRespawn = false;
             Respawn();
         }
     }
 
     private IEnumerator WaitForAnimation()
     {
+        yield return new WaitForSeconds(1f);
+        localPlayer.transform.position = respawnPoint.position;
         foreach (PartOfDoorPuzzleManager manager in partOfDoorPuzzleManagers)
         {
             manager.Restart();
         }
-        yield return new WaitForSeconds(1f);
-        localPlayer.transform.position = respawnPoint.position;
-        Debug.Log("FadeIn");
+        yield return new WaitForSeconds(0.5f);
         localPlayer.GetComponentInChildren<PlayerHUD>().FadeIn();
-        isNotRespawn = true;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(isNotRespawn);
-        } else if (stream.isReading)
-        {
-            isNotRespawn = (bool) stream.ReceiveNext();
-        }
     }
 }
