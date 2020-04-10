@@ -20,7 +20,7 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
     public void InstantiateWorld()
     {
         seed = Random.Range(0, Int32.MaxValue);
-        gameObject.GetPhotonView().RPC("SetSeed", PhotonTargets.OthersBuffered, seed); 
+        gameObject.GetPhotonView().RPC("SetSeed", PhotonTargets.AllBuffered, seed); 
         InstantiateDoor();
         InstantiatePuzzlePrefab();
     }
@@ -67,7 +67,7 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
     [PunRPC]
     public void SetSeed(int _seed)
     {
-        seed = _seed;
+        Random.InitState(_seed);
         Debug.Log(PlayerManager.LocalPlayerInstance.name +  "set is seed to: " + seed);
     }
     
