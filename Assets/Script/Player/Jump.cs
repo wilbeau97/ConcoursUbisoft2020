@@ -4,126 +4,122 @@ using System.Collections.Generic;
 using ExitGames.Demos.DemoAnimator;
 using Script.Audio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Jump : MonoBehaviour, IPunObservable
 {
     [SerializeField] private Animator animator;
-    [SerializeField]private float jumpForceY = 7f;
-    public float height = 0.1f;
+    [SerializeField] private float jumpForceY = 7f;
+    [SerializeField] private float doubleJumpForceY = 1.2f;
+    [FormerlySerializedAs("height")] public float raycastMaxDistance = 0.1f;
     [SerializeField] private bool canJump = true;
-    private int nbJump = 0;
-    private Rigidbody rb;
-    private static bool canDoubleJump = true;
-    private Collider playerCollider;
     [SerializeField] private PhysicMaterial slideMaterial;
-    private bool matIsOn = true;
-    private PhotonView view;
-    private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
-    private bool isDoubleJumping = false;
-    private bool isGrounded = true;
-    private bool _viewIsMine;
+    [SerializeField] private bool canDoubleJump = true;
+    private int _nbJump = 0;
+    private Rigidbody _rigidbody;
+    private Collider _playerCollider;
+    private bool _slideMaterialIsOn = true;
+    private PhotonView _photonView;
+    private bool _isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
+    private bool _isDoubleJumping = false;
+    private bool _isGrounded = true;
+    private bool _viewIsMine = false; // vient checker si c'est le joueur qui jump, sinon on fait rien
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
-        view = gameObject.GetPhotonView();
-        if (PhotonNetwork.connected)
-        {
-            _viewIsMine = view.isMine;
-        }
-        else
-        {
-            _viewIsMine = true;
-        }
+        GetComponentsAtAwake();
+        _viewIsMine = !PhotonNetwork.connected || _photonView.isMine;
     }
-    
+
+    private void GetComponentsAtAwake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _playerCollider = GetComponent<Collider>();
+        _photonView = gameObject.GetPhotonView();
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (_viewIsMine)
         {
-            if(Input.GetButtonDown("Jump")) { checkInput();}
-            if(!isGrounded){CheckRaycast();}    
+            if(Input.GetButtonDown("Jump")) { ReadJumpInput(); }
+            if(!_isGrounded) { CheckIfGrounded(); } // dès qu'on est dans les air, on regarde si on est grounded    
         }
-        
-        Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
-        
+        // Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
     }
 
     private void FixedUpdate()
     {
-        if (isDoubleJumping && isGrounded && _viewIsMine)
+        CheckForDoubleJumpEnd();
+    }
+
+    private void CheckForDoubleJumpEnd()
+    {
+        if (_isDoubleJumping && _isGrounded && _viewIsMine)
         {
             animator.SetTrigger("DoubleJumpEnd");
-            isDoubleJumping = false;
+            _isDoubleJumping = false;
         }
-        
-
     }
 
-    void CheckRaycast()
-    {
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, out var hit, height);
-        // Debug.Log("Raycast checked and is hitting ? " + isGrounded);
-        if (_viewIsMine || !PhotonNetwork.connected)
+    void ReadJumpInput()
+    {   // Fonction qui check quoi faire avec le jump input
+        if (!_isGrounded)
         {
-            if (isGrounded)
+            if (_nbJump >= 1)
             {
-                bool isTouchingGround = checkForGroundTagOnObject(hit.collider.gameObject);
-                
-                if (!isTouchingGround)
-                {
-                    isGrounded = false;
-                    return;
-                }
-                if (matIsOn) // Si le materiel de slide est ON (donc on glisse)
-                {
-                    // Et qu'on hit du ground ou jumpable, on l'enlève pour pas glisser
-                    if (isTouchingGround)
-                    {
-                        Debug.Log("MatIsOn and i've hit : " + hit.collider.name);
-                        matIsOn = false;
-                        view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
-                    }
-                }
-                if (!matIsOn && !isTouchingGround) // Si le slide material n'est pas la et ne touche pas le sol/jumpable
-                {
-                    // on ajoute le material 
-                    matIsOn = true;
-                    view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-                }
-            }
-
-
-        }   
-    }
-    void checkInput()
-    {
-        if (!isGrounded)
-        {
-            if (nbJump >= 1)
-            {
-                // Debug.Log("is Double jumping");
                 DJumping();
-                isDoubleJumping = true;
-                nbJump = 0;
             }
         }
-        if (isGrounded)
+        if (_isGrounded)
         {
             //a terre
-            if (nbJump < 1)
+            if (_nbJump < 1)
             {
-                // Debug.Log("is jumping");
-                AudioManager.Instance.Play("jump", transform);
                 Jumping();
-                nbJump++;
-                CheckRaycast();
+                CheckIfGrounded();
             }
         } 
+    }
+    
+    private void Jumping()
+    {
+        AudioManager.Instance.Play("jump", transform);
+        animator.SetTrigger("Jump");
+        var jumpForce = new Vector3(0, jumpForceY, 0);
+        _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+        _nbJump++;
+    }
+    private void DJumping()
+    {
+        AudioManager.Instance.Play("jump", transform);
+        animator.SetTrigger("DoubleJump");
+        var doubleJumpForce = new Vector3(0, jumpForceY * doubleJumpForceY, 0);
+        _rigidbody.AddForce(doubleJumpForce, ForceMode.VelocityChange);
+        _isDoubleJumping = true;
+        _nbJump = 0;
+    }
+    
+    void CheckIfGrounded()
+    {
+        if (!_viewIsMine && PhotonNetwork.connected) return;
+        
+        _isGrounded = Physics.Raycast(transform.position, -Vector3.up, out var hit, raycastMaxDistance);
+        if (!_isGrounded) return;
+        
+        // parfois, le raycast va indiquer qu'il n'est pas grounder, alors que le player l'es 
+        // ex: il est sur le bord d'une surface, le raycast, va être legerment out de la box d'une surface
+        // Verifier avec le collider permet de faire une double vérification 
+        var isTouchingGround = checkForGroundTagOnObject(hit.collider.gameObject);
+        if (!isTouchingGround) 
+        {
+            _isGrounded = false;
+            return;
+        }
+        CheckForSlideMaterial();
     }
     
     private bool checkForGroundTagOnObject(GameObject gameObject)
@@ -133,20 +129,22 @@ public class Jump : MonoBehaviour, IPunObservable
                                 gameObject.CompareTag("InteractableHeavyPhysicsObject");
         return isTouchingGround;
     }
+    
+    private void CheckForSlideMaterial()
+    {
+        if (_slideMaterialIsOn) // Si le materiel de slide est ON (donc on glisse)
+        {
+            // Et qu'on hit du ground ou jumpable, on l'enlève pour pas glisser
+            _slideMaterialIsOn = false;
+            _photonView.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+        }
 
-    private void Jumping()
-    {
-        animator.SetTrigger("Jump");
-        Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY, 0);
-        rb.AddForce(jumpForce, ForceMode.VelocityChange);
-    }
-    private void DJumping()
-    {
-        animator.SetTrigger("DoubleJump");
-        Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY, 0);
-        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+        if (!_slideMaterialIsOn) // Si le slide material n'est pas la et ne touche pas le sol/jumpable
+        {
+            // on ajoute le material 
+            _slideMaterialIsOn = true;
+            _photonView.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+        }
     }
 
     public void IncreaseAbility()
@@ -158,56 +156,51 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         jumpForceY = 8f;
     }
-    public void disableJumpDropSoundForP2()
+    public void DisableJumpDropSoundForP2()
     {
         if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
         {
-            isJumpImpactSoundEnabled = false;
+            _isJumpImpactSoundEnabled = false;
         }
     }
+    
     [PunRPC]
     public void RemoveSlideMaterialRpc()
     {
-        playerCollider.material = null;
-        Debug.Log(" Removed material and isGrounded = " + isGrounded);
+        _playerCollider.material = null;
+        // Debug.Log(" Removed material and isGrounded = " + _isGrounded);
     }
     
     [PunRPC]
     public void AddSlideMaterialRpc()
     {
-        playerCollider.material = slideMaterial;
-        Debug.Log(" Added material and isGrounded = " + isGrounded);
-
+        _playerCollider.material = slideMaterial;
+        // Debug.Log(" Added material and isGrounded = " + _isGrounded);
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        bool isTouchingGround = checkForGroundTagOnObject(other.gameObject);
-        if (isTouchingGround)
+        var isTouchingGround = checkForGroundTagOnObject(other.gameObject);
+        if (!isTouchingGround) return;
+        
+        _isGrounded = true;
+        _nbJump = 0; // TODO A DEPLACER 
+        if (!_isJumpImpactSoundEnabled) return; // si on est p2, on joue pas le son apres tuto
+        if (other.relativeVelocity.magnitude > 2)
         {
-            isGrounded = true;
-            nbJump = 0; // TODO A DEPLACER 
-            if (isJumpImpactSoundEnabled)
-            {
-                if (other.relativeVelocity.magnitude > 2)
-                {
-                    AudioManager.Instance.Play("afterJump", transform);
-                    
-                }
-            }
+            AudioManager.Instance.Play("afterJump", transform);
         }
     }
 
     public void OnCollisionExit(Collision other)
     {
-        bool isTouchingGround = checkForGroundTagOnObject(other.gameObject);
+        var isTouchingGround = checkForGroundTagOnObject(other.gameObject);
         if (isTouchingGround)
         {
-            CheckRaycast();
+            CheckIfGrounded();
         }
     }
-
-
+    
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
 
