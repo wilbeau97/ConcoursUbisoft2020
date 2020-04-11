@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
-namespace Prefab.CameraCutScene
+namespace CameraCutScene
 {
     public class CutSceneCamera : MonoBehaviour
     {
@@ -54,15 +51,17 @@ namespace Prefab.CameraCutScene
             _animationClip.SetCurve("",typeof(Transform),"localEulerAngles.y",animationCurveRotationsY);
             _animationClip.SetCurve("",typeof(Transform),"localEulerAngles.z",animationCurveRotationsZ);
             _animation.AddClip(_animationClip, _animationClip.name);
-            print("animset");
+            AnimationEvent animationEvent = new AnimationEvent
+            {
+                time = (positions.Count-1) * travelSpeed, functionName = "CloseCamera"
+            };
+            _animationClip.AddEvent(animationEvent);
+            _animation.Play(_animationClip.name);
         }
 
-        public void Update()
+        public void CloseCamera()
         {
-            if (Input.GetKeyDown("n"))
-            {
-                _animation.Play(_animationClip.name);
-            }
+            gameObject.SetActive(false);
         }
     }
 }

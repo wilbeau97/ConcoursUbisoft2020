@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Prefab.CameraCutScene
+namespace CameraCutScene
 {
     [Serializable]
     public class CameraTransform

@@ -1,10 +1,10 @@
-﻿using System;
+﻿
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 
-namespace Prefab.CameraCutScene
+namespace CameraCutScene
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(CutSceneCamera))]
     [CanEditMultipleObjects]
     public class CutSceneEditor : Editor
@@ -20,4 +20,6 @@ namespace Prefab.CameraCutScene
             EditorUtility.SetDirty(myTarget);
         }
     }
+#endif
+    
 }
