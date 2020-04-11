@@ -25,8 +25,9 @@ namespace CameraCutScene
             }
         }
 
-        public void StartCs(string camName)
+        public void StartCs(int nbPuzzle)
         {
+            string camName = "Camera" + (nbPuzzle + 1);
             _photonView.RPC("RoutineStartCam",PhotonTargets.All, camName);
         }
         
@@ -47,23 +48,23 @@ namespace CameraCutScene
         {
             if (Input.GetKeyDown("c"))
             {
-                StartCs("Camera1");
+                StartCs(0);
             }
             if (Input.GetKeyDown("v"))
             {
-                StartCs("Camera2");
+                StartCs(1);
             }
             if (Input.GetKeyDown("b"))
             {
-                StartCs("Camera3");
+                StartCs(2);
             }
             if (Input.GetKeyDown("n"))
             {
-                StartCs("Camera4");
+                StartCs(3);
             }
             if (Input.GetKeyDown("m"))
             {
-                StartCs("Camera5");
+                StartCs(4);
             }
 #if UNITY_EDITOR
             if (Input.GetKeyDown("m"))
