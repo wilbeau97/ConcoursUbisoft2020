@@ -1,8 +1,9 @@
 ﻿using System;
+using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
+[RequireComponent(typeof(PhotonView))]
 public class PositionSelector : Photon.MonoBehaviour
     {
         public PuzzleGenerator assignedPuzzleGenerator;
@@ -23,41 +24,44 @@ public class PositionSelector : Photon.MonoBehaviour
 
         public void RandomSelectPosition()
         {
-            // TODO seulement faire ça si c'est p1 car le choix de p2 sera effacé dans tous les cas
-            if (is1StPlaytrough) // si c'est la première playthrough
+            if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
-                if (possiblePositions1StPlaytrough.Length != 0) // si aucune position, on garde la position actuelle
+                if (is1StPlaytrough) // si c'est la première playthrough
                 {
-                    Random.InitState(20); // pour s'assurer que ça plus random (et peut-être lorsqu'on aura un system de seed)
-                    int index = Random.Range(0, possiblePositions1StPlaytrough.Length);
-                    selectedPosition = index;
-                    gameObjectPosition.transform.position = possiblePositions1StPlaytrough[index].transform.position;
+                    if (possiblePositions1StPlaytrough.Length != 0) // si aucune position, on garde la position actuelle
+                    {
+                        int index = Random.Range(0, possiblePositions1StPlaytrough.Length);
+                        selectedPosition = index;
+                        gameObjectPosition.transform.position =
+                            possiblePositions1StPlaytrough[index].transform.position;
+                    }
                 }
-            }
-            if (!is1StPlaytrough)
-            {
-                if (possiblePositions2NdPlaytrough.Length == 0) return; // si aucune position, on garde la dernière position
-                Random.InitState(DateTime.Now.Millisecond); // pour s'assurer que ça plus random (et peut-être lorsqu'on aura un system de seed)
-                int index = Random.Range(0, possiblePositions2NdPlaytrough.Length);
-                selectedPosition = index;
-                gameObjectPosition.transform.position = possiblePositions2NdPlaytrough[index].transform.position;
+
+                if (!is1StPlaytrough)
+                {
+                    if (possiblePositions2NdPlaytrough.Length == 0)
+                        return; // si aucune position, on garde la dernière position
+                    int index = Random.Range(0, possiblePositions2NdPlaytrough.Length);
+                    selectedPosition = index;
+                    gameObjectPosition.transform.position = possiblePositions2NdPlaytrough[index].transform.position;
+                }
             }
         }
         
         // Vient mettre à jour la position du Player2(le p1 est le responsable du choix de position)
         public void updatePositions()
         {
-            if (localPlayerName == "Player 1(Clone)")
+            if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
             {
                 // Indique au P2 de mettre à jour sa position avec celle que le P1 à sélectionné 
-                photonView.RPC("setObjectPosition", PhotonTargets.Others, selectedPosition);
+                photonView.RPC("setObjectPosition", PhotonTargets.OthersBuffered, selectedPosition);
             }
         }
         // fonction qui permet de seter le choix de position fait par l'autre joueur 
         [PunRPC]
         public void setObjectPosition(int arrayPosition)
         {
-            Debug.Log("Setting position");
+            Debug.Log("Setting position" + PlayerManager.LocalPlayerInstance.name);
             if (is1StPlaytrough)
             {
                 if (possiblePositions1StPlaytrough.Length != 0 &&
