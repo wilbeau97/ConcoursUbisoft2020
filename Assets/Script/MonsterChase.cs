@@ -70,6 +70,10 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if (playerOne == null || playerTwo == null)
+        {
+            InitPlayer();
+        }
         // Si le joueur est dans le range du trigger, on regarde si on le voit ou si un objet est dans le champ de vision
         if (player1InRange)
         {

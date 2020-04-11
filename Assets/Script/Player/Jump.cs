@@ -48,6 +48,11 @@ public class Jump : MonoBehaviour, IPunObservable
             if(Input.GetButtonDown("Jump")) { ReadJumpInput(); }
             if(!_isGrounded) { CheckIfGrounded(); } // dès qu'on est dans les air, on regarde si on est grounded    
         }
+
+        if (_slideMaterialIsOn)
+        {
+            CheckIfGrounded();
+        }
         // Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
     }
 
