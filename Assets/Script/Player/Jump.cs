@@ -136,13 +136,16 @@ public class Jump : MonoBehaviour, IPunObservable
         {
             // Et qu'on hit du ground ou jumpable, on l'enlève pour pas glisser
             _slideMaterialIsOn = false;
+            if(!PhotonNetwork.connected){RemoveSlideMaterialRpc();}
             _photonView.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+            return;
         }
 
-        if (!_slideMaterialIsOn) // Si le slide material n'est pas la et ne touche pas le sol/jumpable
+        if (!_slideMaterialIsOn && _isGrounded) // Si le slide material n'est pas la et ne touche pas le sol/jumpable
         {
             // on ajoute le material 
             _slideMaterialIsOn = true;
+            if(!PhotonNetwork.connected){AddSlideMaterialRpc();}
             _photonView.RPC("AddSlideMaterialRpc", PhotonTargets.All);
         }
     }
@@ -186,7 +189,7 @@ public class Jump : MonoBehaviour, IPunObservable
         _isGrounded = true;
         _nbJump = 0; // TODO A DEPLACER 
         if (!_isJumpImpactSoundEnabled) return; // si on est p2, on joue pas le son apres tuto
-        if (other.relativeVelocity.magnitude > 2)
+        if (other.relativeVelocity.magnitude > 1)
         {
             AudioManager.Instance.Play("afterJump", transform);
         }
