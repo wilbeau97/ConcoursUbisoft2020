@@ -93,11 +93,13 @@ public class GameManager : MonoBehaviour, IPunObservable
         {
             doorViews = builder.GetDoors();
         }
-
-        StartCinematique();
         DecreaseFog();
-        if(nbOfPuzzleSuceeed != 0)
+        if (nbOfPuzzleSuceeed != 0)
+        {
+            StartCinematique();
             tree.Grow();
+        }
+            
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
     }

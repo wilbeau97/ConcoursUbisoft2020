@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using CameraCutScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,7 @@ public class PlayerHUD : MonoBehaviour
             if (Input.GetButtonDown("Start"))
             {
                 DeactivateConceptArt();
+                CSManager.Instance.RoutineStartCam("Camera1");
             }
         }
     }
