@@ -86,6 +86,12 @@ public class GameManager : MonoBehaviour, IPunObservable
     }
 
     [PunRPC]
+    public void EndedPuzzleRPC()
+    {
+        
+    }
+
+    [PunRPC]
     public void EndedPuzzle()
     {
         if (doorViews[0] == null)
