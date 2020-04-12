@@ -30,7 +30,6 @@ MonoBehaviour:
   RpcList:
   - AddSlideMaterialRpc
   - Chat
-  - CheckForChargeOpportunity
   - CloseDoorRPC
   - ColorRpc
   - DeparentObject
@@ -41,11 +40,12 @@ MonoBehaviour:
   - DownPlateform
   - EndedPuzzle
   - Flash
-  - InitPlayer
   - InstantiateRpc
   - LoadGame
   - Marco
   - MoveDiamondPun
+  - MovePlatformBackward
+  - MovePlatformForward
   - OpenDoorRPC
   - ParentObject
   - PickupItemInit
@@ -65,15 +65,11 @@ MonoBehaviour:
   - RoutineGainLife
   - RoutineSpendEnergy
   - SetActive
+  - setObjectPosition
   - SetObjectToMove
+  - setReady
   - StateChange
   - TaggedPlayer
-  - setReady
-  - activatePlatform
-  - ActivatePlatform
-  - DisablePlatform
-  - MovePlatformBackward
-  - MovePlatformForward
   - updateChoices
   - setObjectPosition
   - DeactivateAllPressurePlate
