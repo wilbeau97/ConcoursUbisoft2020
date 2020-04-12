@@ -33,7 +33,7 @@ public class InteractiveButton : MonoBehaviour
         puzzleManagerView.OpenDoor();
         if (endsPuzzle)
         {
-            _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.Others );
+            _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.AllViaServer );
         }
     }
 
@@ -43,7 +43,6 @@ public class InteractiveButton : MonoBehaviour
         {
             canInteract = true;
             other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
-            
         }
     }
     
