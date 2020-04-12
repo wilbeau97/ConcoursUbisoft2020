@@ -18,6 +18,12 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     [SerializeField] private Material matVert;
 
+    [SerializeField] private Material matHappyFace;
+    
+    [SerializeField] private Material matNeutralFace;
+
+    [SerializeField] private Material matAngryFace;
+    
     [SerializeField] private Transform[] pathWaypoints;
 
     [SerializeField] private int waitTimeOnWaypoint = 0;
@@ -49,6 +55,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
     private PhotonView view;
     private float yeetForce = 100;
     private bool canCharge = true;
+    private MeshRenderer face;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +63,8 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         RespawnPoint = transform.position;
         mesh = GetComponent<MeshRenderer>();
         view = gameObject.GetPhotonView();
+        var cubeFace = transform.GetChild(0);
+        face = cubeFace.GetComponent<MeshRenderer>();
         InitPlayer();
 
         mesh.material = (enemyColor == EnemiesColors.Bleu) ? matBleu : matVert;
@@ -90,6 +99,57 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         {
             CheckForChargeOpportunity();
         }
+        
+        // Changer la face de l'IA selon la situation
+        ChangeFace();
+    }
+
+    private void ChangeFace()
+    {
+        if (enemyColor == EnemiesColors.Bleu)
+        {
+            if ((player1LineOfSight && !player2LineOfSight) || (player1LineOfSight && player2LineOfSight
+                                                                                   && Vector3.Distance(
+                                                                                       transform.position,
+                                                                                       playerOne.transform.position) <
+                                                                                   Vector3.Distance(transform.position,
+                                                                                       playerTwo.transform.position)))
+                face.material = matAngryFace;
+            else if ((player2LineOfSight && !player1LineOfSight) || (player1LineOfSight && player2LineOfSight
+                                                                                        && Vector3.Distance(
+                                                                                            transform.position,
+                                                                                            playerOne.transform
+                                                                                                .position) >=
+                                                                                        Vector3.Distance(
+                                                                                            transform.position,
+                                                                                            playerTwo.transform
+                                                                                                .position)))
+                face.material = matHappyFace;
+            else
+                face.material = matNeutralFace;
+        }
+        else
+        {
+            if ((!player1LineOfSight && player2LineOfSight) || (player1LineOfSight && player2LineOfSight
+                                                                                   && Vector3.Distance(
+                                                                                       transform.position,
+                                                                                       playerOne.transform.position) >
+                                                                                   Vector3.Distance(transform.position,
+                                                                                       playerTwo.transform.position)))
+                face.material = matAngryFace;
+            else if ((!player2LineOfSight && player1LineOfSight) || (player1LineOfSight && player2LineOfSight
+                                                                                        && Vector3.Distance(
+                                                                                            transform.position,
+                                                                                            playerOne.transform
+                                                                                                .position) <=
+                                                                                        Vector3.Distance(
+                                                                                            transform.position,
+                                                                                            playerTwo.transform
+                                                                                                .position)))
+                face.material = matHappyFace;
+            else
+                face.material = matNeutralFace;
+        }
     }
 
     private void FixedUpdate()
@@ -108,6 +168,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
         }
         else
         {
+            face.material = matNeutralFace;
             // Cycle de marche
             if (pathWaypoints.Length > 0 && !chargePlayer)
             {
