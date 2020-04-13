@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         room.maxPlayers = 2;
         PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
+    
 
     [PunRPC]
     public void EndedPuzzle()

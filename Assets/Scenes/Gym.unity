@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 150449410}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7614,7 +7614,17 @@ PrefabInstance:
     - target: {fileID: 7149704942080399113, guid: dbe8ba76a4b09404196e69f49fcdcae5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -92.8
+      value: -96.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149704942080399113, guid: dbe8ba76a4b09404196e69f49fcdcae5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -177.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149704942080399113, guid: dbe8ba76a4b09404196e69f49fcdcae5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 51.26
       objectReference: {fileID: 0}
     - target: {fileID: 7192677285868019566, guid: dbe8ba76a4b09404196e69f49fcdcae5,
         type: 3}
@@ -10112,6 +10122,11 @@ PrefabInstance:
       propertyPath: doorPrefab
       value: 
       objectReference: {fileID: 8611164440489147896}
+    - target: {fileID: 8611164439400298841, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+        type: 3}
+      propertyPath: allPlateMustStayActivated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8611164439400298847, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
         type: 3}
       propertyPath: viewIdField
@@ -10137,6 +10152,11 @@ PrefabInstance:
       propertyPath: doorPrefab
       value: 
       objectReference: {fileID: 8611164440489147895}
+    - target: {fileID: 8611164439574401394, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+        type: 3}
+      propertyPath: allPlateMustStayActivated
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8611164439574401395, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
         type: 3}
       propertyPath: viewIdField
@@ -10327,6 +10347,11 @@ PrefabInstance:
       propertyPath: doorPrefab
       value: 
       objectReference: {fileID: 8611164440489147891}
+    - target: {fileID: 8611164440352246825, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+        type: 3}
+      propertyPath: allPlateMustStayActivated
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8611164440630247336, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
         type: 3}
       propertyPath: m_IsActive
@@ -10427,6 +10452,11 @@ PrefabInstance:
       propertyPath: doorPrefab
       value: 
       objectReference: {fileID: 8611164440489147892}
+    - target: {fileID: 8611164440875793307, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
+        type: 3}
+      propertyPath: allPlateMustStayActivated
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8611164440900703184, guid: 8ce698f6b33c87440ab6bb5b1d6bface,
         type: 3}
       propertyPath: m_LocalPosition.y

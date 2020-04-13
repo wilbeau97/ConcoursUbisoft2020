@@ -7,7 +7,15 @@ using UnityEngine;
 public class InteractiveButton : MonoBehaviour
 { 
     [SerializeField] private PuzzleManager puzzleManagerView;
+    [SerializeField] bool endsPuzzle = false;
     private bool canInteract = true;
+    private PhotonView _gameManagerPhotonView;
+
+
+    private void Awake()
+    {
+        _gameManagerPhotonView = GameObject.FindGameObjectWithTag("GameManager").GetPhotonView();
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,6 +31,10 @@ public class InteractiveButton : MonoBehaviour
         if (!canInteract) return;
         AudioManager.Instance.Play("lever");
         puzzleManagerView.OpenDoor();
+        if (endsPuzzle)
+        {
+            _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.AllViaServer );
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,7 +43,6 @@ public class InteractiveButton : MonoBehaviour
         {
             canInteract = true;
             other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
-            
         }
     }
     

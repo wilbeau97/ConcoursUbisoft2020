@@ -10,8 +10,9 @@ public class PressurePlateManager : MonoBehaviour
     
     [SerializeField] private bool isUserConnected= false;
     [SerializeField] private GameObject doorPrefab;
-    [SerializeField] private bool AllPlateMustStayActivated = true;
-    private GameManager gameManagerView;
+    [SerializeField] private bool allPlateMustStayActivated = true;
+    private GameManager _gameManager;
+    private PhotonView _gameManagerPhotonView;
     private Dictionary<string, bool> listOfPlates = new Dictionary<string, bool>();
     private bool _doorActivated = false;
     private PhotonView doorView;
@@ -19,7 +20,8 @@ public class PressurePlateManager : MonoBehaviour
 
     private void Start()
     {
-        gameManagerView = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        _gameManagerPhotonView = _gameManager.GetComponent<PhotonView>();
         GameObject doorObject = GameObject.Find(doorPrefab.name + "(Clone)");
 
         if (doorObject == null)
@@ -52,10 +54,9 @@ public class PressurePlateManager : MonoBehaviour
                 CloseDoor();
             }
         }
-
         if (allPlateActivated)
         {
-            _doorActivated = true;
+            
             OpenDoor();
         }
     }
@@ -82,7 +83,7 @@ public class PressurePlateManager : MonoBehaviour
 
     public void PressurePlateIsReleased(string pressurePlateName)
     {
-        if (AllPlateMustStayActivated)
+        if (allPlateMustStayActivated)
         {
             listOfPlates[pressurePlateName] = false;
         }
@@ -94,26 +95,34 @@ public class PressurePlateManager : MonoBehaviour
         if (isUserConnected)
         {
             door.OpenDoorRPC();
-            if (door.isLastDoor)
+            if (door.isLastDoor && !_doorActivated)
             {
-                gameManagerView.EndedPuzzle();
+                // _gameManager.EndedPuzzle();
+
+                _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.Others);
+                _doorActivated = true;
             }
         }
         else
         {
             doorView.GetComponent<Door>().OpenDoorRPC();
+            _doorActivated = true;
         }
+        
     }
 
     public void CloseDoor()
     {
-        if (isUserConnected)
+        if (isUserConnected && allPlateMustStayActivated)
         {
             doorView.RPC("CloseDoorRPC", PhotonTargets.All);
         }
         else
         {
-            doorView.GetComponent<Door>().CloseDoorRPC();
+            if (allPlateMustStayActivated)
+            {
+                doorView.GetComponent<Door>().CloseDoorRPC();    
+            }
         }
     }
     

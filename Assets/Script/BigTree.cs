@@ -27,7 +27,6 @@ public class BigTree : MonoBehaviour
 
     public void ChangeSkybox()
     {
-        Debug.Log("Test");
         RenderSettings.skybox = daySkybox;
     }
 }
