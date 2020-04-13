@@ -124,7 +124,6 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void OpenNextDoor()
     {
-        Debug.Log("Open next door trigered, nb of puzzle succ :" + nbOfPuzzleSuceeed );
         if (nbOfPuzzleSuceeed == 0)
         {
             player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
@@ -139,7 +138,6 @@ public class GameManager : MonoBehaviour, IPunObservable
 
         if (nbOfPuzzleSuceeed == 4)
         {
-            Debug.Log("End game called ");
             EndCinematic();
             nbOfPuzzleSuceeed++;
         }

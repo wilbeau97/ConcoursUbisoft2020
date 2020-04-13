@@ -98,8 +98,7 @@ public class PressurePlateManager : MonoBehaviour
             if (door.isLastDoor && !_doorActivated)
             {
                 // _gameManager.EndedPuzzle();
-                Debug.Log("Puzzle ended");
-                
+
                 _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.Others);
                 _doorActivated = true;
             }
