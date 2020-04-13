@@ -84,12 +84,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         room.maxPlayers = 2;
         PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
-
-    [PunRPC]
-    public void EndedPuzzleRPC()
-    {
-        
-    }
+    
 
     [PunRPC]
     public void EndedPuzzle()
@@ -129,6 +124,7 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void OpenNextDoor()
     {
+        Debug.Log("Open next door trigered, nb of puzzle succ :" + nbOfPuzzleSuceeed );
         if (nbOfPuzzleSuceeed == 0)
         {
             player = GameObject.Find(PlayerManager.LocalPlayerInstance.name + "(Clone)");
@@ -143,6 +139,7 @@ public class GameManager : MonoBehaviour, IPunObservable
 
         if (nbOfPuzzleSuceeed == 4)
         {
+            Debug.Log("End game called ");
             EndCinematic();
             nbOfPuzzleSuceeed++;
         }
