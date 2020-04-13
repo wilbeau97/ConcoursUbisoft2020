@@ -8,7 +8,7 @@ using UnityEngine.Assertions.Must;
 public class PlayerNetwork : MonoBehaviour
 {
     [SerializeField] private GameObject playerCamera;
-    [SerializeField] private GameObject playerGraphics;
+    [SerializeField] private GameObject[] playerGraphics;
     [SerializeField] private MonoBehaviour[] playerControlScript;
     [SerializeField] private GameObject playerUI;
 
@@ -43,7 +43,11 @@ public class PlayerNetwork : MonoBehaviour
     {
         if (!photonView.isMine)
         {
-            playerGraphics.SetActive(false);
+            foreach (GameObject graphic in playerGraphics)
+            {
+                graphic.SetActive(false);
+            }
+            
         }
     }
 
