@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    private PlayerAnimationController animationController;
     private float sensitivity = 5f;
     private PlayerMotor motor;
     private CameraController cam;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
         aura = GetComponentInChildren<FlashAura>();
+        //animationController = GetComponent<PlayerAnimationController>();
     }
 
     // Update is called once per frame
