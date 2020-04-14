@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Transform player;
     [SerializeField] private Transform camPosition;
+    [SerializeField] private float minHeight = -0.35f;
+    [SerializeField] private float maxHeight = 0.5f;
     private Transform camTransform;
     private float angleY;
     private float angleZ;
@@ -34,15 +36,15 @@ public class CameraController : MonoBehaviour
         Quaternion camRotation = camTransform.localRotation;
         cam.transform.RotateAround(position, Vector3.up, angleY);
 
-        if (camRotation.x < 0.70 && camRotation.x > -0.35)
+        if (camRotation.x < maxHeight && camRotation.x >minHeight)
         {
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }
-        else if (angleZ > 0 && camRotation.x >= 0.70)
+        else if (angleZ > 0 && camRotation.x >= maxHeight)
         {
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }
-        else if (angleZ < 0 && camRotation.x <= -0.35)
+        else if (angleZ < 0 && camRotation.x <= minHeight)
         {
             cam.transform.RotateAround(position, -camTransform.right, angleZ);
         }

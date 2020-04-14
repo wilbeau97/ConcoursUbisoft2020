@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
+    [SerializeField]
     private float MAX_HEIGHT = 3.2f;
     private static float TOLERENCE = 0.1f;
     
@@ -71,18 +72,20 @@ public class TelekinesisAbility :  Ability
         float objectToMovePosY = objectToMove.transform.position.y;
         
         // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
-        float playerPosY = transform.position.y - 1;
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
-        
+        float playerPosY = transform.position.y - 0.75f + objectToMoveScaleY;
+        objectToMovePosY += objectToMoveScaleY;
+        Debug.Log(objectToMovePosY);
         if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMovePosY <= playerPosY + objectToMoveScaleY + TOLERENCE && angleZ > 0)
+        } else if (objectToMovePosY <= playerPosY + TOLERENCE && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
+            objectToMove.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 
@@ -119,7 +122,7 @@ public class TelekinesisAbility :  Ability
         if (alreadyParent) return;
         
         objectToMove.transform.parent = transform;
-        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (3 + Vector3.Distance(transform.position, cam.transform.position));
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (5 + Vector3.Distance(transform.position, cam.transform.position));
         
         if ( objectToMove.transform.position.y < 0)
         {

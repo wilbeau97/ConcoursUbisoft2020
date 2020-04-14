@@ -68,7 +68,7 @@ public class InteractableObject : MonoBehaviour
         startedFlashing = false;
         lookingAtObject = false;
         StopCoroutine("StartFlashObject");
-        renderer.material.color = new Color32(0,0,0, 255);
+        renderer.material.color = new Color(r,g,b, 255);
     }
 
     private IEnumerator StartFlashObject()
@@ -102,17 +102,6 @@ public class InteractableObject : MonoBehaviour
                     green += 25;
                 }
             }
-        }
-    }
-    
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(transform.position);
-        } else if (stream.isReading)
-        {
-            transform.localPosition = (Vector3) stream.ReceiveNext();
         }
     }
 }

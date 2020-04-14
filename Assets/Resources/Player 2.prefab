@@ -1919,6 +1919,8 @@ MonoBehaviour:
   cam: {fileID: 6064079501005239872}
   player: {fileID: 8138035778599785189}
   camPosition: {fileID: 63529077236832777}
+  minHeight: -0.15
+  maxHeight: 0.5
 --- !u!114 &3970747756249311624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,7 +2086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958750fe6fccbb24db85cbc6893f27d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_HEIGHT: 2.2
+  MAX_HEIGHT: 4
   cam: {fileID: 2037797338088306960}
   distance: 10
   mask:
