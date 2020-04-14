@@ -105,10 +105,6 @@ public class TelekinesisAbility :  Ability
                 {
                     view.RPC("ParentObject", PhotonTargets.All);
                 }
-                else
-                {
-                    view.RPC("DeparentObject", PhotonTargets.All);
-                }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
             }
