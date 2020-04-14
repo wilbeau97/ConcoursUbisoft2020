@@ -70,12 +70,12 @@ public class TelekinesisAbility :  Ability
     private void PerformRotationAroundPlayer()
     {
         float objectToMovePosY = objectToMove.transform.position.y;
+        objectToMovePosY = objectToMove.gameObject.GetComponent<Renderer>().bounds.center.y;
         
         // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
-        float playerPosY = transform.position.y - 0.75f + objectToMoveScaleY;
-        objectToMovePosY += objectToMoveScaleY;
-        Debug.Log(objectToMovePosY);
+        float playerPosY = transform.position.y;
+        objectToMovePosY += objectToMove.gameObject.GetComponent<Renderer>().bounds.extents.y / 4;
         if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
@@ -85,7 +85,6 @@ public class TelekinesisAbility :  Ability
         } else if (objectToMovePosY <= playerPosY + TOLERENCE && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-            objectToMove.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 
