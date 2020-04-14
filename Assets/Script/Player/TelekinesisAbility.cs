@@ -29,6 +29,8 @@ public class TelekinesisAbility :  Ability
     private Collider playerCollider;
     private PlayerNetwork playerNetwork;
     private PhotonView view;
+    [SerializeField]
+    private Transform aimPosition;
 
     private void Start()
     {
@@ -88,7 +90,9 @@ public class TelekinesisAbility :  Ability
     {
         if (objectToMove != null) return;
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward),
+        Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(aimPosition.position);
+
+        if (Physics.Raycast(ray,
             out hit, distance, mask))
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
