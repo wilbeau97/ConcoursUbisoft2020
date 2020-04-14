@@ -72,10 +72,9 @@ public class TelekinesisAbility :  Ability
         float objectToMovePosY = objectToMove.transform.position.y;
         objectToMovePosY = objectToMove.gameObject.GetComponent<Renderer>().bounds.center.y;
         
-        // 1 = hauteur du personnage, a changer quand le personnage va etre le bon (pas une capsule)L
         float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
         float playerPosY = transform.position.y;
-        objectToMovePosY += objectToMove.gameObject.GetComponent<Renderer>().bounds.extents.y / 4;
+        objectToMovePosY += objectToMove.gameObject.GetComponent<Renderer>().bounds.extents.y / 5;
         if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
@@ -99,14 +98,16 @@ public class TelekinesisAbility :  Ability
             if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
             {
                 playerNetwork.ChangeOwner(hit.collider);
-                view.RPC("SetObjectToMove",PhotonTargets.Others, hit.collider.gameObject.name);
-                SetObjectToMove(hit.collider.gameObject.name);
+                view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), playerCollider);
                 
                 if (isPressed)
                 {
-                    view.RPC("ParentObject", PhotonTargets.Others);
-                    ParentObject();
+                    view.RPC("ParentObject", PhotonTargets.All);
+                }
+                else
+                {
+                    view.RPC("DeparentObject", PhotonTargets.All);
                 }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
@@ -133,7 +134,9 @@ public class TelekinesisAbility :  Ability
     [PunRPC]
     public void DeparentObject()
     {
-        objectToMove.transform.parent = null;
+        Debug.Log("CRiss");
+        if(objectToMove != null)
+            objectToMove.transform.parent = null;
         isInteractable = false;
         alreadyParent = false;
     }
@@ -175,13 +178,12 @@ public class TelekinesisAbility :  Ability
         {
             return;
         }
+        
         Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>(), false);
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
-        view.RPC("DeparentObject", PhotonTargets.Others);
-        DeparentObject();
-        view.RPC("RemoveObjectToMove",PhotonTargets.Others);
-        RemoveObjectToMove();
+        view.RPC("DeparentObject", PhotonTargets.All);
+        view.RPC("RemoveObjectToMove",PhotonTargets.All);
     }
 
     public override void IncreaseAbility()
