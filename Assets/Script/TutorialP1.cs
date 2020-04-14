@@ -43,7 +43,7 @@ public class TutorialP1 : Tutorial
             jumpScript.enabled = true;
             canDeactivate = true;
             abilityTutorialText.text =
-                "Appuyez sur A pour sauté";
+                "Appuyez sur A pour sauter";
             abilityTutorialText.gameObject.SetActive(true);
         }
     }
