@@ -14,7 +14,7 @@ public class ExitPuzzleArea : Photon.MonoBehaviour
     {
         if ((other.CompareTag("Player1") || other.CompareTag("Player2")) && !alreadyTrigger)
         {
-            gm.RPC("EndedPuzzle", PhotonTargets.All);
+            // gm.RPC("EndedPuzzle", PhotonTargets.All);
             alreadyTrigger = true;
         }
 

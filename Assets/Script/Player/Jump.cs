@@ -4,104 +4,155 @@ using System.Collections.Generic;
 using ExitGames.Demos.DemoAnimator;
 using Script.Audio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Jump : MonoBehaviour, IPunObservable
 {
     [SerializeField] private Animator animator;
-    [SerializeField]private float jumpForceY = 7f;
-    public float height = 0.1f;
+    [SerializeField] private float jumpForceY = 7f;
+    [SerializeField] private float doubleJumpForceY = 1.2f;
+    [FormerlySerializedAs("height")] public float raycastMaxDistance = 0.1f;
     [SerializeField] private bool canJump = true;
-    private int nbJump = 0;
-    private Rigidbody rb;
-    private static bool canDoubleJump = true;
-    private Collider playerCollider;
     [SerializeField] private PhysicMaterial slideMaterial;
-    private bool matIsOn = true;
-    private PhotonView view;
-    private bool isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
-    private bool isDoubleJumping = false;
+    [SerializeField] private bool canDoubleJump = true;
+    private int _nbJump = 0;
+    private Rigidbody _rigidbody;
+    private Collider _playerCollider;
+    private bool _slideMaterialIsOn = true;
+    private PhotonView _photonView;
+    private bool _isJumpImpactSoundEnabled = true; // sera désactivé après le tutoriel pour pas que p2 entendne les bruits de jump
+    private bool _isDoubleJumping = false;
+    private bool _isGrounded = true;
+    private bool _viewIsMine = false; // vient checker si c'est le joueur qui jump, sinon on fait rien
+
 
     // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
-        view = gameObject.GetPhotonView();
+        GetComponentsAtAwake();
+        _viewIsMine = !PhotonNetwork.connected || _photonView.isMine;
+    }
+
+    private void GetComponentsAtAwake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _playerCollider = GetComponent<Collider>();
+        _photonView = gameObject.GetPhotonView();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.connected)
+        if (_viewIsMine)
         {
-            if (!view.isMine) return;
+            if(Input.GetButtonDown("Jump")) { ReadJumpInput(); }
+            if(!_isGrounded) { CheckIfGrounded(); } // dès qu'on est dans les air, on regarde si on est grounded    
         }
-        RaycastHit hit;
-        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, out hit, height);
-        Debug.DrawRay(transform.position, -Vector3.up, Color.blue);
 
-        if (isGrounded)
+        if (_slideMaterialIsOn)
         {
-            if (isDoubleJumping)
-            {
-                animator.SetTrigger("DoubleJumpEnd");
-                isDoubleJumping = false;
-            }
-            if (hit.collider.CompareTag("Jumpable"))
-            {
-                if (matIsOn)
-                {
-                    matIsOn = false;
-                    view.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
-                }
-            }
-            else
-            {
-                if (!matIsOn)
-                {
-                    matIsOn = true;
-                    view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-                }
-            }
-            //a terre
-            if (Input.GetButtonDown("Jump") && nbJump < 1)
-            {
-                AudioManager.Instance.Play("jump", transform);
-                Jumping();
-                nbJump++;
-            }
-            else
-            {
-                nbJump = 0;
-            }
+            CheckIfGrounded();
         }
-        else
+        // Debug.DrawRay(transform.position, -Vector3.up, Color.magenta);
+    }
+
+    private void FixedUpdate()
+    {
+        CheckForDoubleJumpEnd();
+    }
+
+    private void CheckForDoubleJumpEnd()
+    {
+        if (_isDoubleJumping && _isGrounded && _viewIsMine)
         {
-            //dans les air
-            if (nbJump >= 1 && Input.GetButtonDown("Jump"))
-            {
-               
-                DJumping();
-                isDoubleJumping = true;
-                nbJump = 0;
-            }
+            animator.SetTrigger("DoubleJumpEnd");
+            _isDoubleJumping = false;
         }
     }
-    
 
+    void ReadJumpInput()
+    {   // Fonction qui check quoi faire avec le jump input
+        if (!_isGrounded)
+        {
+            if (_nbJump >= 1)
+            {
+                DJumping();
+            }
+        }
+        if (_isGrounded)
+        {
+            //a terre
+            if (_nbJump < 1)
+            {
+                Jumping();
+                CheckIfGrounded();
+            }
+        } 
+    }
+    
     private void Jumping()
     {
+        AudioManager.Instance.Play("jump", transform);
         animator.SetTrigger("Jump");
-        Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY, 0);
-        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+        var jumpForce = new Vector3(0, jumpForceY, 0);
+        _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+        _nbJump++;
     }
     private void DJumping()
     {
+        AudioManager.Instance.Play("jump", transform);
         animator.SetTrigger("DoubleJump");
-        Vector3 jumpForce;
-        jumpForce = new Vector3(0, jumpForceY, 0);
-        rb.AddForce(jumpForce, ForceMode.VelocityChange);
+        var doubleJumpForce = new Vector3(0, jumpForceY * doubleJumpForceY, 0);
+        _rigidbody.AddForce(doubleJumpForce, ForceMode.VelocityChange);
+        _isDoubleJumping = true;
+        _nbJump = 0;
+    }
+    
+    void CheckIfGrounded()
+    {
+        if (!_viewIsMine && PhotonNetwork.connected) return;
+        
+        _isGrounded = Physics.Raycast(transform.position, -Vector3.up, out var hit, raycastMaxDistance);
+        if (!_isGrounded) return;
+        
+        // parfois, le raycast va indiquer qu'il n'est pas grounder, alors que le player l'es 
+        // ex: il est sur le bord d'une surface, le raycast, va être legerment out de la box d'une surface
+        // Verifier avec le collider permet de faire une double vérification 
+        var isTouchingGround = checkForGroundTagOnObject(hit.collider.gameObject);
+        if (!isTouchingGround) 
+        {
+            _isGrounded = false;
+            return;
+        }
+        CheckForSlideMaterial();
+    }
+    
+    private bool checkForGroundTagOnObject(GameObject gameObject)
+    {
+        bool isTouchingGround = gameObject.CompareTag("Ground") || gameObject.CompareTag("Jumpable") ||
+                                gameObject.CompareTag("InteractablePhysicsObject") ||
+                                gameObject.CompareTag("InteractableHeavyPhysicsObject");
+        return isTouchingGround;
+    }
+    
+    private void CheckForSlideMaterial()
+    {
+        if (_slideMaterialIsOn) // Si le materiel de slide est ON (donc on glisse)
+        {
+            // Et qu'on hit du ground ou jumpable, on l'enlève pour pas glisser
+            _slideMaterialIsOn = false;
+            if(!PhotonNetwork.connected){RemoveSlideMaterialRpc();}
+            _photonView.RPC("RemoveSlideMaterialRpc", PhotonTargets.All);
+            return;
+        }
+
+        if (!_slideMaterialIsOn && _isGrounded) // Si le slide material n'est pas la et ne touche pas le sol/jumpable
+        {
+            // on ajoute le material 
+            _slideMaterialIsOn = true;
+            if(!PhotonNetwork.connected){AddSlideMaterialRpc();}
+            _photonView.RPC("AddSlideMaterialRpc", PhotonTargets.All);
+        }
     }
 
     public void IncreaseAbility()
@@ -113,53 +164,53 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         jumpForceY = 8f;
     }
-
+    public void DisableJumpDropSoundForP2()
+    {
+        if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        {
+            _isJumpImpactSoundEnabled = false;
+        }
+    }
+    
     [PunRPC]
     public void RemoveSlideMaterialRpc()
     {
-        playerCollider.material = null;
+        _playerCollider.material = null;
+        // Debug.Log(" Removed material and isGrounded = " + _isGrounded);
     }
     
     [PunRPC]
     public void AddSlideMaterialRpc()
     {
-        playerCollider.material = slideMaterial;
+        _playerCollider.material = slideMaterial;
+        // Debug.Log(" Added material and isGrounded = " + _isGrounded);
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        if (!other.collider.CompareTag("Jumpable"))
+        var isTouchingGround = checkForGroundTagOnObject(other.gameObject);
+        if (!isTouchingGround) return;
+        
+        _isGrounded = true;
+        _nbJump = 0; // TODO A DEPLACER 
+        if (!_isJumpImpactSoundEnabled) return; // si on est p2, on joue pas le son apres tuto
+        if (other.relativeVelocity.magnitude > 1)
         {
-            view.RPC("AddSlideMaterialRpc", PhotonTargets.All);
-        }
-        if ((other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Jumpable")))
-        {
-            if (isJumpImpactSoundEnabled)
-            {
-                if (other.relativeVelocity.magnitude > 2)
-                {
-                    AudioManager.Instance.Play("afterJump", transform);
-                }
-            }
+            AudioManager.Instance.Play("afterJump", transform);
         }
     }
 
-    public void disableJumpDropSoundForP2()
+    public void OnCollisionExit(Collision other)
     {
-        if (PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        var isTouchingGround = checkForGroundTagOnObject(other.gameObject);
+        if (isTouchingGround)
         {
-            isJumpImpactSoundEnabled = false;
+            CheckIfGrounded();
         }
     }
-
+    
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting)
-        {
-            stream.SendNext(matIsOn);
-        } else if (stream.isReading)
-        {
-            matIsOn = (bool) stream.ReceiveNext();
-        }
+
     }
 }

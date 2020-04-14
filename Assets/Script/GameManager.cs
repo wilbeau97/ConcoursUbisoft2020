@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         room.maxPlayers = 2;
         PhotonNetwork.JoinOrCreateRoom("test", room, TypedLobby.Default);
     }
+    
 
     [PunRPC]
     public void EndedPuzzle()
@@ -174,7 +175,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().DesactivateGraphicsOtherPlayer();
         if (GameObject.Find(notLocalPlayer).GetComponent<Jump>() != null)
         {
-            GameObject.Find(notLocalPlayer).GetComponent<Jump>().disableJumpDropSoundForP2();
+            GameObject.Find(notLocalPlayer).GetComponent<Jump>().DisableJumpDropSoundForP2();
         }
         
         player.GetComponentInChildren<PlayerHUD>().FadeIn();
