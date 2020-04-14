@@ -14,7 +14,6 @@ public class TutorialP2 : Tutorial
     void Start()
     {
         abilityTutorialText.gameObject.SetActive(false);
-        telekinesisScript.enabled = false;
     }
 
     // Update is called once per frame

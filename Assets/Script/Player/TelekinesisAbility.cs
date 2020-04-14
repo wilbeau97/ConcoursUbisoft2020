@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TelekinesisAbility :  Ability
 {
-   private static float MAX_HEIGHT = 3.8F;
-   private static float TOLERENCE = 0.1F;
+    private float MAX_HEIGHT = 3.2f;
+    private static float TOLERENCE = 0.1f;
     
     [SerializeField] private GameObject cam;
     [SerializeField] private float distance;
@@ -92,19 +92,19 @@ public class TelekinesisAbility :  Ability
         RaycastHit hit;
         Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(aimPosition.position);
 
-        if (Physics.Raycast(ray,
-            out hit, distance, mask))
+        if (Physics.Raycast(ray, out hit, distance, mask))
         {
             if (hit.collider.CompareTag("InteractablePhysicsObject") || (hit.collider.CompareTag("InteractableHeavyPhysicsObject") && canLiftHeavyObject))
             {
                 playerNetwork.ChangeOwner(hit.collider);
-                view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
-                
+                //view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
+                SetObjectToMove(hit.collider.gameObject.name);
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), playerCollider);
                 
                 if (isPressed)
                 {
-                    view.RPC("ParentObject", PhotonTargets.All);
+                    //view.RPC("ParentObject", PhotonTargets.All);
+                    ParentObject();
                 }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
@@ -176,8 +176,10 @@ public class TelekinesisAbility :  Ability
         Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), transform.gameObject.GetComponent<Collider>(), false);
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
-        view.RPC("DeparentObject", PhotonTargets.All);
-        view.RPC("RemoveObjectToMove",PhotonTargets.All);
+        //view.RPC("DeparentObject", PhotonTargets.All);
+        DeparentObject();
+        //view.RPC("RemoveObjectToMove",PhotonTargets.All);
+        RemoveObjectToMove();
     }
 
     public override void IncreaseAbility()
