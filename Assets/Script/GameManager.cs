@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using AuraAPI;
+using CameraCutScene;
 using ExitGames.Demos.DemoAnimator;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -93,12 +94,20 @@ public class GameManager : MonoBehaviour, IPunObservable
         {
             doorViews = builder.GetDoors();
         }
-        //animation de camera
         DecreaseFog();
-        if(nbOfPuzzleSuceeed != 0)
+        if (nbOfPuzzleSuceeed != 0)
+        {
+            StartCinematique();
             tree.Grow();
+        }
+            
         PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
         OpenNextDoor();
+    }
+
+    private void StartCinematique()
+    {
+        CSManager.Instance.StartCs(nbOfPuzzleSuceeed);
     }
 
     private void DecreaseFog()
