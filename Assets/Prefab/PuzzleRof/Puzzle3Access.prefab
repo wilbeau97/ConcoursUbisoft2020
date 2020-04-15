@@ -774,9 +774,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUserConnected: 0
-  doorView: {fileID: 7910629372565948345}
-  AllPlateMustStayActivated: 0
-  gameManagerView: {fileID: 0}
+  doorPrefab: {fileID: 0}
+  allPlateMustStayActivated: 0
 --- !u!114 &7910629374341174441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,7 +819,7 @@ GameObject:
   - component: {fileID: 7910629374501557117}
   m_Layer: 0
   m_Name: platePlayer1Puzzle3Access
-  m_TagString: Untagged
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -942,7 +941,6 @@ MonoBehaviour:
   _activatedByTag: Player1
   pressurePlateManager: {fileID: 7910629374341174442}
   PressurePlateManagerPhotonView: {fileID: 7910629374341174441}
-  gameManagerView: {fileID: 0}
 --- !u!1001 &179412238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1136,6 +1134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlateformeRock01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6678477265432342431, guid: 6c9c8163c9075e84d83363b9a714bab6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Jumpable
       objectReference: {fileID: 0}
     - target: {fileID: 7707328470862994828, guid: 6c9c8163c9075e84d83363b9a714bab6,
         type: 3}

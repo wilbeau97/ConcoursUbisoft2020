@@ -29,11 +29,11 @@ public class PlayerController : MonoBehaviour
         aura = GetComponentInChildren<FlashAura>();
         //animationController = GetComponent<PlayerAnimationController>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-
+        
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementZ = Input.GetAxisRaw("Vertical");
         if (animator && animator.parameterCount != 0) // parametercount en attendant que les parametre du p2 soit la
