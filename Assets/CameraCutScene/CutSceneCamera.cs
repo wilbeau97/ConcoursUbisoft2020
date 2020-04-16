@@ -30,7 +30,6 @@ namespace CameraCutScene
             Keyframe[] keysRotationZ = new Keyframe[positions.Count];
             for (int i = 0; i < positions.Count; i++)
             {
-                print(positions[i].position.x);
                 keysPositionX[i] = new Keyframe(travelSpeed * i, positions[i].position.x);
                 keysPositionY[i] = new Keyframe(travelSpeed * i, positions[i].position.y);
                 keysPositionZ[i] = new Keyframe(travelSpeed * i, positions[i].position.z);
