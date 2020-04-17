@@ -20,7 +20,6 @@ public class Launcher: Photon.MonoBehaviour
     {
         PhotonNetwork.ConnectUsingSettings(_gameVersion);
         idleMenu.SetActive(true);
-        startMenu.SetActive(true);
     }
     
     public void Connect()
@@ -34,6 +33,7 @@ public class Launcher: Photon.MonoBehaviour
     public virtual void OnJoinedLobby()
     {
         Debug.Log("Joined lobby");
+        startMenu.SetActive(true);
     }
 
     public virtual void OnJoinedRoom()

@@ -69,19 +69,21 @@ public class TelekinesisAbility :  Ability
 
     private void PerformRotationAroundPlayer()
     {
-        float objectToMovePosY = objectToMove.transform.position.y;
-        objectToMovePosY = objectToMove.gameObject.GetComponent<Renderer>().bounds.center.y;
+        float objectToMovePosY = objectToMove.gameObject.GetComponent<Renderer>().bounds.center.y;
+
+        Vector3 test = objectToMove.GetComponent<Renderer>().bounds.size;
         
-        float objectToMoveScaleY = objectToMove.transform.lossyScale.y / 2;
+        float objectToMoveScaleY = GetMaxValueOFVector3(test) / 2;
         float playerPosY = transform.position.y;
         objectToMovePosY += objectToMove.gameObject.GetComponent<Renderer>().bounds.extents.y / 5;
-        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY + objectToMoveScaleY)
+        
+        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  1f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMovePosY <= playerPosY + TOLERENCE && angleZ > 0)
+        } else if (objectToMovePosY <= 1f && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -99,11 +101,13 @@ public class TelekinesisAbility :  Ability
             {
                 playerNetwork.ChangeOwner(hit.collider);
                 view.RPC("SetObjectToMove",PhotonTargets.All, hit.collider.gameObject.name);
+                //SetObjectToMove(hit.collider.gameObject.name);
                 Physics.IgnoreCollision(objectToMove.gameObject.GetComponent<Collider>(), playerCollider);
                 
                 if (isPressed)
                 {
                     view.RPC("ParentObject", PhotonTargets.All);
+                    //ParentObject();
                 }
                 
                 objectToMove.GetComponent<InteractableObject>().StartFlashing();
@@ -118,7 +122,11 @@ public class TelekinesisAbility :  Ability
         if (alreadyParent) return;
         
         objectToMove.transform.parent = transform;
-        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (5 + Vector3.Distance(transform.position, cam.transform.position));
+        float maxValueOfScale = GetMaxValueOFVector3(objectToMove.GetComponent<Renderer>().bounds.size);
+        maxValueOfScale = objectToMove.CompareTag("InteractableHeavyPhysicsObject")
+            ? maxValueOfScale
+            : maxValueOfScale * 2;
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (maxValueOfScale + Vector3.Distance(transform.position, cam.transform.position));
         
         if ( objectToMove.transform.position.y < 0)
         {
@@ -130,7 +138,6 @@ public class TelekinesisAbility :  Ability
     [PunRPC]
     public void DeparentObject()
     {
-        Debug.Log("CRiss");
         if(objectToMove != null)
             objectToMove.transform.parent = null;
         isInteractable = false;
@@ -156,6 +163,11 @@ public class TelekinesisAbility :  Ability
         angleZ = _angleZ;
         playerPosition = _playerPosition;
     }
+
+    private float GetMaxValueOFVector3(Vector3 v)
+    {
+        return Mathf.Max(Mathf.Max(v.x, v.y), v.z);
+    }
     
     public override void Pressed()
     {
@@ -179,7 +191,9 @@ public class TelekinesisAbility :  Ability
         objectToMove.GetComponentInChildren<Rigidbody>().isKinematic = false;
         objectToMove.gameObject.GetComponent<InteractableObject>().StopFlashing();
         view.RPC("DeparentObject", PhotonTargets.All);
+        //DeparentObject();
         view.RPC("RemoveObjectToMove",PhotonTargets.All);
+        //RemoveObjectToMove();
     }
 
     public override void IncreaseAbility()
