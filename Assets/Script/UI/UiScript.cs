@@ -8,6 +8,7 @@ namespace Script.UI
 {
     public class UiScript : Photon.MonoBehaviour
     {
+        [SerializeField] private float energyUsed = 0.01f;
         public Image lifeImage;
         public Image energyImage;
         public Sprite[] sprites;
@@ -34,18 +35,18 @@ namespace Script.UI
         
         public void UpdateEnergy()
         {
-            _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All);
+            _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All, energyUsed);
         }
         
         [PunRPC]
-        public void RoutineSpendEnergy()
+        public void RoutineSpendEnergy(float _energyUsed)
         {
             Instance._restoreEnergy = false;
             if (Instance._coroutine != null)
             {
                 StopCoroutine(Instance._coroutine);
             }
-            Instance.energyImage.fillAmount -= 0.01f;
+            Instance.energyImage.fillAmount -= _energyUsed;
             Instance._coroutine = StartCoroutine(RoutineEnergy());
         }
         
@@ -70,12 +71,21 @@ namespace Script.UI
             Instance._restoreEnergy = true;
         }
 
+        public bool HasEnoughEnergy()
+        {
+            return Instance.energyImage.fillAmount >= energyUsed;
+        }
+
         public void FixedUpdate()
         {
+            if (!_photonView.isMine)
+            {
+                return;
+            }
             Instance.lifeImage.sprite = Instance.sprites[nbPiece];
             if (Instance._restoreEnergy)
             {
-                Instance.energyImage.fillAmount += 0.01f;
+                Instance.energyImage.fillAmount += 0.02f;
             }
         }
 
