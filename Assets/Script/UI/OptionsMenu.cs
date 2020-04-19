@@ -1,26 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Script.Audio;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private InGameMenu inGameMenu;
 
-    private float musicVolume = 1.0f;
+    private AudioManager audioManager;
 
-    private float sfxVolume = 1.0f;
-    
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.parent.parent.parent.name == "Player 1")
-        {
-            
-        }
-        else
-        {
-            
-        }
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -34,17 +28,16 @@ public class OptionsMenu : MonoBehaviour
 
     public void MusicSliderChanged(float value)
     {
-        musicVolume = value;
+        audioManager.musicVolumeMultiplicator = value;
     }
 
     public void SFXSliderChanged(float value)
     {
-        sfxVolume = value;
+        audioManager.sfxVolumeMultiplicator = value;
     }
 
     public void OKButtonPressed()
     {
-        mainMenu.SetActive(true);
-        this.gameObject.SetActive(false);
+        inGameMenu.ActivateMainMenu();
     }
 }
