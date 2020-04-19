@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.UI;
 using UnityEngine;
 
 public class TelekinesisAbility :  Ability
@@ -33,30 +34,42 @@ public class TelekinesisAbility :  Ability
     [SerializeField]
     private Transform aimPosition;
 
+    private UiScript energyManager;
+
     private void Start()
     {
         playerNetwork = GetComponent<PlayerNetwork>();
         view = GetComponent<PhotonView>();
+        energyManager = transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>();
         playerCollider = transform.gameObject.GetComponent<Collider>();
     }
 
     void FixedUpdate()
     {
-        
         if (isInteractable && isPressed)
         {
-            float rotationY = 0;
-            float rotationX = 0;
-            if (Input.GetAxis("TelekinesisRotate") != 0 && canRotate)
+            if (energyManager.HasEnoughEnergy())
             {
-                rotationY = -Input.GetAxis("Mouse X") * sensitivity;
-                rotationX = -Input.GetAxis("Mouse Y") * sensitivity;
+                float rotationY = 0;
+                float rotationX = 0;
+                if (Input.GetAxis("TelekinesisRotate") != 0 && canRotate)
+                {
+                    rotationY = -Input.GetAxis("Mouse X") * sensitivity;
+                    rotationX = -Input.GetAxis("Mouse Y") * sensitivity;
+                }
+                else
+                {
+                    PerformRotationAroundPlayer();
+                }
+
+                PerformRotationAroundItself(rotationX, rotationY);
+                energyManager.UpdateEnergy();
             }
             else
             {
-                PerformRotationAroundPlayer();
+                Release();
+                //afficher "na plus denergie"
             }
-            PerformRotationAroundItself(rotationX, rotationY);
         }
     }
 
@@ -91,6 +104,10 @@ public class TelekinesisAbility :  Ability
 
     public override void Interact()
     {
+        if (!energyManager.HasEnoughEnergy())
+        {
+            Release();
+        }
         if (objectToMove != null) return;
         RaycastHit hit;
         Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(aimPosition.position);
