@@ -24,6 +24,7 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
     private void Start()
     {
         readyButton.interactable = false;
+        player1Button.Select();
     }
 
     private void Update()
@@ -31,24 +32,21 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
         if (player1Selected && player1Button.interactable)
         {
             player1Button.interactable = false;
-            player2Button.Select();
         }
         
         if (player2Selected && player2Button.interactable)
         {
             player2Button.interactable = false;
-            player1Button.Select();
         }
         
         if (ready == 2)
         {
-            //essayer en local
             view.RPC("LoadGame", PhotonTargets.All);
         }
     }
     public void OnJoinedRoom()
     {
-        InitCustomPropreties();
+        //InitCustomPropreties();
     }
 
     private void InitCustomPropreties()
@@ -79,9 +77,14 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
         PlayerManager.LocalPlayerInstance = player1Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player2Button.interactable = false;
-        PhotonNetwork.room.CustomProperties["p1chosen"] = true;
-        view.RPC("updateChoices", PhotonTargets.All);
-        view.RPC("DisableButtonPlayer1", PhotonTargets.All);
+        //PhotonNetwork.room.CustomProperties["p1chosen"] = true;
+        
+        readyButton.interactable = true;
+        readyButton.Select();
+        
+       // view.RPC("updateChoices", PhotonTargets.All);
+        view.RPC("DisableButtonPlayer1", PhotonTargets.AllBuffered);
+        view.RPC("SelectPlayer2Button", PhotonTargets.OthersBuffered);
     }
     
     public void Player2Choosen()
@@ -89,10 +92,16 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
         PlayerManager.LocalPlayerInstance = player2Prefab;
         playerChosenText.text = "Vous êtes le: " + PlayerManager.LocalPlayerInstance.name;
         player1Button.interactable = false;
-        PhotonNetwork.room.CustomProperties["p2chosen"] = true;
+        //PhotonNetwork.room.CustomProperties["p2chosen"] = true;
+        
+        
+        readyButton.interactable = true;
+        readyButton.Select();
+        
         // en fonction des choix dans le serveur, on vient mettre à jour les choix
-        view.RPC("updateChoices", PhotonTargets.All);
-        view.RPC("DisableButtonPlayer2", PhotonTargets.All);
+        //view.RPC("updateChoices", PhotonTargets.All);
+        view.RPC("DisableButtonPlayer2", PhotonTargets.AllBuffered);
+        view.RPC("SelectPlayer1Button", PhotonTargets.OthersBuffered);
     }
 
     [PunRPC]
@@ -134,18 +143,25 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
     public void DisableButtonPlayer1()
     {
         player1Button.interactable = false;
-        menuManager.ActivatedButtonPlayer2();
-        readyButton.interactable = true;
-        readyButton.Select();
+       
     }
     
     [PunRPC]
     public void DisableButtonPlayer2()
     {
         player2Button.interactable = false;
-        menuManager.ActivatedButtonPlayer1();
-        readyButton.interactable = true;
-        readyButton.Select();
+    }
+
+    [PunRPC]
+    public void SelectPlayer2Button()
+    {
+        player2Button.Select();
+    }
+    
+    [PunRPC]
+    public void SelectPlayer1Button()
+    {
+        player1Button.Select();
     }
 
     public void Ready()

@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
 
         float rotationY = Input.GetAxis("Mouse X");
-        float rotationZ = -Input.GetAxis("Mouse Y") * sensitivity;
+        float rotationZ = -Input.GetAxis("Mouse Y");
         
 
         Vector3 rotation = new Vector3(0f, rotationY, 0f) * sensitivity;
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         if (!dontMoveCam)
         {
-            MoveCamera(rotation, rotationZ);
+            MoveCamera(rotation, rotationZ * sensitivity);
         }
         else
         {

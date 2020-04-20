@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Demos.DemoAnimator;
 using Script.Audio;
+using Script.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,6 +25,7 @@ public class Jump : MonoBehaviour, IPunObservable
     private bool _isDoubleJumping = false;
     private bool _isGrounded = true;
     private bool _viewIsMine = false; // vient checker si c'est le joueur qui jump, sinon on fait rien
+    private UiScript energyManager;
 
 
     // Start is called before the first frame update
@@ -31,6 +33,11 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         GetComponentsAtAwake();
         _viewIsMine = !PhotonNetwork.connected || _photonView.isMine;
+    }
+
+    private void Start()
+    {
+        energyManager = transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>();
     }
 
     private void GetComponentsAtAwake()
@@ -45,8 +52,23 @@ public class Jump : MonoBehaviour, IPunObservable
     {
         if (_viewIsMine)
         {
-            if(Input.GetButtonDown("Jump")) { ReadJumpInput(); }
-            if(!_isGrounded) { CheckIfGrounded(); } // dès qu'on est dans les air, on regarde si on est grounded    
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (energyManager.HasEnoughEnergy())
+                {
+                    ReadJumpInput();
+                }
+                else
+                {
+                    //afficher plus dernergie
+                }
+
+            }
+
+            if (!_isGrounded)
+            {
+                CheckIfGrounded();
+            } // dès qu'on est dans les air, on regarde si on est grounded    
         }
 
         if (_slideMaterialIsOn)
@@ -97,6 +119,7 @@ public class Jump : MonoBehaviour, IPunObservable
         var jumpForce = new Vector3(0, jumpForceY, 0);
         _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
         _nbJump++;
+        UseEnergyForJump();
     }
     private void DJumping()
     {
@@ -106,6 +129,12 @@ public class Jump : MonoBehaviour, IPunObservable
         _rigidbody.AddForce(doubleJumpForce, ForceMode.VelocityChange);
         _isDoubleJumping = true;
         _nbJump = 0;
+        UseEnergyForJump();
+    }
+
+    private void UseEnergyForJump()
+    {
+        energyManager.UpdateEnergy();
     }
     
     void CheckIfGrounded()

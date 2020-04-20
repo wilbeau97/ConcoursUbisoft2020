@@ -99,17 +99,5 @@ public class MenuManager : MonoBehaviour
         {
             Application.Quit();
         }
-
-        public void ActivatedButtonPlayer1()
-        {
-            if(!gameObject.GetPhotonView().isMine)
-                player1Button.Select();
-        }
-        
-        public void ActivatedButtonPlayer2()
-        {
-            if(!gameObject.GetPhotonView().isMine)
-                player2Button.Select();
-        }
     }
 
