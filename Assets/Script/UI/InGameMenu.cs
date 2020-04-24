@@ -10,6 +10,7 @@ public class InGameMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private Button controlsButton;
+    [SerializeField] private Button okButtonTest;
 
     public bool menuShown = false;
     
@@ -32,12 +33,14 @@ public class InGameMenu : MonoBehaviour
     public void OptionsPressed()
     {
         optionsMenu.SetActive(true);
+        SelectButton(optionsMenu.transform.GetChild(0).gameObject.GetComponentInChildren<Button>());
         mainMenu.SetActive(false);
     }
 
     public void ControlsPressed()
     {
         controlsMenu.SetActive(true);
+        SelectButton(controlsMenu.GetComponentInChildren<Button>());
         mainMenu.SetActive(false);
     }
     
@@ -49,7 +52,7 @@ public class InGameMenu : MonoBehaviour
     public void ActivateMainMenu()
     {
         mainMenu.SetActive(true);
-        mainMenu.transform.GetChild(0).GetComponent<Button>().Select();
+        SelectButton(mainMenu.transform.GetChild(0).GetComponent<Button>());
         optionsMenu.SetActive(false);
         controlsMenu.SetActive(false);
         menuShown = true;
@@ -61,6 +64,12 @@ public class InGameMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         controlsMenu.SetActive(false);
         menuShown = false;
+    }
+
+    public void SelectButton(Button button)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        button.Select();
     }
 
 }

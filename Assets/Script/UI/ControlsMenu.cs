@@ -10,14 +10,8 @@ public class ControlsMenu : MonoBehaviour
     [SerializeField] private Texture controlsP1;
     [SerializeField] private Texture controlsP2;
     [SerializeField] private InGameMenu inGameMenu;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        //image.texture = transform.parent.parent.parent.name == "Player 1(Clone)" ? controlsP1 : controlsP2;
-    }
 
-        // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
