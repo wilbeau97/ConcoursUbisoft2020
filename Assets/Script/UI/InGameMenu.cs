@@ -10,14 +10,15 @@ public class InGameMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private Button controlsButton;
-    [SerializeField] private Button okButtonTest;
+    [SerializeField] private Button optionsButton;
+    private Button lastSelectButton;
 
     public bool menuShown = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        controlsButton.Select();
+        lastSelectButton = controlsButton;
     }
 
     // Update is called once per frame
@@ -33,6 +34,7 @@ public class InGameMenu : MonoBehaviour
     public void OptionsPressed()
     {
         optionsMenu.SetActive(true);
+        lastSelectButton = optionsButton;
         SelectButton(optionsMenu.transform.GetChild(0).gameObject.GetComponentInChildren<Button>());
         mainMenu.SetActive(false);
     }
@@ -40,6 +42,7 @@ public class InGameMenu : MonoBehaviour
     public void ControlsPressed()
     {
         controlsMenu.SetActive(true);
+        lastSelectButton = controlsButton;
         SelectButton(controlsMenu.GetComponentInChildren<Button>());
         mainMenu.SetActive(false);
     }
@@ -52,7 +55,7 @@ public class InGameMenu : MonoBehaviour
     public void ActivateMainMenu()
     {
         mainMenu.SetActive(true);
-        SelectButton(mainMenu.transform.GetChild(0).GetComponent<Button>());
+        SelectButton(lastSelectButton);
         optionsMenu.SetActive(false);
         controlsMenu.SetActive(false);
         menuShown = true;
