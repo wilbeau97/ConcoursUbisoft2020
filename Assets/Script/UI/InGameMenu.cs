@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InGameMenu : MonoBehaviour
@@ -48,6 +49,7 @@ public class InGameMenu : MonoBehaviour
     public void ActivateMainMenu()
     {
         mainMenu.SetActive(true);
+        mainMenu.transform.GetChild(0).GetComponent<Button>().Select();
         optionsMenu.SetActive(false);
         controlsMenu.SetActive(false);
         menuShown = true;
@@ -60,4 +62,5 @@ public class InGameMenu : MonoBehaviour
         controlsMenu.SetActive(false);
         menuShown = false;
     }
+
 }

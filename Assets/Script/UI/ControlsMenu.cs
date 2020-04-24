@@ -14,7 +14,7 @@ public class ControlsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image.texture = transform.parent.parent.parent.name == "Player 1(Clone)" ? controlsP1 : controlsP2;
+        //image.texture = transform.parent.parent.parent.name == "Player 1(Clone)" ? controlsP1 : controlsP2;
     }
 
         // Update is called once per frame

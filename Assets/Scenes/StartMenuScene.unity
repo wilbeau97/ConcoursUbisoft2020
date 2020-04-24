@@ -522,6 +522,11 @@ PrefabInstance:
       propertyPath: roomNameText
       value: 
       objectReference: {fileID: 1241589296}
+    - target: {fileID: 5144538905551306471, guid: bca8963751014ef41aa57d6e4dcc8db3,
+        type: 3}
+      propertyPath: menuManager
+      value: 
+      objectReference: {fileID: 1738393782}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bca8963751014ef41aa57d6e4dcc8db3, type: 3}
 --- !u!1 &359381441
@@ -1983,7 +1988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1492402848}
+  m_FirstSelected: {fileID: 842251328}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &963174879
@@ -3644,6 +3649,8 @@ MonoBehaviour:
   roomNameCreate: {fileID: 1765341098}
   roomNameJoin: {fileID: 412638727}
   launcher: {fileID: 1379180851}
+  inputFieldCreateRoom: {fileID: 1765341098}
+  createRoomText: {fileID: 51824173}
 --- !u!114 &1738393783
 MonoBehaviour:
   m_ObjectHideFlags: 0
