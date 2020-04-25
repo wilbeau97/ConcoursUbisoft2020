@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform camPosition;
     [SerializeField] private float minHeight = -0.35f;
     [SerializeField] private float maxHeight = 0.5f;
+    [SerializeField] private InGameMenu inGameMenu;
     private Transform camTransform;
     private float angleY;
     private float angleZ;
@@ -22,7 +23,8 @@ public class CameraController : MonoBehaviour
     
     void FixedUpdate()
     {
-        PerformRotationAroundPlayer();
+        if(!inGameMenu.menuShown)
+            PerformRotationAroundPlayer();
     }
 
     public void RotateY(float _angleY)

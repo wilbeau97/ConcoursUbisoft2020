@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -14,18 +15,26 @@ public class MenuManager : MonoBehaviour
         [SerializeField] private InputField roomNameCreate;
         [SerializeField] private Dropdown roomNameJoin;
         [SerializeField] private Launcher launcher;
-        
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private InputField inputFieldCreateRoom;
+        [SerializeField] private Text createRoomText;
+
+
+        public void OpenStartMenu()
         {
-            startButton.Select();
+            startMenu.SetActive(true);
+            SelectButton(startButton);
         }
 
         public void Play()
         {
             startMenu.SetActive(false);
             roomMenu.SetActive(true);
-            player1Button.Select();
+            SelectButton(player1Button);
+        }
+
+        public void ChangeCreateRoomText(string text)
+        {
+            createRoomText.text = text;
         }
 
         public void CreateRoom()
@@ -43,8 +52,7 @@ public class MenuManager : MonoBehaviour
             
             launcher.roomName = roomNameCreate.text;
             launcher.Connect();
-            roomMenu.SetActive(true);
-            startMenu.SetActive(false);
+            
         }
 
         public void TypeRoomNameToJoin()
@@ -67,12 +75,15 @@ public class MenuManager : MonoBehaviour
         public void TypeRoomNameToCreate()
         {
             typeRoomToCreatePanel.SetActive(true);
+            inputFieldCreateRoom.Select();
+            
         }
         
         public void CancelJoin()
         {
+            SelectButton(startButton);
             typeRoomToJoinPanel.SetActive(false);   
-            typeRoomToCreatePanel.SetActive(false);   
+            typeRoomToCreatePanel.SetActive(false);
         }
         
         public void JoinRoom()
@@ -93,6 +104,13 @@ public class MenuManager : MonoBehaviour
             }
             
             Debug.Log("Room doesn't exist!");
+        }
+        
+        
+        public void SelectButton(Button button)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            button.Select();
         }
 
         public void Exit()

@@ -9,6 +9,8 @@ namespace Script.Audio
         public Sound[] soundList;
         public static AudioManager Instance;
         public bool enableMainTheme = true;
+        public float musicVolumeMultiplicator = 1.0f;
+        public float sfxVolumeMultiplicator = 1.0f;
 
         // Start is called before the first frame update
         void Start()

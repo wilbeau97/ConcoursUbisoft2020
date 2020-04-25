@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private InGameMenu inGameMenu;
     private PlayerAnimationController animationController;
     private float sensitivity = 5f;
     private PlayerMotor motor;
@@ -33,7 +34,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (inGameMenu.menuShown)
+        {
+            motor.Move(new Vector3(0,0,0));
+            return;
+        }
+
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementZ = Input.GetAxisRaw("Vertical");
         if (animator && animator.parameterCount != 0) // parametercount en attendant que les parametre du p2 soit la

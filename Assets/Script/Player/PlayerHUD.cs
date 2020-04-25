@@ -15,9 +15,11 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Text tutorialText;
     [SerializeField] private Animator fadeAnimator;
     [SerializeField] private GameObject explainationText;
+    [SerializeField] private InGameMenu inGameMenu;
     private Text ObjectviveText;
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
+    private bool isInGame = true;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,18 @@ public class PlayerHUD : MonoBehaviour
             {
                 DeactivateConceptArt();
                 CSManager.Instance.RoutineStartCam("Camera1");
+                isInGame = true;
+            }
+        }
+
+        if (isInGame)
+        {
+            if (Input.GetButtonDown("Start"))
+            {
+                if (inGameMenu.menuShown)
+                    inGameMenu.DeactivateMainMenu();
+                else
+                    inGameMenu.ActivateMainMenu();
             }
         }
     }
@@ -119,6 +133,16 @@ public class PlayerHUD : MonoBehaviour
     public void FadeOut()
     {
         fadeAnimator.SetTrigger("FadeOut");
+        
+    }
+
+    public void ShowInGameMenu()
+    {
+        
+    }
+
+    public void HideInGameMenu()
+    {
         
     }
     
