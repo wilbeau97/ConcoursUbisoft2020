@@ -568,16 +568,6 @@ PrefabInstance:
       propertyPath: gameManagerView
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 46798876829735843, guid: c29c2d82db2e9cc448df82111af8cbdb,
-        type: 3}
-      propertyPath: doorPrefab
-      value: 
-      objectReference: {fileID: 1655519594274671354}
-    - target: {fileID: 46798876829735843, guid: c29c2d82db2e9cc448df82111af8cbdb,
-        type: 3}
-      propertyPath: allPlateMustStayActivated
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 46820788363157023, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1076,6 +1066,11 @@ PrefabInstance:
       propertyPath: instantiationId
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 5485983939115781725, guid: c29c2d82db2e9cc448df82111af8cbdb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5657834927224675846, guid: c29c2d82db2e9cc448df82111af8cbdb,
         type: 3}
       propertyPath: m_TagString
@@ -1390,12 +1385,6 @@ GameObject:
 --- !u!4 &2790218921603395587 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7043948926586639253, guid: c29c2d82db2e9cc448df82111af8cbdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 5150424077307913110}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1655519594274671354 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5872813922825693548, guid: c29c2d82db2e9cc448df82111af8cbdb,
     type: 3}
   m_PrefabInstance: {fileID: 5150424077307913110}
   m_PrefabAsset: {fileID: 0}
