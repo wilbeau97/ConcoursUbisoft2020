@@ -5,17 +5,12 @@ using UnityEngine;
 
 public class levelUp : MonoBehaviour
 {
-    private PhotonView gm;
-    private bool alreadyTrigger = false;
     [SerializeField] private string playerTagToBeLeveledUp; // le tag du joueur qui sera level up 
-
-    private bool player1HasLvledUpJump = false;
-
-    private bool player2HasLvledUpHeavy = false;
+    private bool alreadyTrigger = false;
+    
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.FindGameObjectWithTag("GameManager").GetPhotonView();
         if (playerTagToBeLeveledUp == "Player1")
         {
             GetComponent<ParticleSystem>().startColor = new Color(0f, 1f, 0f, .5f);

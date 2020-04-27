@@ -13,9 +13,7 @@ public class Jump : MonoBehaviour, IPunObservable
     [SerializeField] private float jumpForceY = 7f;
     [SerializeField] private float doubleJumpForceY = 1.2f;
     [FormerlySerializedAs("height")] public float raycastMaxDistance = 0.1f;
-    [SerializeField] private bool canJump = true;
     [SerializeField] private PhysicMaterial slideMaterial;
-    [SerializeField] private bool canDoubleJump = true;
     private int _nbJump = 0;
     private Rigidbody _rigidbody;
     private Collider _playerCollider;
@@ -186,7 +184,7 @@ public class Jump : MonoBehaviour, IPunObservable
 
     public void IncreaseAbility()
     {
-        canDoubleJump = true;
+        
     }
 
     public void IncreaseJumpForce()
