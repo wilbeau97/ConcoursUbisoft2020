@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour, IPunObservable
 
         if (nbOfPuzzleSuceeed == 2)
         {
-            puzzleAcces3Light.ActivateLight();
+//             puzzleAcces3Light.ActivateLight();       // enlevé car ce n,est plus une seule lumière 
         }
 
         if (nbOfPuzzleSuceeed == 4)
