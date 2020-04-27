@@ -509,7 +509,7 @@ MonoBehaviour:
   alreadyOpen: 0
   door: {fileID: 6744196582051236687}
   maxOpeningHeight: 20
-  releaseRigidBody: 1
+  releaseRigidBody: 0
   openingSpeed: 1
 --- !u!114 &2162453079111600112
 MonoBehaviour:
@@ -10117,6 +10117,11 @@ PrefabInstance:
       propertyPath: shadowMapRenderTexture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3950203316690117945, guid: 3bf5a952413774942ae344f3bc42230a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bf5a952413774942ae344f3bc42230a, type: 3}
 --- !u!4 &5987275980168028513 stripped
@@ -11051,6 +11056,11 @@ PrefabInstance:
       propertyPath: shadowMapRenderTexture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2368129039316009169, guid: 9d9d0c0089346554ba3d29a6a2e8bcc0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d9d0c0089346554ba3d29a6a2e8bcc0, type: 3}
 --- !u!1001 &7514502249257014982
@@ -11064,6 +11074,11 @@ PrefabInstance:
         type: 3}
       propertyPath: shadowMapRenderTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178710509106940306, guid: 244dcbcd732232d409cbe7be9b30dfaa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8108705502288008475, guid: 244dcbcd732232d409cbe7be9b30dfaa,
         type: 3}

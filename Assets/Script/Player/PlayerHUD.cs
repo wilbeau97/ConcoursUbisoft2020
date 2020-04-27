@@ -67,6 +67,7 @@ public class PlayerHUD : MonoBehaviour
        tutorialConceptArt.SetActive(false);
        canDeactivateText.SetActive(false);
        StartCoroutine(ShowExplainationText());
+       canDeactivateConceptArt = false;
     }
 
     private IEnumerator ShowExplainationText()
