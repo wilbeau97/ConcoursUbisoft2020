@@ -42,7 +42,7 @@ public class PlayerHUD : MonoBehaviour
 
         if (canDeactivateConceptArt)
         {
-            if (Input.GetButtonDown("Start"))
+            if (Input.GetButtonDown("Interact"))
             {
                 DeactivateConceptArt();
                 CSManager.Instance.RoutineStartCam("Camera1");

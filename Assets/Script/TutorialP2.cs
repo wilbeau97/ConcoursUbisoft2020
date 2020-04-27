@@ -30,8 +30,6 @@ public class TutorialP2 : Tutorial
         abilityTutorialText.gameObject.SetActive(true);
         telekinesisScript.enabled = true;
         canDeactivate = true;
-        abilityTutorialText.text =
-            "Appuyez sur LT (left trigger) pour utilisé votre pouvoir de télékinésie sur les objets";
     }
 
     public override void DesactivateTutorial()
