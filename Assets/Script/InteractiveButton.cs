@@ -32,7 +32,10 @@ public class InteractiveButton : MonoBehaviour
         if (!canInteract) return;
         AudioManager.Instance.Play("lever");
         puzzleManagerView.OpenDoor();
-        playerInteracting.GetComponent<PlayerHUD>().HideInteractableHint();
+        if (playerInteracting)
+        {
+            playerInteracting.GetComponent<PlayerHUD>().HideInteractableHint();    
+        }
         if (endsPuzzle)
         {
             canInteract = false; // on vient empêcher que le joueur peut retrigger la fin (ligne31)
