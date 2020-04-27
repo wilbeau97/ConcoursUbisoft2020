@@ -47,7 +47,10 @@ namespace Script.UI
                 StopCoroutine(Instance._coroutine);
             }
             Instance.energyImage.fillAmount -= _energyUsed;
-            Instance._coroutine = StartCoroutine(RoutineEnergy());
+            if (Instance.enabled)
+            {
+                Instance._coroutine = StartCoroutine(RoutineEnergy()); 
+            }
         }
         
         [PunRPC]
