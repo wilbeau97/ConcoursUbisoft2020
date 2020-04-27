@@ -33,6 +33,7 @@ public class InteractiveButton : MonoBehaviour
         puzzleManagerView.OpenDoor();
         if (endsPuzzle)
         {
+            canInteract = false; // on vient empêcher que le joueur peut retrigger la fin (ligne31)
             _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.AllViaServer );
         }
     }
