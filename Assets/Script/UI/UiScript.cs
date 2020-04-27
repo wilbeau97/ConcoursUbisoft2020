@@ -47,7 +47,10 @@ namespace Script.UI
                 StopCoroutine(Instance._coroutine);
             }
             Instance.energyImage.fillAmount -= _energyUsed;
-            Instance._coroutine = StartCoroutine(RoutineEnergy());
+            if (Instance.enabled)
+            {
+                Instance._coroutine = StartCoroutine(RoutineEnergy()); 
+            }
         }
         
         [PunRPC]
@@ -91,15 +94,15 @@ namespace Script.UI
 
         public void Update()
         {
-            if (Input.GetKeyDown("k"))
-            {
-                UpdateLife();
-            }
-            
-            if (Input.GetKey("l"))
-            {
-                UpdateEnergy();
-            }
+            // if (Input.GetKeyDown("k"))
+            // {
+            //     UpdateLife();
+            // }
+            //
+            // if (Input.GetKey("l"))
+            // {
+            //     UpdateEnergy();
+            // }
         }
         
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

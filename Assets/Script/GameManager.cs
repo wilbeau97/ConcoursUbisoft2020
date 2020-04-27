@@ -99,10 +99,11 @@ public class GameManager : MonoBehaviour, IPunObservable
         {
             StartCinematique();
             tree.Grow();
+            PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().UpdateUiAfterEndedPuzzle();
         }
         else
         {
-            PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedPuzzle();
+            PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().EndedTutorial();
         }
         
         OpenNextDoor();
