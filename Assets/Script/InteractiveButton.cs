@@ -7,9 +7,9 @@ using UnityEngine;
 public class InteractiveButton : MonoBehaviour
 { 
     [SerializeField] private PuzzleManager puzzleManagerView;
-    [SerializeField] bool endsPuzzle = false;
+    [SerializeField] private bool endsPuzzle = false;
     private GameObject playerInteracting;
-    private bool canInteract = true;
+    private bool canInteract = false;
     private PhotonView _gameManagerPhotonView;
 
 
@@ -32,14 +32,14 @@ public class InteractiveButton : MonoBehaviour
         if (!canInteract) return;
         AudioManager.Instance.Play("lever");
         puzzleManagerView.OpenDoor();
-        if (playerInteracting)
-        {
-            playerInteracting.GetComponent<PlayerHUD>().HideInteractableHint();    
-        }
         if (endsPuzzle)
         {
             canInteract = false; // on vient empêcher que le joueur peut retrigger la fin (ligne31)
             _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.AllViaServer );
+        }
+        if (playerInteracting)
+        {
+            playerInteracting.GetComponentInChildren<PlayerHUD>().HideInteractableHint();
         }
     }
 
