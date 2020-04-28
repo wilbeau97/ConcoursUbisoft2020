@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             ability.Pressed();
             ability.Interact();
             hud.ActivateAim();
-            ability.SetValue(rotationZ, transform.position);
+            ability.SetValue(rotationZ * sensitivity/2, transform.position);
         }
         else
         {

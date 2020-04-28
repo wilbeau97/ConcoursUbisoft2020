@@ -36,6 +36,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 position = player.position;
         Quaternion camRotation = camTransform.localRotation;
+        Debug.Log(camRotation.x);
         cam.transform.RotateAround(position, Vector3.up, angleY);
 
         if (camRotation.x < maxHeight && camRotation.x >minHeight)
