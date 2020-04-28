@@ -105,22 +105,25 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePlayer2MovementSound(float movementX, float movementZ)
     {
-        if (CompareTag("Player2"))
+        if (gameObject.GetPhotonView().isMine)
         {
-            if ((movementX > 0 || movementZ > 0) && !_isMoving)
+            if (CompareTag("Player2"))
             {
-                Script.Audio.AudioManager.Instance.Play("p2Move"); // script.audio utilisé car ambigu
-                _isMoving = true;
-            }
-
-            if (Math.Abs(movementX) < 0.1 && Math.Abs(movementZ) < 0.1)
-            {
-                _isMoving = false;
-                deltaTimeSinceStoppedMoving += Time.deltaTime;
-                if (deltaTimeSinceStoppedMoving >= 1.5)
+                if ((movementX > 0 || movementZ > 0) && !_isMoving)
                 {
-                    Script.Audio.AudioManager.Instance.Stop("p2Move");
-                    deltaTimeSinceStoppedMoving = 0;
+                    Script.Audio.AudioManager.Instance.Play("p2Move"); // script.audio utilisé car ambigu
+                    _isMoving = true;
+                }
+
+                if (Math.Abs(movementX) < 0.1 && Math.Abs(movementZ) < 0.1)
+                {
+                    _isMoving = false;
+                    deltaTimeSinceStoppedMoving += Time.deltaTime;
+                    if (deltaTimeSinceStoppedMoving >= 1.5)
+                    {
+                        Script.Audio.AudioManager.Instance.Stop("p2Move");
+                        deltaTimeSinceStoppedMoving = 0;
+                    }
                 }
             }
         }
