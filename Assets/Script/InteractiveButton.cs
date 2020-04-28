@@ -8,6 +8,7 @@ public class InteractiveButton : MonoBehaviour
 { 
     [SerializeField] private PuzzleManager puzzleManagerView;
     [SerializeField] bool endsPuzzle = false;
+    private GameObject playerInteracting;
     private bool canInteract = true;
     private PhotonView _gameManagerPhotonView;
 
@@ -31,8 +32,13 @@ public class InteractiveButton : MonoBehaviour
         if (!canInteract) return;
         AudioManager.Instance.Play("lever");
         puzzleManagerView.OpenDoor();
+        if (playerInteracting)
+        {
+            playerInteracting.GetComponent<PlayerHUD>().HideInteractableHint();    
+        }
         if (endsPuzzle)
         {
+            canInteract = false; // on vient empêcher que le joueur peut retrigger la fin (ligne31)
             _gameManagerPhotonView.RPC("EndedPuzzle", PhotonTargets.AllViaServer );
         }
     }
@@ -42,6 +48,7 @@ public class InteractiveButton : MonoBehaviour
         if (other.CompareTag("Player1") && other.gameObject.GetPhotonView().isMine)
         {
             canInteract = true;
+            playerInteracting = other.gameObject;
             other.gameObject.GetComponentInChildren<PlayerHUD>().ShowInteractableHint();
         }
     }

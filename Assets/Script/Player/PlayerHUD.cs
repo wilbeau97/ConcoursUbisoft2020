@@ -42,7 +42,7 @@ public class PlayerHUD : MonoBehaviour
 
         if (canDeactivateConceptArt)
         {
-            if (Input.GetButtonDown("Start"))
+            if (Input.GetButtonDown("Interact"))
             {
                 DeactivateConceptArt();
                 CSManager.Instance.RoutineStartCam("Camera1");
@@ -67,6 +67,7 @@ public class PlayerHUD : MonoBehaviour
        tutorialConceptArt.SetActive(false);
        canDeactivateText.SetActive(false);
        StartCoroutine(ShowExplainationText());
+       canDeactivateConceptArt = false;
     }
 
     private IEnumerator ShowExplainationText()

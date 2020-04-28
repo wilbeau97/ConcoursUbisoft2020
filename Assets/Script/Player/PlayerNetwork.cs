@@ -65,11 +65,15 @@ public class PlayerNetwork : MonoBehaviour
          }
      }
 
-    public void EndedPuzzle()
+    public void EndedTutorial()
     {
         GetComponent<Ability>().IncreaseAbility();
         transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>().RoutineGainLife();
+    }
 
+    public void UpdateUiAfterEndedPuzzle()
+    {
+        transform.GetChild(0).gameObject.GetComponentInChildren<UiScript>().RoutineGainLife();
     }
 
     public void DisableCam()

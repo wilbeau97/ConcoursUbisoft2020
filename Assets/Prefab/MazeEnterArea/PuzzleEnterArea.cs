@@ -8,7 +8,6 @@ namespace Prefab.MazeEnterArea
     {
         private Text textArea;
         public string objectif;
-        private int nbPlayerInPuzzle = 0;
         private bool player1IsIn = false;
         private bool player2IsIn = false;
         private PhotonView puzzleEnterDoorView;
@@ -16,7 +15,6 @@ namespace Prefab.MazeEnterArea
 
         public void Start()
         {
-            nbPlayerInPuzzle = 0;
             GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
             GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
             
