@@ -2,6 +2,7 @@
 using AuraAPI;
 using CameraCutScene;
 using ExitGames.Demos.DemoAnimator;
+using Script.Audio;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     [PunRPC]
     public void EndedPuzzle()
     {
+        AudioManager.Instance.Play("EndPuzzleSFX");
         if (doorViews[0] == null)
         {
             doorViews = builder.GetDoors();
