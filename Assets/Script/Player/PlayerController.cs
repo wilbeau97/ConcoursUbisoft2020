@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private CameraController cam;
     private Ability ability;
     private PlayerHUD hud;
+    private PhotonView view;
     private float speed = 10f;
     private float speedBack = 5f;
     private bool dontMoveCam = false;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         ability = GetComponent<Ability>();
         hud = GetComponentInChildren<PlayerHUD>();
         aura = GetComponentInChildren<FlashAura>();
+        view = gameObject.GetPhotonView();
         //animationController = GetComponent<PlayerAnimationController>();
         _isMoving = false;
     }
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
         float movementZ = Input.GetAxisRaw("Vertical");
         
         HandlePlayer2MovementSound(movementX, movementZ);    
-        
+
         if (animator && animator.parameterCount != 0) // parametercount en attendant que les parametre du p2 soit la
         {
             animator.SetFloat("velX", movementX);
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour
             ability.Pressed();
             ability.Interact();
             hud.ActivateAim();
-            ability.SetValue(rotationZ, transform.position);
+            ability.SetValue(rotationZ * sensitivity/2, transform.position);
         }
         else
         {
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePlayer2MovementSound(float movementX, float movementZ)
     {
-        if (gameObject.GetPhotonView().isMine)
+        if (view.isMine)
         {
             if (CompareTag("Player2"))
             {
