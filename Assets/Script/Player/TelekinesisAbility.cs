@@ -84,19 +84,15 @@ public class TelekinesisAbility :  Ability
     {
         float objectToMovePosY = objectToMove.gameObject.GetComponent<Renderer>().bounds.center.y;
 
-        Vector3 test = objectToMove.GetComponent<Renderer>().bounds.size;
-        
-        float objectToMoveScaleY = GetMaxValueOFVector3(test) / 2;
         float playerPosY = transform.position.y;
-        objectToMovePosY += objectToMove.gameObject.GetComponent<Renderer>().bounds.extents.y / 5;
-        
-        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  1f)
+
+        if (objectToMovePosY <= playerPosY + MAX_HEIGHT && objectToMovePosY >=  playerPosY)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         } else if (objectToMovePosY >= playerPosY + MAX_HEIGHT - TOLERENCE && angleZ < 0f)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
-        } else if (objectToMovePosY <= 1f && angleZ > 0)
+        } else if (objectToMovePosY <= playerPosY && angleZ > 0)
         {
             objectToMove.transform.RotateAround(playerPosition, -cam.transform.right, angleZ);
         }
@@ -139,15 +135,18 @@ public class TelekinesisAbility :  Ability
         if (alreadyParent) return;
         
         objectToMove.transform.parent = transform;
-        float maxValueOfScale = GetMaxValueOFVector3(objectToMove.GetComponent<Renderer>().bounds.size);
-        maxValueOfScale = objectToMove.CompareTag("InteractableHeavyPhysicsObject")
-            ? maxValueOfScale
-            : maxValueOfScale * 2;
-        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (maxValueOfScale + Vector3.Distance(transform.position, cam.transform.position));
+        float maxValueOfScale = GetMaxValueOFVector3(objectToMove.GetComponent<Renderer>().bounds.size) * 2;
+
+        float distanceFromPlayer = objectToMove.CompareTag("InteractableHeavyPhysicsObject")
+            ? distance
+            : maxValueOfScale;
+        
+        objectToMove.transform.position = cam.transform.position + cam.transform.forward * (distanceFromPlayer + Vector3.Distance(transform.position, cam.transform.position));
+        objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, objectToMove.transform.position.y + maxValueOfScale/6 , objectToMove.transform.position.z );
         
         if ( objectToMove.transform.position.y < 0)
         {
-            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, 1 , objectToMove.transform.position.z );
+            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, objectToMove.transform.position.y + 1 , objectToMove.transform.position.z );
         }
         alreadyParent = true;
     }
