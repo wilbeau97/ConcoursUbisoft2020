@@ -13,11 +13,11 @@ public class levelUp : MonoBehaviour
     {
         if (playerTagToBeLeveledUp == "Player1")
         {
-            GetComponent<ParticleSystem>().startColor = new Color(0f, 1f, 0f, .5f);
+            GetComponent<ParticleSystem>().startColor = new Color(204/255f, 28/255f, 138/255f);
         }
         else
         {
-            GetComponent<ParticleSystem>().startColor = new Color(0f, 0f, 1f, .5f);
+            GetComponent<ParticleSystem>().startColor = new Color(209/255f, 183/255f, 23/255f);
         }
     }
 

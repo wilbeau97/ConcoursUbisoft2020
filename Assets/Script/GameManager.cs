@@ -65,11 +65,11 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //     gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
-        //     //EndCinematic();
-        // }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+             gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
+             //EndCinematic();
+        }
 
         if (isCinematicPlaying && playable.state != PlayState.Playing)
         {
