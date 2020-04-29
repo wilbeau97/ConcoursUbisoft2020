@@ -15,33 +15,7 @@ namespace Prefab.MazeEnterArea
 
         public void Start()
         {
-            GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
-            GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
-            
             puzzleEnterDoorView =  GameObject.Find(enterPuzzleDoor.name + "(Clone)").GetPhotonView();
-            
-            if (player1 != null)
-            {
-                Text[] texts = player1.GetComponentsInChildren<Text>();
-                foreach (Text text in texts)
-                {
-                    if (text.name.Equals("ObjectiveText"))
-                    {
-                        textArea = text;
-                    }
-                }
-            }
-            else if (player2 != null)
-            {
-                Text[] texts = player2.GetComponentsInChildren<Text>();
-                foreach (Text text in texts)
-                {
-                    if (text.name.Equals("ObjectiveText"))
-                    {
-                        textArea = text;
-                    }
-                }
-            }
         }
 
         public void OnTriggerEnter(Collider other)
@@ -50,11 +24,13 @@ namespace Prefab.MazeEnterArea
             if (other.CompareTag("Player1"))
             {
                 player1IsIn = true;
+                other.GetComponentInChildren<PlayerHUD>().SetObjectifText(objectif);
             }
             
             if(other.CompareTag("Player2"))
             {
                 player2IsIn = true;
+                other.GetComponentInChildren<PlayerHUD>().SetObjectifText(objectif);
             }
 
             if (player1IsIn && player2IsIn)
@@ -68,10 +44,12 @@ namespace Prefab.MazeEnterArea
             if (other.CompareTag("Player1"))
             {
                 player1IsIn = false;
+                other.GetComponentInChildren<PlayerHUD>().SetDefaultObjectifText();
             }
             if(other.CompareTag("Player2"))
             {
                 player2IsIn = false;
+                other.GetComponentInChildren<PlayerHUD>().SetDefaultObjectifText();
             }
         }
 

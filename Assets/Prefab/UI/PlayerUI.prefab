@@ -668,8 +668,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -232, y: -79}
-  m_SizeDelta: {x: 411.1, y: 89.4}
+  m_AnchoredPosition: {x: -232, y: -119.7}
+  m_SizeDelta: {x: 411.1, y: 170.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6742992054752589681
 CanvasRenderer:
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -704,13 +704,14 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Objectif: Vous devez ouvrir la porte devant vous ensemble'
+  m_Text: "Travailler ensemble avec vos abilit\xE9s pour ouvrir les portes devant
+    vous"
 --- !u!1 &995814329175338244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2288,7 @@ MonoBehaviour:
   fadeAnimator: {fileID: 6652332480315460728}
   explainationText: {fileID: 7167413479066244438}
   inGameMenu: {fileID: 3292542311813161242}
+  ObjectviveText: {fileID: 1910723974462940618}
 --- !u!1 &6540844316611905597
 GameObject:
   m_ObjectHideFlags: 0

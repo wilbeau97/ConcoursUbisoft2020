@@ -16,7 +16,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Animator fadeAnimator;
     [SerializeField] private GameObject explainationText;
     [SerializeField] private InGameMenu inGameMenu;
-    private Text ObjectviveText;
+    [SerializeField] private Text ObjectviveText;
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
     private bool isInGame = true;
@@ -134,17 +134,16 @@ public class PlayerHUD : MonoBehaviour
     public void FadeOut()
     {
         fadeAnimator.SetTrigger("FadeOut");
-        
     }
 
-    public void ShowInGameMenu()
+    public void SetObjectifText(string objectif)
     {
-        
+        ObjectviveText.text = objectif;
     }
 
-    public void HideInGameMenu()
+    public void SetDefaultObjectifText()
     {
-        
+        ObjectviveText.text = "Rendez-vous à la prochaine porte pour relever le prochain puzzle.";
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

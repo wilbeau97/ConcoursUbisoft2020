@@ -146,11 +146,6 @@ public class GameManager : MonoBehaviour, IPunObservable
             StartCoroutine(WaitForAnimation());
         }
 
-        if (nbOfPuzzleSuceeed == 2)
-        {
-//             puzzleAcces3Light.ActivateLight();       // enlevé car ce n,est plus une seule lumière 
-        }
-
         if (nbOfPuzzleSuceeed == 4)
         {
             EndCinematic();
@@ -177,14 +172,15 @@ public class GameManager : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(1f);
         player.GetComponent<TeleporteInGame>().TpInGame();
-        player.GetComponentInChildren<PlayerHUD>().ActivateConceptArt();
+        PlayerHUD hud = player.GetComponentInChildren<PlayerHUD>();
+        hud.ActivateConceptArt();
         GameObject.Find(notLocalPlayer).GetComponent<PlayerNetwork>().DesactivateGraphicsOtherPlayer();
         if (GameObject.Find(notLocalPlayer).GetComponent<Jump>() != null)
         {
             GameObject.Find(notLocalPlayer).GetComponent<Jump>().DisableJumpDropSoundForP2();
         }
-        
-        player.GetComponentInChildren<PlayerHUD>().FadeIn();
+        hud.SetDefaultObjectifText();
+        hud.FadeIn();
     }
 
     public string GetLocalPlayerName()
