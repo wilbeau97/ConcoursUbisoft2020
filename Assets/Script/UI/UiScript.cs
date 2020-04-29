@@ -59,6 +59,7 @@ namespace Script.UI
             if (Instance.nbPiece != Instance.sprites.Length-1)
             {
                 Instance.nbPiece++;
+                energyUsed /= 2;
             }
         }
 
