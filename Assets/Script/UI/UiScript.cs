@@ -35,7 +35,8 @@ namespace Script.UI
         
         public void UpdateEnergy()
         {
-            _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All, energyUsed);
+            if(_photonView.isMine)
+                _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All, energyUsed);
         }
         
         [PunRPC]
