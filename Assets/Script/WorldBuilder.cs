@@ -68,7 +68,6 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
     public void SetSeed(int _seed)
     {
         Random.InitState(_seed);
-        Debug.Log(PlayerManager.LocalPlayerInstance.name +  "set is seed to: " + seed);
     }
     
 
