@@ -35,8 +35,7 @@ namespace Script.UI
         
         public void UpdateEnergy()
         {
-            if(_photonView.isMine)
-                _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All, energyUsed);
+            _photonView.RPC("RoutineSpendEnergy",PhotonTargets.All, energyUsed);
         }
         
         [PunRPC]
@@ -67,7 +66,7 @@ namespace Script.UI
         private IEnumerator RoutineEnergy()
         {
             yield return new WaitForSeconds(3);
-            _photonView.RPC("RestoreEnergyPunRpc",PhotonTargets.All);
+            RestoreEnergyPunRpc();
         }
 
         [PunRPC]
