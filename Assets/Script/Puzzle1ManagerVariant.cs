@@ -17,12 +17,12 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
     void Start()
     {
         localPlayer = GameObject.FindWithTag(PlayerManager.LocalPlayerInstance.tag);
-        
-        if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
+
+        if (localPlayer.CompareTag("Player1"))
         {
             respawnPoint = respawnPointP1;
             
-        } else if(PlayerManager.LocalPlayerInstance.CompareTag("Player2"))
+        } else if(localPlayer.CompareTag("Player2"))
         {
             respawnPoint = respawnPointP2;
         }
@@ -39,7 +39,6 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
     [PunRPC]
     private void Respawn()
     {
-        Debug.Log("FadeOut" + PlayerManager.LocalPlayerInstance.name);
         localPlayer.GetComponentInChildren<PlayerHUD>().FadeOut();
         StartCoroutine("WaitForAnimation");
     }
@@ -57,11 +56,11 @@ public class Puzzle1ManagerVariant : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(1f);
         localPlayer.transform.position = respawnPoint.position;
-        yield return new WaitForSeconds(0.5f);
         foreach (PartOfDoorPuzzleManager manager in partOfDoorPuzzleManagers)
         {
             manager.Restart();
         }
+        yield return new WaitForSeconds(0.5f);
         localPlayer.GetComponentInChildren<PlayerHUD>().FadeIn();
         isRespawn = false;
     }
