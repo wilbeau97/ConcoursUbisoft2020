@@ -53,7 +53,7 @@ public class MonsterChase : MonoBehaviour, IPunObservable
 
     public Vector3 RespawnPoint;
     private PhotonView view;
-    private float yeetForce = 100;
+    private float yeetForce = 50;
     private bool canCharge = true;
     private MeshRenderer face;
 
