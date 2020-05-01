@@ -66,7 +66,7 @@ namespace Script.UI
         private IEnumerator RoutineEnergy()
         {
             yield return new WaitForSeconds(3);
-            RestoreEnergyPunRpc();
+            _photonView.RPC("RestoreEnergyPunRpc",PhotonTargets.All);
         }
 
         [PunRPC]
