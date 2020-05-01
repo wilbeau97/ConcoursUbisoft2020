@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class TutorialP1 : Tutorial
 {
     [SerializeField] private MonoBehaviour jumpScript;
-    [SerializeField] private Text abilityTutorialText;
+    [SerializeField] private GameObject abilityTutorialText;
     [SerializeField] private Text jumpUpgradeText;
-    [SerializeField] private Text jumpUgradeForceText;
+    [SerializeField] private GameObject jumpUgradeForceText;
 
     private bool canDeactivate = false;
 
@@ -18,7 +18,7 @@ public class TutorialP1 : Tutorial
     {
         if (abilityTutorialText != null)
         {
-            abilityTutorialText.gameObject.SetActive(false);
+            abilityTutorialText.SetActive(false);
         }
         jumpUpgradeText.gameObject.SetActive(false);
     }
@@ -38,7 +38,7 @@ public class TutorialP1 : Tutorial
         {
             jumpScript.enabled = true;
             canDeactivate = true;
-            abilityTutorialText.gameObject.SetActive(true);
+            abilityTutorialText.SetActive(true);
         }
     }
     
@@ -46,7 +46,7 @@ public class TutorialP1 : Tutorial
     {
         if (abilityTutorialText != null)
         {
-            abilityTutorialText.gameObject.SetActive(false);
+            abilityTutorialText.SetActive(false);
         }
         this.enabled = false;
     }
@@ -73,7 +73,7 @@ public class TutorialP1 : Tutorial
         StartCoroutine(CoroutineJumpUpgradeForceText());
         IEnumerator CoroutineJumpUpgradeForceText()
         {
-            jumpUgradeForceText.gameObject.SetActive(true);
+            jumpUgradeForceText.SetActive(true);
             yield return new WaitForSeconds(5);
             DisableJumpForceText();
         }
@@ -81,7 +81,7 @@ public class TutorialP1 : Tutorial
     
     public void DisableJumpForceText()
     {
-        jumpUgradeForceText.gameObject.SetActive(false);
+        jumpUgradeForceText.SetActive(false);
     }
     
     

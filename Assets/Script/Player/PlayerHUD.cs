@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
-    [SerializeField] private Text InteractableHintText;
+    [SerializeField] private GameObject InteractableHintText;
     [SerializeField] private GameObject aim;
-    [SerializeField] private GameObject tuto;
     [SerializeField] private GameObject tutorialConceptArt;
     [SerializeField] private GameObject canDeactivateText;
-    [SerializeField] private Text tutorialText;
+    [SerializeField] private GameObject abilityTextExplanation;
     [SerializeField] private Animator fadeAnimator;
     [SerializeField] private GameObject explainationText;
     [SerializeField] private InGameMenu inGameMenu;
@@ -24,7 +23,7 @@ public class PlayerHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tutorialText.gameObject.SetActive(false);
+        abilityTextExplanation.SetActive(false);
         aim.SetActive(false);
         tutorialConceptArt.SetActive(false);
         canDeactivateText.SetActive(false);
@@ -32,14 +31,6 @@ public class PlayerHUD : MonoBehaviour
 
     private void Update()
     {
-        if (!isDesactivated)
-        {
-            if (Input.GetButtonDown("Start"))
-            {
-                DeactivateTuto();
-            }
-        }
-
         if (canDeactivateConceptArt)
         {
             if (Input.GetButtonDown("Interact"))
@@ -92,12 +83,12 @@ public class PlayerHUD : MonoBehaviour
     }
     public void ShowInteractableHint()
     {
-        InteractableHintText.gameObject.SetActive(true);
+        InteractableHintText.SetActive(true);
     }
     
     public void HideInteractableHint()
     {
-        InteractableHintText.gameObject.SetActive(false);
+        InteractableHintText.SetActive(false);
     }
 
     public void ActivateAim()
@@ -109,21 +100,16 @@ public class PlayerHUD : MonoBehaviour
     {
         aim.SetActive(false);
     }
-    public void DeactivateTuto()
-    {
-        isDesactivated = true;
-        tuto.SetActive(false);
-    }
 
     public void setText(string s)
     {
-        tutorialText.gameObject.SetActive(true);
-        tutorialText.text = s;
+        abilityTextExplanation.SetActive(true);
+        abilityTextExplanation.GetComponentInChildren<Text>().text = s;
     }
 
     public void DeactivateAbilityText()
     {
-        tutorialText.gameObject.SetActive(false);
+        abilityTextExplanation.SetActive(false);
     }
 
     public void FadeIn()

@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class TutorialP2 : Tutorial
 {
     [SerializeField] private MonoBehaviour telekinesisScript;
-    [SerializeField] private Text abilityTutorialText;
-    [SerializeField] private Text heavyUpgradeText;
+    [SerializeField] private GameObject abilityTutorialText;
+    [SerializeField] private GameObject heavyUpgradeText;
     private bool canDeactivate = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        abilityTutorialText.gameObject.SetActive(false);
+        abilityTutorialText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,14 +27,14 @@ public class TutorialP2 : Tutorial
 
     public override void ActivateTutorial()
     {
-        abilityTutorialText.gameObject.SetActive(true);
+        abilityTutorialText.SetActive(true);
         telekinesisScript.enabled = true;
         canDeactivate = true;
     }
 
     public override void DesactivateTutorial()
     {
-        abilityTutorialText.gameObject.SetActive(false);
+        abilityTutorialText.SetActive(false);
         this.enabled = false;
     }
 
@@ -43,7 +43,7 @@ public class TutorialP2 : Tutorial
         StartCoroutine(CoroutineHeavyUpdateText());
         IEnumerator CoroutineHeavyUpdateText()
         {
-            heavyUpgradeText.gameObject.SetActive(true);
+            heavyUpgradeText.SetActive(true);
             yield return new WaitForSeconds(5);
             disableHeavyUpdateText();
         }
@@ -51,6 +51,6 @@ public class TutorialP2 : Tutorial
 
     public void disableHeavyUpdateText()
     {
-        heavyUpgradeText.gameObject.SetActive(false);
+        heavyUpgradeText.SetActive(false);
     }
 }
