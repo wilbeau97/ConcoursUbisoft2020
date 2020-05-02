@@ -14,14 +14,16 @@ public class InteractableObject : MonoBehaviour
     private bool flashingIn;
     private bool startedFlashing = false;
     private Renderer renderer;
+    private Vector3 initalPosition;
 
-    
+
     private void Start()
     {
         renderer = GetComponent<Renderer>();
         r = renderer.material.color.r;
         g = renderer.material.color.g;
         b = renderer.material.color.b;
+        initalPosition = transform.position;
     }
 
     private void Update()
@@ -103,5 +105,10 @@ public class InteractableObject : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Respawn()
+    {
+        transform.position = initalPosition;
     }
 }
