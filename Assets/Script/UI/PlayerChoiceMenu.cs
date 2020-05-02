@@ -15,6 +15,7 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
     [SerializeField] private GameObject player2Prefab;
     [SerializeField] private MenuManager menuManager;
     [SerializeField] private Text playerChosenText;
+    [SerializeField] private Text nbPlayerInRoomText;
 
     // private bool hasLoaded = false;
     private bool player1Selected = false;
@@ -47,6 +48,14 @@ public class PlayerChoiceMenu : Photon.MonoBehaviour, IPunObservable
     public void OnJoinedRoom()
     {
         //InitCustomPropreties();
+        view.RPC("SetNbPlayerInRoomText", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    private void SetNbPlayerInRoomText()
+    {
+        nbPlayerInRoomText.text = PhotonNetwork.room.PlayerCount + " / " + PhotonNetwork.room.MaxPlayers +
+                                  " joueurs dans la partie.";
     }
 
     private void InitCustomPropreties()
