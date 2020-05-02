@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     {
         if (PhotonNetwork.connected)
         {
+            PhotonNetwork.automaticallySyncScene = true;
             if (PlayerManager.LocalPlayerInstance.CompareTag("Player1"))
             {
                 //look for player here
@@ -75,6 +76,18 @@ public class GameManager : MonoBehaviour, IPunObservable
         {
             isCinematicPlaying = false;
             //SceneManager.LoadScene(1);
+            ReloadLevel();
+        }
+    }
+
+    private void ReloadLevel()
+    {
+        if (!PhotonNetwork.isMasterClient)
+        {
+            Debug.Log("PhotonNetwork : Trying to Load a level but we are not the master Client");
+        }
+        else
+        {
             PhotonNetwork.LoadLevel(1);
         }
     }
