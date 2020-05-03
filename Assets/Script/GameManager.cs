@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     [SerializeField] private BigTree tree;
     [SerializeField] private ObjectiveLight puzzleAcces3Light;
     [SerializeField] private WorldBuilder builder;
+    [SerializeField] private Animator creditAnimator;
 
     private PlayableDirector playable;
     private int nbOfPuzzleSuceeed = 0;
@@ -66,19 +67,14 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-             gameObject.GetPhotonView().RPC("EndedPuzzle", PhotonTargets.All);
-             //EndCinematic();
-        }
 
         if (isCinematicPlaying && playable.state != PlayState.Playing)
         {
             isCinematicPlaying = false;
-            //SceneManager.LoadScene(1);
             ReloadLevel();
         }
     }
+
 
     private void ReloadLevel()
     {
@@ -175,7 +171,6 @@ public class GameManager : MonoBehaviour, IPunObservable
     {
         isCinematicPlaying = true;
         mainCameraForAura.SetActive(true);
-        PlayerManager.LocalPlayerInstance.GetComponent<PlayerNetwork>().DisableCam();
         mainCameraForAura.GetComponent<Camera>().enabled = true;
         playable.Play();
     }
