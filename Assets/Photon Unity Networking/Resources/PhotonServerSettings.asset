@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppID: 0c5df4e7-0d20-478a-8982-de3b873a4c94
   VoiceAppID: 
-  ChatAppID: 0c5df4e7-0d20-478a-8982-de3b873a4c94
+  ChatAppID: 
   HostType: 1
-  PreferredRegion: 1
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
@@ -32,6 +32,7 @@ MonoBehaviour:
   - Chat
   - CloseDoorRPC
   - ColorRpc
+  - DeactivateAllPressurePlate
   - DeparentObject
   - DestroyRpc
   - DisableButtonPlayer1
@@ -59,27 +60,22 @@ MonoBehaviour:
   - RemoveSlideMaterialRpc
   - RequestForPickupItems
   - RequestForPickupTimes
+  - Respawn
   - RestoreEnergyPunRpc
   - RotateBridgeToBlock
   - RotateBridgeToPass
   - RoutineGainLife
   - RoutineSpendEnergy
+  - RoutineStartCam
+  - SelectPlayer1Button
+  - SelectPlayer2Button
   - SetActive
+  - SetNbPlayerInRoomText
   - setObjectPosition
   - SetObjectToMove
   - setReady
+  - SetSeed
   - StateChange
   - TaggedPlayer
   - updateChoices
-  - setObjectPosition
-  - DeactivateAllPressurePlate
-  - SetSeed
-  - ActivateAllPressurePlate
-  - CloseAllDoor
-  - Respawn
-  - Restart
-  - EndedPuzzleRPC
-  - RoutineStartCam
-  - SelectPlayer2Button
-  - SelectPlayer1Button
   DisableAutoOpenWizard: 1

@@ -43,31 +43,5 @@ namespace CameraCutScene
                 }
             }
         }
-
-        private void Update()
-        {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown("c"))
-            {
-                RoutineStartCam("Camera1");
-            }
-            if (Input.GetKeyDown("v"))
-            {
-                RoutineStartCam("Camera2");
-            }
-            if (Input.GetKeyDown("b"))
-            {
-                RoutineStartCam("Camera3");
-            }
-            if (Input.GetKeyDown("n"))
-            {
-                RoutineStartCam("Camera4");
-            }
-            if (Input.GetKeyDown("m"))
-            {
-                RoutineStartCam("Camera5");
-            }
-#endif
-        }
     }
 }

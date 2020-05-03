@@ -16,6 +16,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject explainationText;
     [SerializeField] private InGameMenu inGameMenu;
     [SerializeField] private Text ObjectviveText;
+    
     private bool isDesactivated = false;
     private bool canDeactivateConceptArt = false;
     private bool isInGame = true;
@@ -131,7 +132,7 @@ public class PlayerHUD : MonoBehaviour
     {
         ObjectviveText.text = "Rendez-vous à la prochaine porte pour relever le prochain puzzle.";
     }
-    
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
 

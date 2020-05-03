@@ -19,7 +19,7 @@ public class WorldBuilder : MonoBehaviour, IPunObservable
 
     public void InstantiateWorld()
     {
-        seed = Random.Range(0, Int32.MaxValue);
+        seed = DateTime.Now.Millisecond;
         gameObject.GetPhotonView().RPC("SetSeed", PhotonTargets.AllBuffered, seed); 
         InstantiateDoor();
         InstantiatePuzzlePrefab();
