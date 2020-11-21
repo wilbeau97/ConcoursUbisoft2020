@@ -1,6 +1,7 @@
 # ConcoursUbisoft2020
 
 Coop puzzle/Adventure game created during the 2020 Ubisoft Game Lab Competition.
+More info + gameplay video : http://gamedev.fsg.ulaval.ca/#/projets/1
 
 To play the game, 
 - You need to have 2 different computers (otherwise you won't be able to run 2 builds at the same time)
